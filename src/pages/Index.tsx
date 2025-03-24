@@ -1,12 +1,34 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useEffect } from 'react';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import About from '../components/About';
+import Projects from '../components/Projects';
+import Blog from '../components/Blog';
+import Experience from '../components/Experience';
+import Education from '../components/Education';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 
 const Index = () => {
+  useEffect(() => {
+    // Scroll to top when page loads
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Projects />
+        <Blog />
+        <Experience />
+        <Education />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 };
