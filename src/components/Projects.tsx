@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, Github, ExternalLink } from 'lucide-react';
 
 const Projects = () => {

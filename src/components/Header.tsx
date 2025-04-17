@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
@@ -38,10 +37,14 @@ const Header = () => {
         isScrolled ? 'py-3 glass-effect' : 'py-6 bg-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8"> 
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold text-gradient">
-            Royanrosyad
+          {/* Adjust font size and margins for mobile */}
+          <Link 
+            to="/" 
+            className="text-xl sm:text-2xl font-bold text-white sm:ml-12 sm:mt-5 sm:mb-4"
+          >
+            Royan Rosyad
           </Link>
           
           <nav className="hidden md:flex space-x-8">
