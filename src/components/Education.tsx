@@ -1,35 +1,22 @@
 
-import React from 'react';
+import * as React from 'react';
 import { Calendar, BookOpen, Award } from 'lucide-react';
 
 const Education = () => {
   const education = [
     {
       id: 1,
-      degree: "Master of Science in Machine Learning",
-      institution: "MIT",
-      location: "Cambridge, MA",
-      period: "2018 - 2020",
-      description: "Focused on deep learning and probabilistic modeling. Thesis on 'Efficient Training Methods for Transformer Models'.",
+      degree: "Bachelor of Computer Science",
+      institution: "UIN Syarif Hidayatullah Jakarta",
+      location: "Jakarta, Indonesia",
+      period: "2021 - 2025",
+      description: "Focused on Artificial Intelligence and Data Science with minor in Mathematics. Thesis on 'Application of Mediapipe and OpenCV to Detect Movement Error in Gym Exercise Activities'.",
       achievements: [
-        "GPA: 3.95/4.0",
-        "Research Assistant in the Deep Learning Lab",
-        "Published 2 papers in top-tier ML conferences"
+        "GPA: 3.82/4.0",
+        "Distinction Graduate Bangkit Academy 2024",
+        "Relevant Coursework : Data Structures and Algorithms, Artificial Intelligence, Database Managements, Web Development and Design, Software Project Management"
       ]
     },
-    {
-      id: 2,
-      degree: "Bachelor of Computer Science",
-      institution: "Stanford University",
-      location: "Stanford, CA",
-      period: "2014 - 2018",
-      description: "Specialized in Artificial Intelligence and Data Science with minor in Mathematics.",
-      achievements: [
-        "Graduated with Honors, GPA: 3.8/4.0",
-        "Dean's List for 6 consecutive semesters",
-        "Teaching Assistant for AI and Algorithms courses"
-      ]
-    }
   ];
   
   const certifications = [
@@ -41,9 +28,9 @@ const Education = () => {
     },
     {
       id: 2,
-      name: "TensorFlow Developer Certificate",
-      issuer: "Google",
-      date: "2020"
+      name: "Oracle Cloud Certified Foundations Associate",
+      issuer: "Oracle Cloud",
+      date: "2024"
     },
     {
       id: 3,
@@ -135,12 +122,12 @@ const Education = () => {
                 <h5 className="text-sm font-medium mb-3">Additional Training</h5>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
                   {[
-                    "Natural Language Processing with PyTorch",
                     "Reinforcement Learning Specialization",
                     "MLOps Engineering on GCP",
-                    "Computer Vision with TensorFlow",
-                    "Advanced SQL for Data Science",
-                    "Data Engineering on AWS"
+                    "AI Agent Automation Workflows",
+                    "Developing a Machine Learning Systems",
+                    "Applied Machine Learning with GCP",
+                    "Data Engineering on GCP"
                   ].map((training, i) => (
                     <li key={i} className="flex items-center">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2"></span>

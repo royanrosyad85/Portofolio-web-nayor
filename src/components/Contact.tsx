@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
 import { toast } from "sonner";
 
@@ -39,39 +39,28 @@ const Contact = () => {
     {
       icon: <Mail size={20} />,
       label: "Email",
-      value: "royanrosyad@example.com",
-      href: "mailto:royanrosyad@example.com"
-    },
-    {
-      icon: <Phone size={20} />,
-      label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
+      value: "royanrosyad313@gmail.com",
+      href: "mailto:royanrosyad313@gmail.com"
     },
     {
       icon: <MapPin size={20} />,
       label: "Location",
-      value: "San Francisco, CA",
-      href: "#"
+      value: "Depok, Jawa Barat, Indonesia",
+      href: "https://maps.app.goo.gl/UeqsgmLB5k8URqeL8"
     }
   ];
   
   const socialLinks = [
     {
       icon: <Linkedin size={18} />,
-      href: "#",
+      href: "https://www.linkedin.com/in/royanrosyad/",
       label: "LinkedIn"
     },
     {
       icon: <Github size={18} />,
-      href: "#",
+      href: "https://github.com/royanrosyad85",
       label: "GitHub"
     },
-    {
-      icon: <Twitter size={18} />,
-      href: "#",
-      label: "Twitter"
-    }
   ];
 
   return (
