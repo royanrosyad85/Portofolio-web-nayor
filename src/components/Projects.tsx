@@ -16,8 +16,8 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Predictive Analytics Platform",
-      description: "A machine learning platform for time-series forecasting with automated feature engineering and model selection.",
+      title: "Predictive Analytics",
+      description: "A machine learning model for time-series forecasting with automated feature engineering and model selection.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
       tags: ["ml", "data"],
       github: "#",
@@ -25,8 +25,8 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: "Computer Vision Object Detection",
-      description: "Real-time object detection system for manufacturing quality control using YOLOv5 and custom datasets.",
+      title: "Computer Vision Squat Analysis Detection",
+      description: "Real-time object detection system for manufacturing quality control using OpenCV and Mediapipe.",
       image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1887&auto=format&fit=crop",
       tags: ["cv"],
       github: "#",
@@ -52,7 +52,7 @@ const Projects = () => {
     },
     {
       id: 5,
-      title: "Recommendation Engine",
+      title: "Recommendation System",
       description: "Built a collaborative filtering recommendation system for a content streaming platform using matrix factorization techniques.",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
       tags: ["ml"],
@@ -61,8 +61,8 @@ const Projects = () => {
     },
     {
       id: 6,
-      title: "Image Generation with GANs",
-      description: "Developed a generative adversarial network to create synthetic images for data augmentation in limited dataset scenarios.",
+      title: "Fruit Image Classification",
+      description: "Developed a machine learning model to classify images of fruits into distinct categories using convolutional neural networks (CNNs). The project involved preprocessing image datasets, augmenting data to improve model generalization, and deploying the trained model in a React-based web application for real-time fruit identification.",
       image: "https://images.unsplash.com/photo-1547954575-855750c57bd3?q=80&w=2071&auto=format&fit=crop",
       tags: ["cv", "ml"],
       github: "#",
