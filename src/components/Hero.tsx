@@ -53,9 +53,9 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 text-center md:text-left animate-fade-in">
-            <span className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full glass-effect">
+            {/* <span className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full glass-effect">
               Welcome to my portfolio
-            </span>
+            </span> */}
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
               Hi, I'm <span className="text-gradient">Royanrosyad</span>
@@ -98,7 +98,7 @@ const Hero = () => {
           <div className="md:w-1/2 flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg glass-effect p-2">
               <img 
-                src="/img/Linkedin-profil-foto-royanrosyad.jpg" // Ganti dengan path ke foto Anda
+                src="/img/Linkedin-profil-foto-royanrosyad.jpg"
                 alt="Royanrosyad Formal Photo" 
                 className="rounded-full" 
               />
@@ -109,9 +109,11 @@ const Hero = () => {
       
       <a 
         href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-10 h-10 flex items-center justify-center rounded-full glass-effect animate-bounce cursor-pointer"
+        className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full glass-effect animate-bounce cursor-pointer"
       >
-        <ArrowDown size={20} />
+        <ArrowDown size={16} className="sm:hidden" />
+        <ArrowDown size={18} className="hidden sm:block md:hidden" />
+        <ArrowDown size={20} className="hidden md:block" />
       </a>
     </section>
   );
