@@ -22,9 +22,9 @@ const Education = () => {
   const certifications = [
     {
       id: 1,
-      name: "Deep Learning Specialization",
-      issuer: "Coursera (deeplearning.ai)",
-      date: "2021"
+      name: "Tensorflow Developer Certificate (soon)",
+      issuer: "Google",
+      date: "2025"
     },
     {
       id: 2,
@@ -34,16 +34,10 @@ const Education = () => {
     },
     {
       id: 3,
-      name: "AWS Certified Machine Learning – Specialty",
-      issuer: "Amazon Web Services",
-      date: "2022"
+      name: "Google Cloud Engineer Associate (soon)",
+      issuer: "Google",
+      date: "2025"
     },
-    {
-      id: 4,
-      name: "Professional Data Engineer",
-      issuer: "Google Cloud",
-      date: "2021"
-    }
   ];
 
   return (
