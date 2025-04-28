@@ -79,7 +79,7 @@ const Hero = () => {
                 View My Work
               </a>
               <a 
-                href="src\img\[Resume] ATS Royanrosyad - Cloud Data Engineer.pdf" // Ganti dengan path ke file PDF resume Anda
+                href="/img/[Resume] ATS Royanrosyad - Cloud Data Engineer.pdf" // Ganti dengan path ke file PDF resume Anda
                 target="_blank" // Buka di tab baru
                 rel="noopener noreferrer" // Keamanan
                 className="px-6 py-3 font-medium rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors"
@@ -98,7 +98,7 @@ const Hero = () => {
           <div className="md:w-1/2 flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg glass-effect p-2">
               <img 
-                src="src\img\Linkedin-profil-foto-royanrosyad.jpg" // Ganti dengan path ke foto Anda
+                src="/img/Linkedin-profil-foto-royanrosyad.jpg" // Ganti dengan path ke foto Anda
                 alt="Royanrosyad Formal Photo" 
                 className="rounded-full" 
               />
