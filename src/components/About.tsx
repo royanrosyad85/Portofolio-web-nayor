@@ -77,7 +77,7 @@ const About = () => {
               <div className="flex flex-wrap gap-2">
                 {["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Keras", "Computer Vision", 
                   "NLP", "Reinforcement Learning", "Data Analysis", "Pandas", "SQL", "NoSQL", 
-                  "AWS", "GCP", "Docker", "Kubernetes"].map((tech, index) => (
+                  "Azure", "GCP", "Docker", "Kubernetes"].map((tech, index) => (
                   <span 
                     key={index} 
                     className="px-3 py-1 text-xs rounded-full bg-secondary/50 text-foreground"
