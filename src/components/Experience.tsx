@@ -10,9 +10,9 @@ const Experience = () => {
       location: "Remote",
       period: "Feb 2025 - Present",
       description: [
-      "Developing and deploying machine learning models for customer segmentation and product recommendations",
-      "Implementing computer vision algorithms for real-time object detection and tracking",
-      "Optimizing AI inference pipelines and reducing cloud computing costs using TensorFlow and PyTorch"
+      "Gained hands-on experience in machine learning and deep learning techniques, applying supervised and unsupervised learning algorithms to real-world datasets, and fine-tuning models for optimal performance before deployment.",
+      "Leveraged MLflow within Azure ML to track experiments, manage model versions, and compare performance metrics across multiple iterations, supporting reproducibility and collaboration",
+      "Designed and implemented automated CI/CD pipelines for machine learning models , ensuring seamless integration and deployment from development to production environments, reducing manual errors and accelerating time-to-deployment"
       ]
     },
     {
@@ -22,9 +22,8 @@ const Experience = () => {
       location: "Jakarta, Indonesia",
       period: "Nov 2024 - Feb 2025",
       description: [
-      "Implemented CI/CD pipelines using GitHub Actions to automate testing and deployment workflows",
-      "Containerized microservices with Docker and managed deployments through Kubernetes clusters",
-      "Established monitoring systems using Prometheus and Grafana to ensure high service availability"
+      "Played a key role in the development and deployment of the Pusdiklat Room Management System, a web-based application designed to streamline room booking, scheduling, and resource allocation for internal ministry operations.",
+      "Implemented CI/CD pipelines using Google Cloud Platform (GCP) to automate testing, building, and deployment. Also contributed to project management and task tracking using Notion, ensuring timely delivery and alignment with business requirements"
       ]
     },
     {
@@ -36,7 +35,7 @@ const Experience = () => {
       description: [
       "Designed and implemented scalable cloud infrastructure on Google Cloud Platform",
       "Created the server infrastructure to process API calls and serve machine learning models effectively",
-      "Configured secure networking environments and implemented identity management solutions"
+      "Collaborated in a capstone team to integrate machine learning models with Flask and FastAPI frameworks, deploying them to production-grade environments with minimal latency and high uptime."
       ]
     }
     ];
