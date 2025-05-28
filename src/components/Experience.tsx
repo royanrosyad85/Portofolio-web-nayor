@@ -11,8 +11,7 @@ const Experience = () => {
       period: "Feb 2025 - Present",
       description: [
       "Gained hands-on experience in machine learning and deep learning techniques, applying supervised and unsupervised learning algorithms to real-world datasets, and fine-tuning models for optimal performance before deployment.",
-      "Leveraged MLflow within Azure ML to track experiments, manage model versions, and compare performance metrics across multiple iterations, supporting reproducibility and collaboration",
-      "Designed and implemented automated CI/CD pipelines for machine learning models , ensuring seamless integration and deployment from development to production environments, reducing manual errors and accelerating time-to-deployment"
+      "Leveraged MLflow within Azure ML to track experiments, manage model versions, and compare performance metrics across multiple iterations, supporting reproducibility and collaboration"
       ]
     },
     {
