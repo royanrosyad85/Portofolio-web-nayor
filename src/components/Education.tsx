@@ -34,8 +34,8 @@ const Education = () => {
     },
     {
       id: 3,
-      name: "Google Cloud Engineer Associate (soon)",
-      issuer: "Google",
+      name: "Azure AI Engineer Associate (soon)",
+      issuer: "Microsoft",
       date: "2025"
     },
   ];
