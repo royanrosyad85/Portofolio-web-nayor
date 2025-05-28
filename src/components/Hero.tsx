@@ -79,7 +79,7 @@ const Hero = () => {
                 View My Work
               </a>
               <a 
-                href="/img/[Resume] ATS Royanrosyad - Cloud Data Engineer.pdf" // Ganti dengan path ke file PDF resume Anda
+                href="/img/[Resume] ATS Royanrosyad Rev.pdf" // Ganti dengan path ke file PDF resume Anda
                 target="_blank" // Buka di tab baru
                 rel="noopener noreferrer" // Keamanan
                 className="px-6 py-3 font-medium rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors"
