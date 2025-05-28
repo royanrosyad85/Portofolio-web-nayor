@@ -139,7 +139,7 @@ const Education = () => {
                 <div>
                   <h4 className="text-sm font-medium mb-2">Programming Languages</h4>
                   <div className="flex flex-wrap gap-2">
-                    {["Python", "R", "SQL", "JavaScript", "Java", "C++"].map((lang, i) => (
+                    {["Python", "PHP", "SQL", "JavaScript"].map((lang, i) => (
                       <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary/50">
                         {lang}
                       </span>
@@ -163,7 +163,7 @@ const Education = () => {
                   <h4 className="text-sm font-medium mb-2">Tools & Platforms</h4>
                   <div className="flex flex-wrap gap-2">
                     {["Git", "Docker", "Kubernetes", "AWS", "GCP", "Azure ML", 
-                      "Databricks", "Jupyter", "MLflow", "Airflow"].map((tool, i) => (
+                      "Jupyter", "MLflow"].map((tool, i) => (
                       <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary/50">
                         {tool}
                       </span>
