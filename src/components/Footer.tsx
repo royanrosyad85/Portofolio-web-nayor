@@ -17,24 +17,14 @@ const Footer = () => {
         { name: "Home", href: "/#hero" },
         { name: "About", href: "/#about" },
         { name: "Projects", href: "/#projects" },
-        { name: "Blog", href: "/#blog" },
         { name: "Contact", href: "/#contact" }
       ]
     },
     {
       title: "Social",
       links: [
-        { name: "LinkedIn", href: "#" },
-        { name: "GitHub", href: "#" },
-        { name: "Twitter", href: "#" },
-        { name: "Medium", href: "#" }
-      ]
-    },
-    {
-      title: "Legal",
-      links: [
-        { name: "Privacy Policy", href: "#" },
-        { name: "Terms of Service", href: "#" }
+        { name: "LinkedIn", href: "https://www.linkedin.com/in/royanrosyad/" },
+        { name: "GitHub", href: "https://github.com/royanrosyad85" }
       ]
     }
   ];
@@ -42,7 +32,7 @@ const Footer = () => {
   return (
     <footer className="bg-secondary/10 pt-16 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div className="md:col-span-1">
             <a href="/#hero" className="text-2xl font-bold text-gradient mb-4 inline-block">
               Royanrosyad
@@ -64,7 +54,7 @@ const Footer = () => {
             </div>
           </div>
           
-          <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="md:col-span-2 grid grid-cols-2 gap-8">
             {footerLinks.map((group) => (
               <div key={group.title}>
                 <h4 className="text-sm font-semibold mb-4">{group.title}</h4>
@@ -82,26 +72,6 @@ const Footer = () => {
                 </ul>
               </div>
             ))}
-          </div>
-          
-          <div className="md:col-span-1">
-            <h4 className="text-sm font-semibold mb-4">Newsletter</h4>
-            <p className="text-sm text-muted-foreground mb-4">
-              Subscribe to get the latest updates on my work and blog articles.
-            </p>
-            <form className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-grow px-4 py-2 text-sm bg-secondary/20 border border-border rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-r-lg font-medium text-sm hover:opacity-90 transition-opacity"
-              >
-                Subscribe
-              </button>
-            </form>
           </div>
         </div>
         
