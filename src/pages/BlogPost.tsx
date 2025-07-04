@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, Bookmark } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import IconNavigation from '../components/IconNavigation';
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -172,6 +173,7 @@ const BlogPost = () => {
       </main>
       
       <Footer />
+      <IconNavigation />
     </div>
   );
 };
