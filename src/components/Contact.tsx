@@ -18,21 +18,43 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      toast.success("Message sent successfully! I'll get back to you soon.");
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      // Create FormData for Netlify submission
+      const formDataForSubmission = new FormData();
+      formDataForSubmission.append('form-name', 'contact');
+      formDataForSubmission.append('name', formData.name);
+      formDataForSubmission.append('email', formData.email);
+      formDataForSubmission.append('subject', formData.subject);
+      formDataForSubmission.append('message', formData.message);
+      
+      // Submit to Netlify
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formDataForSubmission as any).toString()
       });
+      
+      if (response.ok) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      toast.error("Failed to send message. Please try again or contact me directly.");
+      console.error('Form submission error:', error);
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
   
   const contactInfo = [
@@ -116,8 +138,36 @@ const Contact = () => {
           </div>
           
           <div className="animate-slide-left">
-            <form onSubmit={handleSubmit} className="glass-effect rounded-xl p-8">
+            {/* Hidden form for Netlify detection */}
+            <form 
+              name="contact" 
+              data-netlify="true" 
+              data-netlify-honeypot="bot-field" 
+              style={{ display: 'none' }}
+            >
+              <input type="text" name="name" />
+              <input type="email" name="email" />
+              <input type="text" name="subject" />
+              <textarea name="message"></textarea>
+            </form>
+            
+            <form 
+              onSubmit={handleSubmit} 
+              className="glass-effect rounded-xl p-8"
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
               <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
+              
+              {/* Hidden fields for Netlify */}
+              <input type="hidden" name="form-name" value="contact" />
+              <div style={{ display: 'none' }}>
+                <label>
+                  Don't fill this out if you're human: <input name="bot-field" />
+                </label>
+              </div>
               
               <div className="space-y-4">
                 <div>
