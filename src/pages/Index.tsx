@@ -9,6 +9,7 @@ import Experience from '../components/Experience';
 import Education from '../components/Education';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import IconNavigation from '../components/IconNavigation';
 
 const Index = () => {
   useEffect(() => {
@@ -29,6 +30,7 @@ const Index = () => {
         <Contact />
       </main>
       <Footer />
+      <IconNavigation />
     </div>
   );
 };
