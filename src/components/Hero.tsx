@@ -58,13 +58,13 @@ const Hero = () => {
             </span> */}
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-              Hi, I'm <span className="text-gradient">Royanrosyad</span>
+              Hi, I'm <span className="text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Royanrosyad</span>
             </h1>
             
             <div className="text-xl md:text-2xl text-muted-foreground mb-8 h-8">
               <span className="mr-2">I'm a</span>
-              <span ref={typingRef} className="text-white font-medium"></span>
-              <span className="animate-pulse">|</span>
+              <span ref={typingRef} className="text-black dark:text-white font-bold"></span>
+              <span className="animate-pulse text-black dark:text-white">|</span>
             </div>
             
             <p className="text-lg md:text-xl max-w-2xl mx-auto md:mx-0 mb-10 text-muted-foreground">
@@ -86,12 +86,12 @@ const Hero = () => {
               >
                 My Resume
               </a>
-              <a 
+              {/* <a 
                 href="#contact" 
                 className="px-6 py-3 font-medium rounded-lg glass-effect hover:bg-white/10 transition-colors"
               >
                 Contact Me
-              </a>
+              </a> */}
             </div>
           </div>
 
