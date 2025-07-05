@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -89,6 +88,14 @@
     @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
   }
   
+  .solid-card {
+    @apply bg-card text-card-foreground border border-border shadow-sm;
+  }
+  
+  .solid-card-hover {
+    @apply bg-card text-card-foreground border border-border shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300;
+  }
+  
   .text-gradient {
     @apply bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent;
   }
@@ -144,6 +151,13 @@
   
   .section-subtitle {
     @apply text-sm font-light text-muted-foreground opacity-90 mb-8 animate-fade-in;
+  }
+  
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 }
 
