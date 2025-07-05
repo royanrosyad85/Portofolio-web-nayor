@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, Bookmark } from 'lucide-react';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import IconNavigation from '../components/IconNavigation';
 
@@ -74,9 +73,7 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main className="pt-24 pb-20">
+      <main className="pt-8 pb-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/#blog" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors">
             <ArrowLeft size={16} className="mr-2" />
