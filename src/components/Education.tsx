@@ -22,22 +22,25 @@ const Education = () => {
   const certifications = [
     {
       id: 1,
-      name: "Tensorflow Developer Certificate (soon)",
-      issuer: "Google",
-      date: "2025"
+      name: "Applied Data Science",
+      issuer: "Dicoding",
+      date: "2025",
+      credentialId: "KEXL75LGWXG2"
     },
     {
       id: 2,
-      name: "Oracle Cloud Certified Foundations Associate",
-      issuer: "Oracle Cloud",
-      date: "2024"
+      name: "Applied Machine Learning with Google Cloud",
+      issuer: "Dicoding",
+      date: "2025",
+      credentialId: "MRZMY3M8RZYQ"
     },
     {
       id: 3,
-      name: "Azure AI Engineer Associate (soon)",
-      issuer: "Microsoft",
-      date: "2025"
-    },
+      name: "Oracle Cloud Infrastructure Foundations 2024 Associate",
+      issuer: "Oracle",
+      date: "2024",
+      credentialId: "OCI-2024-FA"
+    }
   ];
 
   return (
@@ -95,36 +98,43 @@ const Education = () => {
               Professional Certifications
             </h3>
             
-            <div className="glass-effect rounded-xl p-6 animate-fade-in">
+            <div className="solid-card rounded-xl p-6 animate-fade-in">
               <div className="grid grid-cols-1 gap-4">
                 {certifications.map((cert, index) => (
                   <div 
                     key={cert.id}
-                    className="p-4 rounded-lg bg-secondary/30 animate-fade-in"
+                    className="p-4 rounded-lg bg-secondary/20 border border-border/50 animate-fade-in hover:bg-secondary/30 transition-colors"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium">{cert.name}</h4>
-                      <span className="text-xs text-muted-foreground">{cert.date}</span>
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-medium text-foreground">{cert.name}</h4>
+                        </div>
+                        <div className="text-sm text-primary font-medium">{cert.issuer}</div>
+                        {cert.credentialId && (
+                          <div className="text-xs text-muted-foreground mt-1">
+                            Credential ID: {cert.credentialId}
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-xs text-muted-foreground ml-4">{cert.date}</span>
                     </div>
-                    <div className="text-xs text-primary mt-1">{cert.issuer}</div>
                   </div>
                 ))}
               </div>
               
               <div className="mt-6 pt-4 border-t border-border">
-                <h5 className="text-sm font-medium mb-3">Additional Training</h5>
+                <h5 className="text-sm font-medium mb-3 text-foreground">Additional Training & Specializations</h5>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
                   {[
-                    "Reinforcement Learning Specialization",
-                    "MLOps Engineering on GCP",
                     "AI Agent Automation Workflows",
-                    "Developing a Machine Learning Systems",
-                    "Applied Machine Learning with GCP",
-                    "Data Engineering on GCP"
+                    "Developing Machine Learning Systems",
+                    "Data Engineering on Google Cloud",
+                    "Cloud Architecture Design Patterns",
                   ].map((training, i) => (
                     <li key={i} className="flex items-center">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2 flex-shrink-0"></span>
                       {training}
                     </li>
                   ))}
@@ -132,15 +142,15 @@ const Education = () => {
               </div>
             </div>
             
-            <div className="glass-effect rounded-xl p-6 animate-fade-in">
-              <h3 className="text-lg font-semibold mb-4">Languages & Tools</h3>
+            <div className="solid-card rounded-xl p-6 animate-fade-in">
+              <h3 className="text-lg font-semibold mb-4 text-foreground">Languages & Tools</h3>
               
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-sm font-medium mb-2">Programming Languages</h4>
+                  <h4 className="text-sm font-medium mb-2 text-foreground">Programming Languages</h4>
                   <div className="flex flex-wrap gap-2">
-                    {["Python", "PHP", "SQL", "JavaScript"].map((lang, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary/50">
+                    {["Python", "PHP", "SQL", "JavaScript", "R"].map((lang, i) => (
+                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary text-secondary-foreground border border-border">
                         {lang}
                       </span>
                     ))}
@@ -148,11 +158,11 @@ const Education = () => {
                 </div>
                 
                 <div>
-                  <h4 className="text-sm font-medium mb-2">Frameworks & Libraries</h4>
+                  <h4 className="text-sm font-medium mb-2 text-foreground">AI/ML Frameworks</h4>
                   <div className="flex flex-wrap gap-2">
                     {["TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", 
-                      "Keras", "NLTK", "spaCy", "Hugging Face"].map((lib, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary/50">
+                      "Keras", "NLTK", "spaCy", "Hugging Face", "OpenCV", "MediaPipe"].map((lib, i) => (
+                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary text-secondary-foreground border border-border">
                         {lib}
                       </span>
                     ))}
@@ -160,11 +170,11 @@ const Education = () => {
                 </div>
                 
                 <div>
-                  <h4 className="text-sm font-medium mb-2">Tools & Platforms</h4>
+                  <h4 className="text-sm font-medium mb-2 text-foreground">Cloud & DevOps</h4>
                   <div className="flex flex-wrap gap-2">
-                    {["Git", "Docker", "Kubernetes", "AWS", "GCP", "Azure ML", 
-                      "Jupyter", "MLflow"].map((tool, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary/50">
+                    {["Google Cloud Platform", "Azure", "Oracle Cloud", "Docker", "Kubernetes", 
+                      "Git", "MLflow", "Jupyter", "Streamlit", "FastAPI"].map((tool, i) => (
+                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary text-secondary-foreground border border-border">
                         {tool}
                       </span>
                     ))}
