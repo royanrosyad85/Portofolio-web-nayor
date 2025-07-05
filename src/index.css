@@ -142,7 +142,7 @@
   }
   
   .section-container {
-    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10;
   }
   
   .section-title {
@@ -150,7 +150,7 @@
   }
   
   .section-subtitle {
-    @apply text-sm font-light text-muted-foreground opacity-90 mb-8 animate-fade-in;
+    @apply text-sm font-light text-muted-foreground opacity-90 mb-6 animate-fade-in;
   }
   
   .line-clamp-3 {
