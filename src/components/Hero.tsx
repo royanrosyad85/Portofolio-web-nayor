@@ -8,7 +8,7 @@ const Hero = () => {
     const typingElement = typingRef.current;
     if (!typingElement) return;
     
-    const texts = ["AI Engineer!", "ML Engineer!", "Data Scientist!", "AI Automation Engineer!"];
+    const texts = ["AI/ML Engineer!", "AI Automation Engineer!"];
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -79,7 +79,7 @@ const Hero = () => {
                 View My Work
               </a>
               <a 
-                href="/img/[Resume] ATS Royanrosyad Rev.pdf" // Ganti dengan path ke file PDF resume Anda
+                href="/img/[Resume] ATS Royanrosyad Update 4-07.pdf" 
                 target="_blank" // Buka di tab baru
                 rel="noopener noreferrer" // Keamanan
                 className="px-6 py-3 font-medium rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors"
