@@ -64,8 +64,6 @@ const IconNavigation = () => {
   const handleThemeToggle = () => {
     if (theme === 'light') {
       setTheme('dark');
-    } else if (theme === 'dark') {
-      setTheme('system');
     } else {
       setTheme('light');
     }
@@ -73,13 +71,11 @@ const IconNavigation = () => {
 
   const getThemeIcon = () => {
     if (theme === 'light') return Sun;
-    if (theme === 'dark') return Moon;
-    return Monitor;
+    return Moon;
   };
 
   const getThemeLabel = () => {
     if (theme === 'light') return 'Switch to Dark Mode';
-    if (theme === 'dark') return 'Switch to System Theme';
     return 'Switch to Light Mode';
   };
 
