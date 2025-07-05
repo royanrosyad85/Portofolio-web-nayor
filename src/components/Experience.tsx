@@ -5,6 +5,17 @@ const Experience = () => {
   const experiences = [
     {
       id: 1,
+      role: "AI Automation Engineer",
+      company: "Government of Sukabumi",
+      location: "Freelance, Remote",
+      period: "Apr 2025 - Present",
+      description: [
+        "Designed and implemented sentiment analysis workflow using n8n to process high-volume citizen comments across social media platforms.",
+        "Reducing manual review time by 75% and enabling consistent response quality across government communications."
+      ]
+    },
+    {
+      id: 2,
       role: "AI Engineer Intern",
       company: "Lintasarta",
       location: "Remote",
@@ -15,7 +26,7 @@ const Experience = () => {
       ]
     },
     {
-      id: 2,
+      id: 3,
       role: "DevOps Engineer Intern",
       company: "Ministry of Religion of the Republic of Indonesia",
       location: "Jakarta, Indonesia",
@@ -26,7 +37,7 @@ const Experience = () => {
       ]
     },
     {
-      id: 3,
+      id: 4,
       role: "Cloud Engineer Intern",
       company: "Bangkit Academy",
       location: "Remote",
