@@ -6,7 +6,7 @@ const Education = () => {
   const education = [
     {
       id: 1,
-      degree: "Bachelor of Computer Science",
+      degree: "Undergraduate Degree of Informatics Engineering",
       institution: "UIN Syarif Hidayatullah Jakarta",
       location: "Jakarta, Indonesia",
       period: "2021 - 2025",
