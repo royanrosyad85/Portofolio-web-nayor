@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { 
   Home, 
-  User, 
   FolderOpen, 
   Briefcase, 
   GraduationCap, 
@@ -32,7 +31,7 @@ const IconNavigation = () => {
   // Track active section based on scroll position
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'experience', 'education', 'contact'];
+      const sections = ['hero', 'projects', 'experience', 'education', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -54,7 +53,6 @@ const IconNavigation = () => {
 
   const navItems = [
     { icon: Home, label: 'Home', href: '/#hero', section: 'hero' },
-    { icon: User, label: 'About', href: '/#about', section: 'about' },
     { icon: FolderOpen, label: 'Projects', href: '/#projects', section: 'projects' },
     { icon: Briefcase, label: 'Experience', href: '/#experience', section: 'experience' },
     { icon: GraduationCap, label: 'Education', href: '/#education', section: 'education' },
