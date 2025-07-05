@@ -40,18 +40,6 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground mb-6">
               AI/ML Engineer creating intelligent solutions to complex problems through data-driven approaches.
             </p>
-            <div className="flex space-x-4">
-              {["LinkedIn", "GitHub", "Twitter", "Medium"].map((social) => (
-                <a 
-                  key={social} 
-                  href="#" 
-                  className="w-8 h-8 rounded-full glass-effect flex items-center justify-center text-xs hover:bg-white/10 transition-colors"
-                  aria-label={social}
-                >
-                  {social.charAt(0)}
-                </a>
-              ))}
-            </div>
           </div>
           
           <div className="md:col-span-2 grid grid-cols-2 gap-8">
