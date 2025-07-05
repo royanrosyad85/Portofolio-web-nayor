@@ -50,7 +50,7 @@ const Hero = () => {
         <div className="absolute bottom-40 -right-40 w-96 h-96 bg-accent/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
       </div>
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 text-center md:text-left animate-fade-in order-2 md:order-1">
             {/* <span className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full glass-effect">

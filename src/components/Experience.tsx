@@ -51,7 +51,7 @@ const Experience = () => {
     ];
 
   return (
-    <section id="experience" className="py-20 bg-secondary/5">
+    <section id="experience" className="py-10 bg-secondary/5">
       <div className="section-container">
         <span className="text-sm font-medium text-primary">My Journey</span>
         <h2 className="section-title">Professional Experience</h2>

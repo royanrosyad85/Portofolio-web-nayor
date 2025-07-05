@@ -44,7 +44,7 @@ const Education = () => {
   ];
 
   return (
-    <section id="education" className="py-20 bg-background">
+    <section id="education" className="py-10 bg-background">
       <div className="section-container">
         <span className="text-sm font-medium text-primary">My Background</span>
         <h2 className="section-title">Education & Certifications</h2>

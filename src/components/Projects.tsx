@@ -103,7 +103,7 @@ const Projects = () => {
 
   return (
     <>
-      <section id="projects" className="py-20 bg-secondary/5">
+      <section id="projects" className="py-10 bg-secondary/5">
         <div className="section-container">
           <span className="text-sm font-medium text-primary">My Work</span>
           <h2 className="section-title">Featured Projects</h2>

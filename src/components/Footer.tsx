@@ -30,9 +30,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-secondary/10 pt-16 relative">
+    <footer className="bg-secondary/10 pt-10 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div className="md:col-span-1">
             <a href="/#hero" className="text-2xl font-bold text-gradient mb-4 inline-block">
               Royanrosyad

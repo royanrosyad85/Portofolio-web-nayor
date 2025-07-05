@@ -27,7 +27,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-background">
+    <section id="about" className="py-10 bg-background">
       <div className="section-container">
         <div className="flex flex-col md:flex-row gap-12">
           <div className="md:w-1/2">
