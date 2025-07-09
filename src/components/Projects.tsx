@@ -18,13 +18,13 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "ChickBot - Poultry Health AI Assistant",
+      title: "Chickbot - Poultry Health AI Chatbot",
       description: "An intelligent AI system for chicken disease classification using computer vision and agentic RAG pipeline. Combines CNN-based image analysis with LLM-powered conversational assistance.",
-      fullDescription: "ChickBot is a sophisticated poultry health management system that combines computer vision and natural language processing to assist farmers in identifying chicken diseases. The system features a Convolutional Neural Network (CNN) for disease classification from chicken images, integrated with an agentic Retrieval-Augmented Generation (RAG) pipeline that provides contextual information and treatment recommendations. The RAG system retrieves relevant veterinary knowledge from a curated database and uses large language models to generate personalized advice. Key features include real-time disease detection, confidence scoring, historical tracking, and an intelligent chat interface that can answer questions about poultry health, treatment protocols, and prevention strategies. The system is designed to bridge the gap between advanced AI technology and practical farming applications.",
+      fullDescription: "Chickbot is a sophisticated poultry health management system that combines computer vision and natural language processing to assist farmers in identifying chicken diseases. The system features a Convolutional Neural Network (CNN) for disease classification from chicken images, integrated with an agentic Retrieval-Augmented Generation (RAG) pipeline that provides contextual information and treatment recommendations. The RAG system retrieves relevant veterinary knowledge from a curated database and uses large language models to generate personalized advice. Key features include real-time disease detection, confidence scoring, historical tracking, and an intelligent chat interface that can answer questions about poultry health, treatment protocols, and prevention strategies. The system is designed to bridge the gap between advanced AI technology and practical farming applications.",
       image: "/img/Chickbot.png",
       tags: ["dl", "llms"],
       github: "https://github.com/Capstone-LaskarAi/chicken-diseases-classification-model/tree/dev-1",
-      demo: "https://chicken-diseases-chickbot.streamlit.app/",
+      demo: "https://chickbot-project-d2m6d.ondigitalocean.app/",
       technologies: ["Python", "TensorFlow", "CNN", "RAG", "LLM", "Streamlit", "Computer Vision"],
       features: ["Disease Classification", "Agentic RAG Pipeline", "Computer Vision", "LLM Integration", "Real-time Analysis", "Treatment Recommendations"]
     },
