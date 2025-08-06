@@ -5,6 +5,7 @@ import { ArrowRight, Github, ExternalLink, X } from 'lucide-react';
 const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   
   const categories = [
     { id: 'all', name: 'All Projects' },
@@ -134,6 +135,16 @@ const Projects = () => {
     document.body.style.overflow = 'auto';
   };
 
+  const openImagePreview = (imageSrc, imageTitle) => {
+    setImagePreview({ src: imageSrc, title: imageTitle });
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeImagePreview = () => {
+    setImagePreview(null);
+    document.body.style.overflow = 'auto';
+  };
+
   return (
     <>
       <section id="projects" className="py-10 bg-secondary/5">
@@ -170,8 +181,12 @@ const Projects = () => {
                   <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-zoom-in"
                     loading="lazy"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openImagePreview(project.image, project.title);
+                    }}
                   />
                 </div>
                 <div className="p-6">
@@ -245,7 +260,11 @@ const Projects = () => {
                 <img 
                   src={selectedProject.image} 
                   alt={selectedProject.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover cursor-zoom-in"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openImagePreview(selectedProject.image, selectedProject.title);
+                  }}
                 />
               </div>
             </div>
@@ -321,6 +340,35 @@ const Projects = () => {
                   Live Demo
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Preview Modal */}
+      {imagePreview && (
+        <div 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={closeImagePreview}
+        >
+          <div className="relative max-w-6xl max-h-[90vh] w-full">
+            <button
+              onClick={closeImagePreview}
+              className="absolute top-4 right-4 z-10 p-3 rounded-full bg-black/50 border border-white/20 hover:bg-black/70 transition-colors shadow-lg text-white"
+              aria-label="Close image preview"
+            >
+              <X size={24} />
+            </button>
+            <div className="bg-black/20 rounded-lg overflow-hidden">
+              <img 
+                src={imagePreview.src} 
+                alt={imagePreview.title}
+                className="w-full h-auto max-h-[85vh] object-contain"
+              />
+            </div>
+            <div className="text-center mt-4">
+              <p className="text-white text-lg font-medium">{imagePreview.title}</p>
+              <p className="text-white/70 text-sm mt-1">Click anywhere to close</p>
             </div>
           </div>
         </div>
