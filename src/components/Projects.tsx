@@ -181,12 +181,8 @@ const Projects = () => {
                   <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-zoom-in"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openImagePreview(project.image, project.title);
-                    }}
                   />
                 </div>
                 <div className="p-6">
