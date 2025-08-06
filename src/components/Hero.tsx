@@ -78,7 +78,7 @@ const Hero = () => {
                 View My Work
               </a>
               <a 
-                href="/img/[Resume] ATS Royanrosyad Update 4-07.pdf" 
+                href="/img/[Resume] ATS Royanrosyad 31-07-2025.pdf" 
                 target="_blank" // Buka di tab baru
                 rel="noopener noreferrer" // Keamanan
                 className="px-6 py-3 font-medium rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors"
