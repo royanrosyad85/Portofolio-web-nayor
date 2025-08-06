@@ -74,14 +74,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
-      <button 
-        onClick={scrollToTop}
-        className="absolute right-6 bottom-6 w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:bg-white/10 transition-colors"
-        aria-label="Scroll to top"
-      >
-        <ArrowUp size={20} />
-      </button>
     </footer>
   );
 };

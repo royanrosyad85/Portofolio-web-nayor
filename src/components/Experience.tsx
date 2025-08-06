@@ -19,7 +19,7 @@ const Experience = () => {
       role: "AI Engineer Intern",
       company: "Lintasarta",
       location: "Remote",
-      period: "Feb 2025 - Present",
+      period: "Feb 2025 - Aug 2025",
       description: [
       "Gained hands-on experience in machine learning and deep learning techniques, applying supervised and unsupervised learning algorithms to real-world datasets, and fine-tuning models for optimal performance before deployment.",
       "Leveraged MLflow within Azure ML to track experiments, manage model versions, and compare performance metrics across multiple iterations, supporting reproducibility and collaboration"

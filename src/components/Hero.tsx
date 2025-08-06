@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
   const typingRef = useRef<HTMLSpanElement>(null);
@@ -106,15 +105,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
-      <a 
-        href="#about"
-        className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full glass-effect animate-bounce cursor-pointer"
-      >
-        <ArrowDown size={16} className="sm:hidden" />
-        <ArrowDown size={18} className="hidden sm:block md:hidden" />
-        <ArrowDown size={20} className="hidden md:block" />
-      </a>
     </section>
   );
 };

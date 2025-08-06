@@ -13,11 +13,22 @@ const Projects = () => {
     { id: 'cv', name: 'Computer Vision' },
     { id: 'llms', name: 'LLM' },
     { id: 'ds', name: 'Data Science' },
+    { id: 'automation', name: 'Automation' },
   ];
   
   const projects = [
     {
       id: 1,
+      title: "Automation Habit Tracker Chatbot (Integrated with Notion Dashboard)",
+      description: "Developed habit classification system for different activity types (Gym/Running, Language Learning, etc.) with automated progress tracking and Notion database integration.",
+      fullDescription: "A comprehensive habit tracking automation system that seamlessly integrates with Notion database to provide intelligent habit classification and progress monitoring. The system features automated habit detection for various activity types including Gym/Running and Language Learning, with intelligent response filtering and mode switching capabilities. Successfully deployed a fully functional habit tracking chatbot equipped with voice recognition, automatic habit logging, personalized AI responses powered by Azure OpenAI, and real-time progress updates stored directly in Notion database. The automation pipeline built with n8n enables seamless data flow between Telegram Bot API, ElevenLabs for voice synthesis, and Notion API for persistent storage.",
+      image: "/img/Habit Tracker Notion.png",
+      tags: ["llms", "automation"],
+      technologies: ["Azure OpenAI", "n8n", "Notion API", "ElevenLabs", "Telegram Bot API"],
+      features: ["Habit Classification", "Automated Progress Tracking", "Voice Recognition", "Notion Integration", "Personalized AI Responses", "Real-time Updates"]
+    },
+    {
+      id: 2,
       title: "Chickbot - Poultry Health AI Chatbot",
       description: "An intelligent AI system for chicken disease classification using computer vision and agentic RAG pipeline. Combines CNN-based image analysis with LLM-powered conversational assistance.",
       fullDescription: "Chickbot is a sophisticated poultry health management system that combines computer vision and natural language processing to assist farmers in identifying chicken diseases. The system features a Convolutional Neural Network (CNN) for disease classification from chicken images, integrated with an agentic Retrieval-Augmented Generation (RAG) pipeline that provides contextual information and treatment recommendations. The RAG system retrieves relevant veterinary knowledge from a curated database and uses large language models to generate personalized advice. Key features include real-time disease detection, confidence scoring, historical tracking, and an intelligent chat interface that can answer questions about poultry health, treatment protocols, and prevention strategies. The system is designed to bridge the gap between advanced AI technology and practical farming applications.",
@@ -29,26 +40,14 @@ const Projects = () => {
       features: ["Disease Classification", "Agentic RAG Pipeline", "Computer Vision", "LLM Integration", "Real-time Analysis", "Treatment Recommendations"]
     },
     {
-      id: 2,
-      title: "Predictive Analytics",
-      description: "A machine learning project that classifies water potability using multiple algorithms including Random Forest, KNN, and XGBoost, combined with deep learning approaches using neural networks.",
-      fullDescription: "This comprehensive water quality analysis project addresses the critical public health challenge of determining water potability. Using a dataset of 3,276 water samples with 9 chemical parameters (pH, hardness, solids, chloramines, sulfate, conductivity, organic carbon, trihalomethanes, and turbidity), the project implements both traditional machine learning algorithms (Random Forest, KNN, XGBoost) and deep learning neural networks. The solution includes extensive data preprocessing, handling missing values through oversampling, feature scaling, and hyperparameter optimization using Grid Search. The final model achieves high accuracy in binary classification, helping ensure safe drinking water distribution.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-      tags: ["ml", "dl"],
-      github: "https://github.com/royanrosyad85/Machine-Learning-Terapan/tree/main/Submission%20Predictive%20Analytics",
-      technologies: ["Python", "Scikit-learn", "TensorFlow", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
-      features: ["Binary Classification", "Data Preprocessing", "Feature Engineering", "Model Comparison", "Hyperparameter Tuning"]
-    },
-    {
       id: 3,
-      title: "Movie Recommendation System",
-      description: "An intelligent movie recommendation system built using MovieLens dataset with over 9,000 films and 100k+ ratings. Implements both content-based filtering and collaborative filtering.",
-      fullDescription: "This advanced recommendation system combines two powerful approaches to deliver personalized movie suggestions. The content-based filtering analyzes movie metadata including genres, cast, directors, and plot descriptions using TF-IDF vectorization and cosine similarity. The collaborative filtering component leverages user rating patterns and implements matrix factorization techniques to identify users with similar preferences. The hybrid approach addresses the cold start problem and provides more accurate recommendations by considering both item features and user behavior patterns.",
-      image: "https://images.unsplash.com/photo-1547954575-855750c57bd3?q=80&w=2071&auto=format&fit=crop",
-      tags: ["ml"],
-      github: "https://github.com/royanrosyad85/Machine-Learning-Terapan/tree/main/Submission%20System%20Recommendation",
-      technologies: ["Python", "Scikit-learn", "Pandas", "NumPy", "TF-IDF", "Cosine Similarity"],
-      features: ["Content-Based Filtering", "Collaborative Filtering", "Hybrid Approach", "Data Visualization", "Performance Evaluation"]
+      title: "Automation Reply Comment & Sentiment Analysis",
+      description: "Architected end-to-end automation pipeline using n8n connecting social media APIs, sentiment analysis models, and response generation systems for government communication.",
+      fullDescription: "A comprehensive automation solution designed for government agencies to handle citizen interactions across social media platforms. The system features an end-to-end automation pipeline built with n8n that seamlessly connects social media APIs, advanced sentiment analysis models, and intelligent response generation systems. Key capabilities include real-time comment monitoring across multiple platforms, automated reply posting with context-aware responses, and integrated Google Sheets logging for comprehensive data tracking and response analytics. The solution successfully reduced manual review time by 75%, ensured consistent response quality across all government communication channels, and delivered a scalable automation system capable of handling thousands of daily citizen interactions while maintaining high-quality, contextually appropriate responses.",
+      image: "/img/Automation Reply Comment.png",
+      tags: ["llms", "automation"],
+      technologies: ["Azure OpenAI", "n8n", "Google Sheets API", "Facebook Graph API"],
+      features: ["Real-time Monitoring", "Sentiment Analysis", "Automated Replies", "Multi-platform Support", "Data Logging", "Scalable Processing"]
     },
     {
       id: 4,
@@ -63,6 +62,40 @@ const Projects = () => {
     },
     {
       id: 5,
+      title: "E-Commerce RFM and Geospatial Analysis",
+      description: "Comprehensive data analytics solution combining RFM (Recency, Frequency, Monetary) customer segmentation with geospatial analysis and interactive Streamlit dashboard.",
+      fullDescription: "A comprehensive e-commerce analytics platform that combines advanced RFM (Recency, Frequency, Monetary) customer segmentation with detailed geospatial analysis to provide actionable business insights. The solution features an interactive Streamlit dashboard that displays key e-commerce metrics including 54,011 total orders, 52,601 total customers, and $141.83 average order value. The system includes comprehensive order trends analysis with sophisticated time-series visualization, enabling businesses to understand customer behavior patterns, identify high-value customer segments, and optimize marketing strategies based on geographic and temporal data. The platform provides powerful tools for customer lifecycle analysis, sales forecasting, and regional performance assessment.",
+      image: "/img/E-Commerce Dashboard.png",
+      tags: ["ds"],
+      github: "https://github.com/royanrosyad85/E-commerce-Data-Geospatial_Analysis.git",
+      demo: "https://e-commerce-data-geospatialanalysis-royanrosyad.streamlit.app/",
+      technologies: ["Python", "NumPy", "Plotly", "Streamlit", "Pandas", "Matplotlib"],
+      features: ["RFM Analysis", "Customer Segmentation", "Geospatial Analysis", "Interactive Dashboard", "Time-series Visualization", "Performance Metrics"]
+    },
+    {
+      id: 6,
+      title: "Predictive Analytics",
+      description: "A machine learning project that classifies water potability using multiple algorithms including Random Forest, KNN, and XGBoost, combined with deep learning approaches using neural networks.",
+      fullDescription: "This comprehensive water quality analysis project addresses the critical public health challenge of determining water potability. Using a dataset of 3,276 water samples with 9 chemical parameters (pH, hardness, solids, chloramines, sulfate, conductivity, organic carbon, trihalomethanes, and turbidity), the project implements both traditional machine learning algorithms (Random Forest, KNN, XGBoost) and deep learning neural networks. The solution includes extensive data preprocessing, handling missing values through oversampling, feature scaling, and hyperparameter optimization using Grid Search. The final model achieves high accuracy in binary classification, helping ensure safe drinking water distribution.",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+      tags: ["ml", "dl"],
+      github: "https://github.com/royanrosyad85/Machine-Learning-Terapan/tree/main/Submission%20Predictive%20Analytics",
+      technologies: ["Python", "Scikit-learn", "TensorFlow", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
+      features: ["Binary Classification", "Data Preprocessing", "Feature Engineering", "Model Comparison", "Hyperparameter Tuning"]
+    },
+    {
+      id: 7,
+      title: "Movie Recommendation System",
+      description: "An intelligent movie recommendation system built using MovieLens dataset with over 9,000 films and 100k+ ratings. Implements both content-based filtering and collaborative filtering.",
+      fullDescription: "This advanced recommendation system combines two powerful approaches to deliver personalized movie suggestions. The content-based filtering analyzes movie metadata including genres, cast, directors, and plot descriptions using TF-IDF vectorization and cosine similarity. The collaborative filtering component leverages user rating patterns and implements matrix factorization techniques to identify users with similar preferences. The hybrid approach addresses the cold start problem and provides more accurate recommendations by considering both item features and user behavior patterns.",
+      image: "https://images.unsplash.com/photo-1547954575-855750c57bd3?q=80&w=2071&auto=format&fit=crop",
+      tags: ["ml"],
+      github: "https://github.com/royanrosyad85/Machine-Learning-Terapan/tree/main/Submission%20System%20Recommendation",
+      technologies: ["Python", "Scikit-learn", "Pandas", "NumPy", "TF-IDF", "Cosine Similarity"],
+      features: ["Content-Based Filtering", "Collaborative Filtering", "Hybrid Approach", "Data Visualization", "Performance Evaluation"]
+    },
+    {
+      id: 8,
       title: "HR Analytics Metabase Dashboard",
       description: "Comprehensive business intelligence dashboard for analyzing employee attrition patterns and HR metrics. Built with Metabase to provide actionable insights for workforce management.",
       fullDescription: "This comprehensive HR Analytics dashboard addresses the critical challenge of employee attrition at PT Jaya Jaya Maju, a multinational company with over 1,000 employees. The dashboard analyzes various factors affecting employee turnover including demographics, job roles, departments, work-life balance, salary levels, and commute distance. Built using Metabase with Supabase as the database backend, it provides interactive visualizations showing attrition rates by gender, department, age groups, and job satisfaction levels. The system helps HR teams identify high-risk employee segments and develop targeted retention strategies based on data-driven insights.",
@@ -74,7 +107,7 @@ const Projects = () => {
       features: ["Interactive Dashboards", "Attrition Analysis", "Demographic Insights", "Predictive Modeling", "Business Intelligence", "Data Visualization"]
     },
     {
-      id: 6,
+      id: 9,
       title: "Student Analytics Dashboard",
       description: "Machine learning-powered dashboard for predicting student dropout risk at Jaya Jaya Institut. Features interactive Streamlit interface and comprehensive analytics using Metabase.",
       fullDescription: "This advanced student analytics system tackles the dropout challenge at Jaya Jaya Institut by combining predictive machine learning with comprehensive dashboard analytics. The solution uses Gradient Boosting Classifier to predict student status (Graduate/Dropout) with ~90% accuracy, analyzing factors like academic performance, age, financial status, scholarship holdings, and attendance patterns. The system includes both a Streamlit prediction interface for real-time student assessment and a Metabase dashboard showing institutional KPIs, enrollment trends, and demographic analysis across 17 courses and 4,424 students. This enables early intervention strategies to improve student retention and graduation rates.",
