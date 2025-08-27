@@ -6,6 +6,7 @@ const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [showAll, setShowAll] = useState(false);
   
   const categories = [
     { id: 'all', name: 'All Projects' },
@@ -52,6 +53,17 @@ const Projects = () => {
     },
     {
       id: 4,
+      title: "GoPay Sentiment Analysis - NLP for User Reviews",
+      description: "Comprehensive sentiment analysis of 40,000 GoPay app reviews using Natural Language Processing and lexicon-based approach. Analyzes user sentiment patterns and provides actionable insights.",
+      fullDescription: "A comprehensive Natural Language Processing project that analyzes sentiment from 40,000 GoPay application reviews scraped from Google Play Store. The project implements a lexicon-based sentiment analysis approach using Indonesian language processing, featuring advanced text preprocessing pipeline including cleaning, normalization, tokenization, stopword removal, and stemming using Sastrawi. The system successfully classified reviews into positive (42.5%), negative (41.6%), and neutral (15.9%) sentiments, providing valuable insights into user satisfaction patterns. Key findings revealed balanced sentiment distribution with technical issues being the main complaint area, while ease of use was highly appreciated. The project includes comprehensive visualizations through word clouds, sentiment distribution plots, and statistical analysis to understand user perception patterns.",
+      image: "/img/NLP.png",
+      tags: ["ml", "ds"],
+      github: "https://github.com/royanrosyad85/Sentiment-Analysis---Gopay",
+      technologies: ["Python", "NLTK", "Sastrawi", "Pandas", "Scikit-learn", "Matplotlib", "Seaborn", "WordCloud"],
+      features: ["Text Preprocessing", "Lexicon-based Analysis", "Natural Language Processing", "Word Cloud Visualization", "Sentiment Classification", "Data Scraping"]
+    },
+    {
+      id: 5,
       title: "Fitness Vision: V-Squat Machine Analysis Detection",
       description: "Real-time AI-powered squat form analysis using MediaPipe pose estimation. Provides instant feedback on squat technique with MPJPE accuracy evaluation for pose detection quality.",
       fullDescription: "Fitness Vision is an advanced computer vision application that analyzes squat form in real-time using MediaPipe pose estimation technology. The system provides immediate feedback on posture correctness, tracks squat repetitions, and evaluates common form errors like knee alignment, body positioning, and depth. It includes Mean Per Joint Position Error (MPJPE) evaluation for assessing pose estimation accuracy, supporting both live webcam analysis and video upload functionality. The application features beginner and pro modes with customizable thresholds, making it suitable for fitness enthusiasts and trainers seeking data-driven workout analysis.",
@@ -62,7 +74,7 @@ const Projects = () => {
       features: ["Real-time Pose Estimation", "Form Analysis", "MPJPE Evaluation", "Live Feedback", "Video Processing", "Performance Metrics"]
     },
     {
-      id: 5,
+      id: 6,
       title: "E-Commerce RFM and Geospatial Analysis",
       description: "Comprehensive data analytics solution combining RFM (Recency, Frequency, Monetary) customer segmentation with geospatial analysis and interactive Streamlit dashboard.",
       fullDescription: "A comprehensive e-commerce analytics platform that combines advanced RFM (Recency, Frequency, Monetary) customer segmentation with detailed geospatial analysis to provide actionable business insights. The solution features an interactive Streamlit dashboard that displays key e-commerce metrics including 54,011 total orders, 52,601 total customers, and $141.83 average order value. The system includes comprehensive order trends analysis with sophisticated time-series visualization, enabling businesses to understand customer behavior patterns, identify high-value customer segments, and optimize marketing strategies based on geographic and temporal data. The platform provides powerful tools for customer lifecycle analysis, sales forecasting, and regional performance assessment.",
@@ -74,7 +86,7 @@ const Projects = () => {
       features: ["RFM Analysis", "Customer Segmentation", "Geospatial Analysis", "Interactive Dashboard", "Time-series Visualization", "Performance Metrics"]
     },
     {
-      id: 6,
+      id: 7,
       title: "Predictive Analytics",
       description: "A machine learning project that classifies water potability using multiple algorithms including Random Forest, KNN, and XGBoost, combined with deep learning approaches using neural networks.",
       fullDescription: "This comprehensive water quality analysis project addresses the critical public health challenge of determining water potability. Using a dataset of 3,276 water samples with 9 chemical parameters (pH, hardness, solids, chloramines, sulfate, conductivity, organic carbon, trihalomethanes, and turbidity), the project implements both traditional machine learning algorithms (Random Forest, KNN, XGBoost) and deep learning neural networks. The solution includes extensive data preprocessing, handling missing values through oversampling, feature scaling, and hyperparameter optimization using Grid Search. The final model achieves high accuracy in binary classification, helping ensure safe drinking water distribution.",
@@ -85,7 +97,7 @@ const Projects = () => {
       features: ["Binary Classification", "Data Preprocessing", "Feature Engineering", "Model Comparison", "Hyperparameter Tuning"]
     },
     {
-      id: 7,
+      id: 8,
       title: "Movie Recommendation System",
       description: "An intelligent movie recommendation system built using MovieLens dataset with over 9,000 films and 100k+ ratings. Implements both content-based filtering and collaborative filtering.",
       fullDescription: "This advanced recommendation system combines two powerful approaches to deliver personalized movie suggestions. The content-based filtering analyzes movie metadata including genres, cast, directors, and plot descriptions using TF-IDF vectorization and cosine similarity. The collaborative filtering component leverages user rating patterns and implements matrix factorization techniques to identify users with similar preferences. The hybrid approach addresses the cold start problem and provides more accurate recommendations by considering both item features and user behavior patterns.",
@@ -96,7 +108,7 @@ const Projects = () => {
       features: ["Content-Based Filtering", "Collaborative Filtering", "Hybrid Approach", "Data Visualization", "Performance Evaluation"]
     },
     {
-      id: 8,
+      id: 9,
       title: "HR Analytics Metabase Dashboard",
       description: "Comprehensive business intelligence dashboard for analyzing employee attrition patterns and HR metrics. Built with Metabase to provide actionable insights for workforce management.",
       fullDescription: "This comprehensive HR Analytics dashboard addresses the critical challenge of employee attrition at PT Jaya Jaya Maju, a multinational company with over 1,000 employees. The dashboard analyzes various factors affecting employee turnover including demographics, job roles, departments, work-life balance, salary levels, and commute distance. Built using Metabase with Supabase as the database backend, it provides interactive visualizations showing attrition rates by gender, department, age groups, and job satisfaction levels. The system helps HR teams identify high-risk employee segments and develop targeted retention strategies based on data-driven insights.",
@@ -108,7 +120,7 @@ const Projects = () => {
       features: ["Interactive Dashboards", "Attrition Analysis", "Demographic Insights", "Predictive Modeling", "Business Intelligence", "Data Visualization"]
     },
     {
-      id: 9,
+      id: 10,
       title: "Student Analytics Dashboard",
       description: "Machine learning-powered dashboard for predicting student dropout risk at Jaya Jaya Institut. Features interactive Streamlit interface and comprehensive analytics using Metabase.",
       fullDescription: "This advanced student analytics system tackles the dropout challenge at Jaya Jaya Institut by combining predictive machine learning with comprehensive dashboard analytics. The solution uses Gradient Boosting Classifier to predict student status (Graduate/Dropout) with ~90% accuracy, analyzing factors like academic performance, age, financial status, scholarship holdings, and attendance patterns. The system includes both a Streamlit prediction interface for real-time student assessment and a Metabase dashboard showing institutional KPIs, enrollment trends, and demographic analysis across 17 courses and 4,424 students. This enables early intervention strategies to improve student retention and graduation rates.",
@@ -124,6 +136,9 @@ const Projects = () => {
   const filteredProjects = filter === 'all' 
     ? projects 
     : projects.filter(project => project.tags.includes(filter));
+
+  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 6);
+  const hasMoreProjects = filteredProjects.length > 6;
 
   const openModal = (project) => {
     setSelectedProject(project);
@@ -160,7 +175,7 @@ const Projects = () => {
                 onClick={() => setFilter(category.id)}
                 className={`px-4 py-2 rounded-full text-sm whitespace-nowrap transition-all ${
                   filter === category.id 
-                    ? 'bg-gradient-to-r from-primary to-accent text-primary-foreground' 
+                    ? 'bg-primary text-primary-foreground' 
                     : 'bg-card text-card-foreground border border-border hover:bg-accent hover:text-accent-foreground'
                 }`}
               >
@@ -170,7 +185,7 @@ const Projects = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project, index) => (
+            {displayedProjects.map((project, index) => (
               <div 
                 key={project.id}
                 className="group bg-card text-card-foreground border border-border rounded-xl overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all duration-300 animate-fade-in cursor-pointer"
@@ -230,6 +245,20 @@ const Projects = () => {
               </div>
             ))}
           </div>
+          
+          {/* Load More Button */}
+          {hasMoreProjects && (
+            <div className="text-center mt-8">
+                <button
+                  aria-label="Load more projects"
+                  onClick={() => setShowAll(!showAll)}
+                  className="px-8 py-3 rounded-2xl glass-effect backdrop-blur-xl bg-background/90 border border-border/50 shadow-xl text-foreground font-medium flex items-center mx-auto transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  {showAll ? 'Show Less Projects' : `Load More Projects (${filteredProjects.length - 6} remaining)`}
+                  <ArrowRight size={16} className={`ml-2 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`} />
+                </button>
+            </div>
+          )}
         </div>
       </section>
 

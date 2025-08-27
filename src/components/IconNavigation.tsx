@@ -98,9 +98,9 @@ const IconNavigation = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-md relative ${
+                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl relative ${
                       isActive 
-                        ? 'bg-primary text-primary-foreground shadow-md scale-105' 
+                        ? 'bg-primary text-primary-foreground shadow-2xl scale-105' 
                         : 'hover:bg-secondary/80'
                     }`}
                     asChild
@@ -133,7 +133,7 @@ const IconNavigation = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl hover:bg-secondary/80 transition-all duration-300 hover:scale-110 hover:shadow-md"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl hover:bg-secondary/80 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 onClick={handleThemeToggle}
                 aria-label="Toggle theme"
               >

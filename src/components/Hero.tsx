@@ -42,14 +42,14 @@ const Hero = () => {
   }, []);
   
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-20 md:pt-16 relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex items-center justify-center pt-12 md:pt-8 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/5 opacity-90"></div>
         <div className="absolute top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-40 -right-40 w-96 h-96 bg-accent/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
       </div>
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 text-center md:text-left animate-fade-in order-2 md:order-1">
             {/* <span className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full glass-effect">
@@ -57,7 +57,7 @@ const Hero = () => {
             </span> */}
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-              Hi, I'm <span className="text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Royanrosyad</span>
+              Hi, I'm <span className="text-foreground">Royanrosyad</span>
             </h1>
             
             <div className="text-xl md:text-2xl text-muted-foreground mb-8 h-8">
@@ -73,7 +73,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <a 
                 href="#projects" 
-                className="px-6 py-3 font-medium rounded-lg bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 transition-opacity"
+                className="px-6 py-3 font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
               >
                 View My Work
               </a>

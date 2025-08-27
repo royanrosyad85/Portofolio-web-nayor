@@ -233,7 +233,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-6 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg font-medium flex items-center justify-center hover:opacity-90 transition-opacity disabled:opacity-70"
+                  className="w-full py-3 px-6 bg-primary text-primary-foreground rounded-lg font-medium flex items-center justify-center hover:opacity-90 transition-opacity disabled:opacity-70"
                 >
                   {isSubmitting ? (
                     <>Sending<span className="animate-pulse">...</span></>

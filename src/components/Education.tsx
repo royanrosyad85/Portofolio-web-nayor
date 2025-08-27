@@ -150,7 +150,7 @@ const Education = () => {
                   <h4 className="text-sm font-medium mb-2 text-foreground">Programming Languages</h4>
                   <div className="flex flex-wrap gap-2">
                     {["Python", "PHP", "SQL", "JavaScript", "R"].map((lang, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary text-secondary-foreground border border-border">
+                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black border border-border">
                         {lang}
                       </span>
                     ))}
@@ -162,7 +162,7 @@ const Education = () => {
                   <div className="flex flex-wrap gap-2">
                     {["TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", 
                       "Keras", "NLTK", "spaCy", "Hugging Face", "OpenCV", "MediaPipe"].map((lib, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary text-secondary-foreground border border-border">
+                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black border border-border">
                         {lib}
                       </span>
                     ))}
@@ -174,7 +174,7 @@ const Education = () => {
                   <div className="flex flex-wrap gap-2">
                     {["Google Cloud Platform", "Azure", "Oracle Cloud", "Docker", "Kubernetes", 
                       "Git", "MLflow", "Jupyter", "Streamlit", "FastAPI"].map((tool, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-secondary text-secondary-foreground border border-border">
+                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black border border-border">
                         {tool}
                       </span>
                     ))}
