@@ -70,10 +70,10 @@ const Hero = () => {
               Building intelligent systems and extracting insights from data to solve real-world problems.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <div className="flex flex-row gap-4 justify-center md:justify-start">
               <a 
                 href="#projects" 
-                className="px-6 py-3 font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                className="flex-1 sm:flex-none px-6 py-3 font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity text-center transition duration-300 ease-in-out transform hover:scale-105"
               >
                 View My Work
               </a>
@@ -81,7 +81,7 @@ const Hero = () => {
                 href="/img/[Resume] ATS Royanrosyad 31-07-2025.pdf" 
                 target="_blank" // Buka di tab baru
                 rel="noopener noreferrer" // Keamanan
-                className="px-6 py-3 font-medium rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors"
+                className="flex-1 sm:flex-none px-6 py-3 font-medium rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors text-center transition duration-300 ease-in-out transform hover:scale-105"
               >
                 My Resume
               </a>

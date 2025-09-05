@@ -1,108 +1,145 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Clock, Tag, Share2, Bookmark } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, Share2, Bookmark, Eye } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import Footer from '../components/Footer';
 import IconNavigation from '../components/IconNavigation';
+import { blogData, BlogPost as BlogPostType } from '../lib/blogData';
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
+  const [post, setPost] = useState<BlogPostType | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPostType[]>([]);
   
-  // This would normally come from an API call
-  const blogPost = {
-    id: Number(id),
-    title: "Demystifying Transformer Architecture for NLP Applications",
-    date: "May 15, 2023",
-    readTime: "8 min read",
-    category: "Deep Learning",
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2940&auto=format&fit=crop",
-    content: `
-      <p>Transformer models have revolutionized natural language processing tasks by introducing a novel architecture that relies on self-attention mechanisms instead of recurrence or convolution. This approach has proven remarkably effective, enabling models to better capture long-range dependencies in sequences.</p>
-      
-      <h2>The Architecture</h2>
-      <p>At its core, the Transformer architecture consists of an encoder and a decoder, each composed of multiple identical layers. Each layer has two sub-layers: a multi-head self-attention mechanism and a position-wise fully connected feed-forward network.</p>
-      
-      <p>The self-attention mechanism allows the model to weight the importance of different words in the input when making predictions, enabling it to focus on relevant context regardless of distance in the sequence.</p>
-      
-      <h2>Key Components</h2>
-      <ul>
-        <li><strong>Self-Attention:</strong> Allows the model to attend to different positions of the input sequence to compute a representation.</li>
-        <li><strong>Multi-Head Attention:</strong> Extends self-attention by running multiple attention operations in parallel, allowing the model to focus on different aspects of the input.</li>
-        <li><strong>Positional Encoding:</strong> Since Transformers don't use sequence order by default, positional encoding is added to give the model information about the position of tokens.</li>
-        <li><strong>Feed-Forward Networks:</strong> Apply the same transformation to each position separately and identically.</li>
-        <li><strong>Layer Normalization:</strong> Helps stabilize the learning process and reduces training time.</li>
-      </ul>
-      
-      <h2>Practical Applications</h2>
-      <p>Since the introduction of the original Transformer in the "Attention is All You Need" paper, numerous variants have emerged, powering state-of-the-art models like BERT, GPT, T5, and others.</p>
-      
-      <p>These models have excelled in various NLP tasks including:</p>
-      <ul>
-        <li>Machine Translation</li>
-        <li>Text Classification</li>
-        <li>Named Entity Recognition</li>
-        <li>Question Answering</li>
-        <li>Text Generation</li>
-        <li>Summarization</li>
-      </ul>
-      
-      <h2>Implementation Considerations</h2>
-      <p>When working with Transformer models, it's important to consider:</p>
-      <ul>
-        <li><strong>Computational Requirements:</strong> Transformers can be resource-intensive, especially for long sequences.</li>
-        <li><strong>Fine-tuning Strategies:</strong> Often pre-trained models can be fine-tuned for specific tasks with less data and compute.</li>
-        <li><strong>Context Window Limitations:</strong> The self-attention mechanism scales quadratically with sequence length, imposing practical limits.</li>
-        <li><strong>Tokenization:</strong> The choice of tokenization strategy can significantly impact model performance.</li>
-      </ul>
-      
-      <h2>Conclusion</h2>
-      <p>Transformer architectures have fundamentally changed the NLP landscape, enabling more powerful language understanding and generation capabilities. By understanding their core mechanisms, practitioners can better leverage these models and adapt them to specific use cases.</p>
-      
-      <p>As research continues to evolve, we're seeing innovations that address limitations and extend capabilities, making Transformers even more versatile for a wider range of applications.</p>
-    `,
-    tags: ["NLP", "Transformers", "Deep Learning", "Neural Networks", "BERT", "GPT"]
-  };
-
   useEffect(() => {
+    if (id) {
+      const foundPost = blogData.getPostById(id);
+      if (foundPost && foundPost.isPublished) {
+        setPost(foundPost);
+        // Increment view count
+        blogData.incrementViews(id);
+        
+        // Get related posts (same category, excluding current post)
+        const related = blogData.getPostsByCategory(foundPost.category)
+          .filter(p => p.id !== id)
+          .slice(0, 3);
+        setRelatedPosts(related);
+        
+        // Set document title
+        document.title = `${foundPost.title} | Royanrosyad Blog`;
+      }
+    }
+    
     // Scroll to top when page loads
     window.scrollTo(0, 0);
-    
-    // Set document title
-    document.title = `${blogPost.title} | Royanrosyad Blog`;
-  }, [blogPost.title]);
+  }, [id]);
+
+  if (!post) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Post Not Found</h1>
+          <p className="text-muted-foreground mb-6">
+            The blog post you're looking for doesn't exist or has been removed.
+          </p>
+          <Link to="/blog" className="text-primary hover:underline">
+            ← Back to Blog
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const calculateReadTime = (content: string) => {
+    const wordsPerMinute = 200;
+    const textContent = content.replace(/<[^>]*>/g, '');
+    const wordCount = textContent.split(/\s+/).length;
+    const readTime = Math.ceil(wordCount / wordsPerMinute);
+    return `${readTime} min read`;
+  };
+
+  const getCategoryName = (categoryId: string) => {
+    const categories = blogData.getCategories();
+    const category = categories.find(cat => cat.id === categoryId);
+    return category ? category.name : categoryId;
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: post.title,
+          text: post.excerpt,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.log('Share cancelled');
+      }
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(window.location.href);
+      // You could add a toast notification here
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <main className="pt-8 pb-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link to="/#blog" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors">
+          <Link to="/blog" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors">
             <ArrowLeft size={16} className="mr-2" />
             Back to Blog
           </Link>
           
           <article className="animate-fade-in">
-            <div className="mb-8">
-              <div className="flex items-center space-x-4 mb-4">
-                <span className="px-3 py-1 text-xs rounded-full bg-primary/20 text-primary">
-                  {blogPost.category}
-                </span>
+            {/* Featured Image as Cover - Notion Style */}
+            {post.image && (
+              <div className="blog-cover-image mb-12">
+                <img 
+                  src={post.image} 
+                  alt={post.title} 
+                  className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-lg shadow-lg"
+                />
+              </div>
+            )}
+            
+            <div className="mb-12">
+              <div className="flex items-center space-x-4 mb-8">
+                <Badge variant="secondary" className="text-sm">
+                  {getCategoryName(post.category)}
+                </Badge>
                 <div className="flex items-center text-sm text-muted-foreground">
                   <Calendar size={14} className="mr-1" />
-                  <span>{blogPost.date}</span>
+                  <span>{formatDate(post.createdAt)}</span>
                 </div>
                 <div className="flex items-center text-sm text-muted-foreground">
                   <Clock size={14} className="mr-1" />
-                  <span>{blogPost.readTime}</span>
+                  <span>{calculateReadTime(post.content)}</span>
+                </div>
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <Eye size={14} className="mr-1" />
+                  <span>{post.views} views</span>
                 </div>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-                {blogPost.title}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight font-serif">
+                {post.title}
               </h1>
               
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-muted mr-3"></div>
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-accent mr-3 flex items-center justify-center">
+                    <span className="text-primary-foreground font-semibold">R</span>
+                  </div>
                   <div>
                     <div className="font-medium">Royanrosyad</div>
                     <div className="text-xs text-muted-foreground">AI/ML Engineer</div>
@@ -110,7 +147,11 @@ const BlogPost = () => {
                 </div>
                 
                 <div className="flex space-x-2">
-                  <button className="p-2 rounded-full hover:bg-secondary/50 transition-colors" aria-label="Share">
+                  <button 
+                    onClick={handleShare}
+                    className="p-2 rounded-full hover:bg-secondary/50 transition-colors" 
+                    aria-label="Share"
+                  >
                     <Share2 size={18} />
                   </button>
                   <button className="p-2 rounded-full hover:bg-secondary/50 transition-colors" aria-label="Bookmark">
@@ -120,16 +161,8 @@ const BlogPost = () => {
               </div>
             </div>
             
-            <div className="mb-8 rounded-xl overflow-hidden">
-              <img 
-                src={blogPost.image} 
-                alt={blogPost.title} 
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            
-            <div className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-semibold prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground">
-              <div dangerouslySetInnerHTML={{ __html: blogPost.content }} />
+            <div className="blog-content">
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
             </div>
             
             <div className="mt-10 pt-6 border-t border-border">
@@ -138,17 +171,60 @@ const BlogPost = () => {
                   <Tag size={16} className="mr-2" />
                   <span className="text-sm text-muted-foreground">Tags:</span>
                 </span>
-                {blogPost.tags.map((tag, index) => (
-                  <span 
+                {post.tags.map((tag, index) => (
+                  <Badge 
                     key={index} 
-                    className="px-3 py-1 text-xs rounded-full bg-secondary/50 text-foreground mr-2 mb-2"
+                    variant="outline"
+                    className="mr-2 mb-2"
                   >
                     {tag}
-                  </span>
+                  </Badge>
                 ))}
               </div>
             </div>
           </article>
+          
+          {/* Related Posts */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold mb-8">Related Articles</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {relatedPosts.map((relatedPost, index) => (
+                  <Link
+                    key={relatedPost.id}
+                    to={`/blog/${relatedPost.id}`}
+                    className="group glass-effect rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    {relatedPost.image && (
+                      <div className="h-32 overflow-hidden">
+                        <img 
+                          src={relatedPost.image} 
+                          alt={relatedPost.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                    )}
+                    <div className="p-4">
+                      <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                        {relatedPost.title}
+                      </h4>
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {relatedPost.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between mt-3 text-xs text-muted-foreground">
+                        <span>{formatDate(relatedPost.createdAt)}</span>
+                        <div className="flex items-center">
+                          <Eye size={12} className="mr-1" />
+                          {relatedPost.views}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
           
           <div className="mt-16 glass-effect rounded-xl p-8 animate-fade-in">
             <h3 className="text-xl font-semibold mb-4">Join the Conversation</h3>

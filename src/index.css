@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -35,6 +36,12 @@
     --ring: 0 0% 3.9%;
     
     --radius: 0.75rem;
+    
+    /* Light Mode Gradient Variables */
+    --gradient-primary: radial-gradient(circle at 20% 20%, rgba(255, 229, 217, 0.4) 0%, transparent 60%);
+    --gradient-secondary: radial-gradient(circle at 80% 80%, rgba(232, 245, 232, 0.3) 0%, transparent 60%);
+    --gradient-accent: radial-gradient(circle at 50% 10%, rgba(240, 230, 255, 0.25) 0%, transparent 70%);
+    --gradient-base: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(255, 255, 255, 1) 100%);
   }
 
   .dark {
@@ -65,17 +72,68 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+    
+    /* Dark Mode Gradient Variables */
+    --gradient-primary: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+    --gradient-secondary: radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
+    --gradient-accent: radial-gradient(circle at 50% 10%, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    --gradient-base: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%);
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-accent/25 selection:text-white;
+    @apply border-border;
+  }
+  
+  ::selection {
+    background: #3b82f6;
+    color: #ffffff;
+  }
+  
+  ::-moz-selection {
+    background: #3b82f6;
+    color: #ffffff;
+  }
+  
+  .dark ::selection {
+    background: #60a5fa;
+    color: #ffffff;
+  }
+  
+  .dark ::-moz-selection {
+    background: #60a5fa;
+    color: #ffffff;
   }
   
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden font-inter;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    
+    /* Applied Adaptive Gradient Background */
+    background: 
+      var(--gradient-primary),
+      var(--gradient-secondary), 
+      var(--gradient-accent),
+      var(--gradient-base);
+    background-attachment: fixed;
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  /* Enhanced body backdrop for better layering */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: -1;
+    pointer-events: none;
   }
 
   html {
@@ -86,6 +144,44 @@
 @layer utilities {
   .glass-effect {
     @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
+    /* Enhanced glass effect with gradient backdrop */
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass-effect {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Gradient Animation */
+  .gradient-animation {
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Floating Elements Animation */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(1deg); }
+    66% { transform: translateY(5px) rotate(-1deg); }
   }
   
   .solid-card {
@@ -153,14 +249,233 @@
     @apply text-sm font-light text-muted-foreground opacity-90 mb-6 animate-fade-in;
   }
   
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  
   .line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 }
 
 .font-inter {
   font-family: 'Inter', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+}
+
+/* Blog Content Styling - Compatible with Quill output */
+.blog-content {
+  max-width: none;
+  line-height: 1.7;
+  color: hsl(var(--foreground));
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 18px;
+}
+
+/* Blog Cover Image - Notion Style */
+.blog-cover-image {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  max-width: none;
+}
+
+@media (max-width: 768px) {
+  .blog-cover-image {
+    width: calc(100vw - 2rem);
+    margin-left: calc(50% - 1rem);
+    transform: translateX(-50%);
+  }
+}
+
+.blog-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem 0;
+  line-height: 1.2;
+  color: hsl(var(--foreground));
+}
+
+.blog-content h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1.75rem 0 1rem 0;
+  line-height: 1.3;
+  color: hsl(var(--foreground));
+}
+
+.blog-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem 0;
+  line-height: 1.4;
+  color: hsl(var(--foreground));
+}
+
+.blog-content p {
+  margin: 1.5rem 0;
+  line-height: 1.7;
+  color: hsl(var(--foreground));
+  font-size: 18px;
+}
+
+.blog-content ul, .blog-content ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+  color: hsl(var(--foreground));
+}
+
+.blog-content ul li, .blog-content ol li {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  list-style-position: outside;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+}
+
+.blog-content ul ul {
+  list-style-type: circle;
+}
+
+.blog-content ul ul ul {
+  list-style-type: square;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+}
+
+.blog-content ol ol {
+  list-style-type: lower-alpha;
+}
+
+.blog-content ol ol ol {
+  list-style-type: lower-roman;
+}
+
+/* Ensure Quill's ql-editor lists are properly styled */
+.blog-content .ql-editor ul, .blog-content .ql-editor ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.blog-content .ql-editor ul li, .blog-content .ql-editor ol li {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  list-style-position: outside;
+}
+
+.blog-content .ql-editor ul {
+  list-style-type: disc;
+}
+
+.blog-content .ql-editor ol {
+  list-style-type: decimal;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid hsl(var(--primary));
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+  background-color: hsl(var(--secondary));
+  border-radius: 0 6px 6px 0;
+}
+
+.blog-content pre {
+  background-color: hsl(var(--secondary));
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  margin: 1rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  color: hsl(var(--foreground));
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.blog-content code {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--foreground));
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.blog-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.blog-content a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+
+.blog-content a:hover {
+  opacity: 0.8;
+}
+
+.blog-content strong {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.blog-content em {
+  font-style: italic;
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Notion-style divider in blog content */
+.blog-content hr,
+.blog-content .notion-divider {
+  border: none;
+  border-top: 1px solid hsl(var(--border));
+  margin: 1.5rem 0;
+  width: 100%;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.blog-content hr:hover,
+.blog-content .notion-divider:hover {
+  opacity: 1;
+  border-top-color: hsl(var(--primary));
+}
+
+/* Dark mode enhancement for divider */
+.dark .blog-content hr,
+.dark .blog-content .notion-divider {
+  border-top-color: hsl(var(--border));
+  opacity: 0.8;
+}
+
+.dark .blog-content hr:hover,
+.dark .blog-content .notion-divider:hover {
+  border-top-color: hsl(var(--primary));
+  opacity: 1;
 }

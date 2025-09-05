@@ -2,6 +2,8 @@
 // import React from 'react';
 import { Code, Cpu, Database, BrainCircuit } from 'lucide-react';
 
+// Bagian tersebut disebut sebagai "section" dalam HTML, dengan id="about".
+// Ini adalah elemen <section> yang biasanya digunakan untuk membagi konten menjadi bagian-bagian tematik pada halaman web.
 const About = () => {
   const skills = [
     { 
@@ -73,18 +75,52 @@ const About = () => {
             </div>
             
             <div className="mt-8 glass-effect p-6 rounded-xl animate-fade-in">
-              <h3 className="font-semibold mb-4">Technical Skills</h3>
-              <div className="flex flex-wrap gap-2">
-                {["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Keras", "Computer Vision", 
-                  "NLP", "Reinforcement Learning", "Data Analysis", "Pandas", "SQL", "NoSQL", 
-                  "Azure", "GCP", "Docker", "Kubernetes"].map((tech, index) => (
-                  <span 
-                    key={index} 
-                    className="px-3 py-1 text-xs rounded-full bg-secondary/50 text-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              <h3 className="font-semibold mb-4">Languages & Tools</h3>
+              <div className="space-y-4">
+                {/* Programming Languages */}
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">Programming Languages</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Python", "PHP", "SQL", "JavaScript", "R"].map((tech, index) => (
+                      <span 
+                        key={index} 
+                        className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* AI/ML Frameworks */}
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">AI/ML Frameworks</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", "Keras", "NLTK", "spaCy", "Hugging Face", "OpenCV", "MediaPipe"].map((tech, index) => (
+                      <span 
+                        key={index} 
+                        className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Cloud & DevOps */}
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">Cloud & DevOps</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Google Cloud Platform", "Azure", "Oracle Cloud", "Docker", "Kubernetes", "Git", "MLflow", "Jupyter", "Streamlit", "FastAPI"].map((tech, index) => (
+                      <span 
+                        key={index} 
+                        className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

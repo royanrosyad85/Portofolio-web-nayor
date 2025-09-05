@@ -269,19 +269,19 @@ const Projects = () => {
           onClick={closeModal}
         >
           <div 
-            className="bg-background border border-border rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="bg-background border border-border rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="relative">
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/95 border border-border hover:bg-accent hover:text-accent-foreground transition-colors shadow-lg"
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 p-1.5 sm:p-2 rounded-full bg-background/95 border border-border hover:bg-accent hover:text-accent-foreground transition-colors shadow-lg"
                 aria-label="Close modal"
               >
-                <X size={20} />
+                <X size={16} className="sm:w-5 sm:h-5" />
               </button>
-              <div className="h-64 overflow-hidden rounded-t-2xl">
+              <div className="h-48 sm:h-64 overflow-hidden rounded-t-2xl">
                 <img 
                   src={selectedProject.image} 
                   alt={selectedProject.title}
@@ -295,14 +295,14 @@ const Projects = () => {
             </div>
 
             {/* Modal Content */}
-            <div className="p-8">
-              <div className="mb-6">
-                <h2 className="text-3xl font-bold mb-4 text-foreground">{selectedProject.title}</h2>
-                <div className="flex flex-wrap gap-2 mb-4">
+            <div className="p-4 sm:p-6 lg:p-8">
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 text-foreground">{selectedProject.title}</h2>
+                <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
                   {selectedProject.tags.map((tag) => (
                     <span 
                       key={tag} 
-                      className="px-3 py-1 text-sm rounded-full bg-primary text-primary-foreground"
+                      className="px-2 py-0.5 sm:px-3 sm:py-1 text-xs sm:text-sm rounded-full bg-primary text-primary-foreground"
                     >
                       {categories.find(c => c.id === tag)?.name}
                     </span>
@@ -310,20 +310,20 @@ const Projects = () => {
                 </div>
               </div>
 
-              <div className="prose prose-neutral dark:prose-invert max-w-none mb-8">
-                <p className="text-lg text-muted-foreground leading-relaxed">
+              <div className="prose prose-neutral dark:prose-invert max-w-none mb-6 sm:mb-8">
+                <p className="text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
                   {selectedProject.fullDescription}
                 </p>
               </div>
 
               {/* Technologies */}
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-foreground">Technologies Used</h3>
-                <div className="flex flex-wrap gap-2">
+              <div className="mb-6 sm:mb-8">
+                <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-foreground">Technologies Used</h3>
+                <div className="flex flex-wrap gap-1 sm:gap-2">
                   {selectedProject.technologies.map((tech, index) => (
                     <span 
                       key={index}
-                      className="px-3 py-1 text-sm rounded-full bg-secondary text-secondary-foreground border border-border"
+                      className="px-2 py-0.5 sm:px-3 sm:py-1 text-xs sm:text-sm rounded-full bg-secondary text-secondary-foreground border border-border"
                     >
                       {tech}
                     </span>
@@ -332,12 +332,12 @@ const Projects = () => {
               </div>
 
               {/* Key Features */}
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-foreground">Key Features</h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="mb-6 sm:mb-8">
+                <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-foreground">Key Features</h3>
+                <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                   {selectedProject.features.map((feature, index) => (
-                    <li key={index} className="flex items-center text-muted-foreground">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0"></div>
+                    <li key={index} className="flex items-start text-sm sm:text-base text-muted-foreground">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-1.5 sm:mt-2"></div>
                       {feature}
                     </li>
                   ))}
@@ -345,23 +345,23 @@ const Projects = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <a
                   href={selectedProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium shadow-sm"
+                  className="flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium shadow-sm text-sm sm:text-base"
                 >
-                  <Github size={20} className="mr-2" />
+                  <Github size={16} className="sm:w-5 sm:h-5 mr-2" />
                   View on GitHub
                 </a>
                 <a
                   href={selectedProject.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center px-6 py-3 bg-secondary text-secondary-foreground border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium shadow-sm"
+                  className="flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-secondary text-secondary-foreground border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium shadow-sm text-sm sm:text-base"
                 >
-                  <ExternalLink size={20} className="mr-2" />
+                  <ExternalLink size={16} className="sm:w-5 sm:h-5 mr-2" />
                   Live Demo
                 </a>
               </div>

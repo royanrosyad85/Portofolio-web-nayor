@@ -6,13 +6,13 @@ const Education = () => {
   const education = [
     {
       id: 1,
-      degree: "Undergraduate Degree of Informatics Engineering",
+      degree: "Fresh Graduate Degree of Informatics Engineering",
       institution: "UIN Syarif Hidayatullah Jakarta",
       location: "Jakarta, Indonesia",
       period: "2021 - 2025",
       description: "Focused on Artificial Intelligence and Data Science with minor in Mathematics. Thesis on 'Application of Mediapipe and OpenCV to Detect Movement Error in Gym Exercise Activities'.",
       achievements: [
-        "GPA: 3.82/4.0",
+        "GPA: 3.83/4.0",
         "Distinction Graduate Bangkit Academy 2024",
         "Relevant Coursework : Data Structures and Algorithms, Artificial Intelligence, Database Managements, Web Development and Design, Software Project Management"
       ]
@@ -139,47 +139,6 @@ const Education = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
-            </div>
-            
-            <div className="solid-card rounded-xl p-6 animate-fade-in">
-              <h3 className="text-lg font-semibold mb-4 text-foreground">Languages & Tools</h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-sm font-medium mb-2 text-foreground">Programming Languages</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {["Python", "PHP", "SQL", "JavaScript", "R"].map((lang, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black border border-border">
-                        {lang}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-sm font-medium mb-2 text-foreground">AI/ML Frameworks</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {["TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", 
-                      "Keras", "NLTK", "spaCy", "Hugging Face", "OpenCV", "MediaPipe"].map((lib, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black border border-border">
-                        {lib}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-sm font-medium mb-2 text-foreground">Cloud & DevOps</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {["Google Cloud Platform", "Azure", "Oracle Cloud", "Docker", "Kubernetes", 
-                      "Git", "MLflow", "Jupyter", "Streamlit", "FastAPI"].map((tool, i) => (
-                      <span key={i} className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black border border-border">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
