@@ -18,9 +18,14 @@ const BlogAuth: React.FC<BlogAuthProps> = ({ onAuthenticated }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Valid credentials
-  const VALID_EMAIL = 'royan.rosyad21@mhs.uinjkt.ac.id';
-  const VALID_PASSWORD = 'Jokam354!';
+  // Valid credentials from environment variables
+  const VALID_EMAIL = import.meta.env.VITE_BLOG_ADMIN_EMAIL;
+  const VALID_PASSWORD = import.meta.env.VITE_BLOG_ADMIN_PASSWORD;
+
+  // Validate that environment variables are set
+  if (!VALID_EMAIL || !VALID_PASSWORD) {
+    console.error('Blog admin credentials not configured. Please check your .env file.');
+  }
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -35,6 +40,17 @@ const BlogAuth: React.FC<BlogAuthProps> = ({ onAuthenticated }) => {
 
     // Simulate loading for better UX
     await new Promise(resolve => setTimeout(resolve, 800));
+
+    // Check if environment variables are configured
+    if (!VALID_EMAIL || !VALID_PASSWORD) {
+      toast({
+        title: "Configuration Error",
+        description: "Blog admin credentials are not properly configured. Please contact the administrator.",
+        variant: "destructive"
+      });
+      setIsLoading(false);
+      return;
+    }
 
     if (formData.email === VALID_EMAIL && formData.password === VALID_PASSWORD) {
       // Store authentication in localStorage
