@@ -97,7 +97,7 @@ const Hero = () => {
           <div className="md:w-1/2 flex justify-center animate-fade-in order-1 md:order-2" style={{ animationDelay: '200ms' }}>
             <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg glass-effect p-2">
               <img 
-                src="/img/Linkedin-profil-foto-royanrosyad.jpg"
+                src="/img/Royanrosyad Formal Photo.jpeg"
                 alt="Royanrosyad Formal Photo" 
                 className="rounded-full" 
               />
