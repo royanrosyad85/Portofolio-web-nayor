@@ -112,38 +112,33 @@ const Education = () => {
             <div className="solid-card rounded-xl p-6 animate-fade-in">
               <div className="grid grid-cols-1 gap-4">
                 {certifications.map((cert, index) => (
-                  <div 
+                  <a 
                     key={cert.id}
-                    className="relative p-4 rounded-lg bg-secondary/20 border border-border/50 animate-fade-in hover:bg-secondary/30 transition-colors"
+                    href={cert.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative block p-4 rounded-lg bg-secondary/20 border border-border/50 animate-fade-in hover:bg-secondary/30 transition-colors"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-start justify-between">
                       <div className="flex-1 pr-8">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h4 className="font-medium text-foreground">{cert.name}</h4>
-                        </div>
-                        <div className="text-sm text-primary font-medium">{cert.issuer}</div>
+                        <h4 className="font-medium text-foreground">{cert.name}</h4>
+                        <div className="text-sm text-primary font-medium mt-1">{cert.issuer}</div>
                         {cert.credentialId && (
                           <div className="text-xs text-muted-foreground mt-1">
                             Credential ID: {cert.credentialId}
                           </div>
                         )}
                       </div>
-                      <span className="text-xs text-muted-foreground ml-4">{cert.date}</span>
+                      <div className="flex flex-col items-end">
+                        <span className="text-xs text-muted-foreground">{cert.date}</span>
+                        <ExternalLink 
+                          size={16} 
+                          className="text-muted-foreground mt-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" 
+                        />
+                      </div>
                     </div>
-                    
-                    {cert.link && (
-                      <a
-                        href={cert.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="absolute bottom-3 right-3 inline-flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors bg-primary/10 hover:bg-primary/20 rounded-md px-2 py-1"
-                      >
-                        View Certificate
-                        <ExternalLink size={12} />
-                      </a>
-                    )}
-                  </div>
+                  </a>
                 ))}
               </div>
               
