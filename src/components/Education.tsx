@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { Calendar, BookOpen, Award } from 'lucide-react';
+import { Calendar, BookOpen, Award, ExternalLink } from 'lucide-react';
 
 const Education = () => {
   const education = [
@@ -22,24 +22,35 @@ const Education = () => {
   const certifications = [
     {
       id: 1,
-      name: "Applied Data Science",
-      issuer: "Dicoding",
-      date: "2025",
-      credentialId: "KEXL75LGWXG2"
+      name: "Associate AI Engineer for Developers",
+      issuer: "DataCamp",
+      date: "Sep 2025",
+      credentialId: "247bdb754a5da",
+      link: "https://www.datacamp.com/completed/statement-of-accomplishment/track/247bdb754a5da008069850231490543992234c93"
     },
     {
       id: 2,
-      name: "Applied Machine Learning with Google Cloud",
+      name: "Applied Data Science",
       issuer: "Dicoding",
-      date: "2025",
-      credentialId: "MRZMY3M8RZYQ"
+      date: "Jun 2025",
+      credentialId: "KEXL75LGWXG2",
+      link: "https://www.dicoding.com/certificates/KEXL75LGWXG2"
     },
     {
       id: 3,
-      name: "Oracle Cloud Infrastructure Foundations 2024 Associate",
-      issuer: "Oracle",
-      date: "2024",
-      credentialId: "OCI-2024-FA"
+      name: "Developing a Machine Learning System",
+      issuer: "Dicoding",
+      date: "Jun 2025",
+      credentialId: "MEPJQ8V4LX3V",
+      link: "https://www.dicoding.com/certificates/MEPJQ8V4LX3V"
+    },
+    {
+      id: 4,
+      name: "Applied Machine Learning",
+      issuer: "Dicoding",
+      date: "Mei 2025",
+      credentialId: "6RPNRM4K9X2M",
+      link: "https://www.dicoding.com/certificates/6RPNRM4K9X2M"
     }
   ];
 
@@ -103,11 +114,11 @@ const Education = () => {
                 {certifications.map((cert, index) => (
                   <div 
                     key={cert.id}
-                    className="p-4 rounded-lg bg-secondary/20 border border-border/50 animate-fade-in hover:bg-secondary/30 transition-colors"
+                    className="relative p-4 rounded-lg bg-secondary/20 border border-border/50 animate-fade-in hover:bg-secondary/30 transition-colors"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <div className="flex-1">
+                      <div className="flex-1 pr-8">
                         <div className="flex items-center gap-2 mb-1">
                           <h4 className="font-medium text-foreground">{cert.name}</h4>
                         </div>
@@ -120,6 +131,18 @@ const Education = () => {
                       </div>
                       <span className="text-xs text-muted-foreground ml-4">{cert.date}</span>
                     </div>
+                    
+                    {cert.link && (
+                      <a
+                        href={cert.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute bottom-3 right-3 inline-flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors bg-primary/10 hover:bg-primary/20 rounded-md px-2 py-1"
+                      >
+                        View Certificate
+                        <ExternalLink size={12} />
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
