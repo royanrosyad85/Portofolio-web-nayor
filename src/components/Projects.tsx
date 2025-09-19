@@ -69,6 +69,7 @@ const Projects = () => {
       fullDescription: "Fitness Vision is an advanced computer vision application that analyzes squat form in real-time using MediaPipe pose estimation technology. The system provides immediate feedback on posture correctness, tracks squat repetitions, and evaluates common form errors like knee alignment, body positioning, and depth. It includes Mean Per Joint Position Error (MPJPE) evaluation for assessing pose estimation accuracy, supporting both live webcam analysis and video upload functionality. The application features beginner and pro modes with customizable thresholds, making it suitable for fitness enthusiasts and trainers seeking data-driven workout analysis.",
       image: "/img/V-Squat.png",
       tags: ["cv"],
+      github: "https://github.com/royanrosyad85/Squat-Vision-Mediapipe",
       demo: "https://squat-vision-demo.streamlit.app/",
       technologies: ["Python", "MediaPipe", "OpenCV", "Streamlit", "NumPy", "Computer Vision"],
       features: ["Real-time Pose Estimation", "Form Analysis", "MPJPE Evaluation", "Live Feedback", "Video Processing", "Performance Metrics"]
