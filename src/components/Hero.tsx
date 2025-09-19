@@ -78,9 +78,9 @@ const Hero = () => {
                 View My Work
               </a>
               <a 
-                href="/img/[Resume] ATS Royanrosyad 31-07-2025.pdf" 
-                target="_blank" // Buka di tab baru
-                rel="noopener noreferrer" // Keamanan
+                href="/img/[Resume] ATS Royanrosyad Updated Sept.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex-1 sm:flex-none px-6 py-3 font-medium rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors text-center transition duration-300 ease-in-out transform hover:scale-105"
               >
                 My Resume
