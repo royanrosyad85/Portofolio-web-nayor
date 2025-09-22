@@ -18,7 +18,7 @@ const Experience = () => {
       id: 2,
       role: "AI Engineer Intern",
       company: "Lintasarta",
-      location: "Remote",
+      location: "Hybrid",
       period: "Feb 2025 - Aug 2025",
       description: [
       "Gained hands-on experience in machine learning and deep learning techniques, applying supervised and unsupervised learning algorithms to real-world datasets, and fine-tuning models for optimal performance before deployment.",
@@ -29,7 +29,7 @@ const Experience = () => {
       id: 3,
       role: "DevOps Engineer Intern",
       company: "Ministry of Religion of the Republic of Indonesia",
-      location: "Jakarta, Indonesia",
+      location: "Jakarta, Indonesia (Onsite)",
       period: "Nov 2024 - Feb 2025",
       description: [
       "Played a key role in the development and deployment of the Pusdiklat Room Management System, a web-based application designed to streamline room booking, scheduling, and resource allocation for internal ministry operations.",
