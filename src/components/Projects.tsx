@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ArrowRight, Github, ExternalLink, X } from 'lucide-react';
 
@@ -76,6 +75,17 @@ const Projects = () => {
     },
     {
       id: 6,
+      title: "Predictive Analytics",
+      description: "A machine learning project that classifies water potability using multiple algorithms including Random Forest, KNN, and XGBoost, combined with deep learning approaches using neural networks.",
+      fullDescription: "This comprehensive water quality analysis project addresses the critical public health challenge of determining water potability. Using a dataset of 3,276 water samples with 9 chemical parameters (pH, hardness, solids, chloramines, sulfate, conductivity, organic carbon, trihalomethanes, and turbidity), the project implements both traditional machine learning algorithms (Random Forest, KNN, XGBoost) and deep learning neural networks. The solution includes extensive data preprocessing, handling missing values through oversampling, feature scaling, and hyperparameter optimization using Grid Search. The final model achieves high accuracy in binary classification, helping ensure safe drinking water distribution.",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+      tags: ["ml", "dl"],
+      github: "https://github.com/royanrosyad85/Machine-Learning-Terapan/tree/main/Submission%20Predictive%20Analytics",
+      technologies: ["Python", "Scikit-learn", "TensorFlow", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
+      features: ["Binary Classification", "Data Preprocessing", "Feature Engineering", "Model Comparison", "Hyperparameter Tuning"]
+    },
+    {
+      id: 7,
       title: "E-Commerce RFM and Geospatial Analysis",
       description: "Comprehensive data analytics solution combining RFM (Recency, Frequency, Monetary) customer segmentation with geospatial analysis and interactive Streamlit dashboard.",
       fullDescription: "A comprehensive e-commerce analytics platform that combines advanced RFM (Recency, Frequency, Monetary) customer segmentation with detailed geospatial analysis to provide actionable business insights. The solution features an interactive Streamlit dashboard that displays key e-commerce metrics including 54,011 total orders, 52,601 total customers, and $141.83 average order value. The system includes comprehensive order trends analysis with sophisticated time-series visualization, enabling businesses to understand customer behavior patterns, identify high-value customer segments, and optimize marketing strategies based on geographic and temporal data. The platform provides powerful tools for customer lifecycle analysis, sales forecasting, and regional performance assessment.",
@@ -85,17 +95,6 @@ const Projects = () => {
       demo: "https://e-commerce-data-geospatialanalysis-royanrosyad.streamlit.app/",
       technologies: ["Python", "NumPy", "Plotly", "Streamlit", "Pandas", "Matplotlib"],
       features: ["RFM Analysis", "Customer Segmentation", "Geospatial Analysis", "Interactive Dashboard", "Time-series Visualization", "Performance Metrics"]
-    },
-    {
-      id: 7,
-      title: "Predictive Analytics",
-      description: "A machine learning project that classifies water potability using multiple algorithms including Random Forest, KNN, and XGBoost, combined with deep learning approaches using neural networks.",
-      fullDescription: "This comprehensive water quality analysis project addresses the critical public health challenge of determining water potability. Using a dataset of 3,276 water samples with 9 chemical parameters (pH, hardness, solids, chloramines, sulfate, conductivity, organic carbon, trihalomethanes, and turbidity), the project implements both traditional machine learning algorithms (Random Forest, KNN, XGBoost) and deep learning neural networks. The solution includes extensive data preprocessing, handling missing values through oversampling, feature scaling, and hyperparameter optimization using Grid Search. The final model achieves high accuracy in binary classification, helping ensure safe drinking water distribution.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-      tags: ["ml", "dl"],
-      github: "https://github.com/royanrosyad85/Machine-Learning-Terapan/tree/main/Submission%20Predictive%20Analytics",
-      technologies: ["Python", "Scikit-learn", "TensorFlow", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
-      features: ["Binary Classification", "Data Preprocessing", "Feature Engineering", "Model Comparison", "Hyperparameter Tuning"]
     },
     {
       id: 8,
