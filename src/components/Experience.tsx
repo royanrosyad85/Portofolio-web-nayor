@@ -8,7 +8,7 @@ const Experience = () => {
       role: "AI Automation Engineer",
       company: "Government of Sukabumi",
       location: "Freelance, Remote",
-      period: "Apr 2025 - Aug 2025",
+      period: "Apr 2025 - Sep 2025",
       description: [
         "Designed and implemented sentiment analysis workflow using n8n to process high-volume citizen comments across social media platforms.",
         "Reducing manual review time by 75% and enabling consistent response quality across government communications."
