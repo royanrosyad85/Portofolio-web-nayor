@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import OptimizedImage from './OptimizedImage';
 
 const Hero = () => {
   const typingRef = useRef<HTMLSpanElement>(null);
@@ -12,33 +13,53 @@ const Hero = () => {
     let charIndex = 0;
     let isDeleting = false;
     let typingDelay = 200;
+    let lastTime = 0;
+    let animationId: number;
+    let timeoutId: number;
     
-    const type = () => {
-      const currentText = texts[textIndex];
-      
-      if (isDeleting) {
-        typingElement.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-        typingDelay = 100;
-      } else {
-        typingElement.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-        typingDelay = 200;
+    const type = (currentTime: number) => {
+      if (currentTime - lastTime >= typingDelay) {
+        const currentText = texts[textIndex];
+        
+        if (isDeleting) {
+          typingElement.textContent = currentText.substring(0, charIndex - 1);
+          charIndex--;
+          typingDelay = 100;
+        } else {
+          typingElement.textContent = currentText.substring(0, charIndex + 1);
+          charIndex++;
+          typingDelay = 200;
+        }
+        
+        if (!isDeleting && charIndex === currentText.length) {
+          isDeleting = true;
+          typingDelay = 1500;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          typingDelay = 500;
+        }
+        
+        lastTime = currentTime;
       }
       
-      if (!isDeleting && charIndex === currentText.length) {
-        isDeleting = true;
-        typingDelay = 1500;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typingDelay = 500;
-      }
-      
-      setTimeout(type, typingDelay);
+      animationId = requestAnimationFrame(type);
     };
     
-    setTimeout(type, 1000);
+    // Initial delay before starting animation
+    timeoutId = setTimeout(() => {
+      animationId = requestAnimationFrame(type);
+    }, 1000);
+    
+    // Cleanup function to prevent memory leaks
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
   
   return (
@@ -96,10 +117,13 @@ const Hero = () => {
 
           <div className="md:w-1/2 flex justify-center animate-fade-in order-1 md:order-2" style={{ animationDelay: '200ms' }}>
             <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg glass-effect p-2">
-              <img 
+              <OptimizedImage 
                 src="/img/Royanrosyad Formal Photo.jpeg"
                 alt="Royanrosyad Formal Photo" 
-                className="rounded-full" 
+                className="rounded-full w-full h-full object-cover"
+                width={384}
+                height={384}
+                priority={true}
               />
             </div>
           </div>
