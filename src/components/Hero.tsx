@@ -15,7 +15,7 @@ const Hero = () => {
     let typingDelay = 200;
     let lastTime = 0;
     let animationId: number;
-    let timeoutId: number;
+    let timeoutId: NodeJS.Timeout;
     
     const type = (currentTime: number) => {
       if (currentTime - lastTime >= typingDelay) {
