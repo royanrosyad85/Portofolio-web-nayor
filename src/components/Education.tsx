@@ -25,8 +25,8 @@ const Education = () => {
       name: "Associate AI Engineer for Developers",
       issuer: "DataCamp",
       date: "Sep 2025",
-      credentialId: "247bdb754a5da",
-      link: "https://www.datacamp.com/completed/statement-of-accomplishment/track/247bdb754a5da008069850231490543992234c93"
+      credentialId: "AIEDA0012898205446",
+      link: "https://www.datacamp.com/certificate/AIEDA0012898205446"
     },
     {
       id: 2,
