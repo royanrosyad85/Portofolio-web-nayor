@@ -4,6 +4,17 @@ import { Calendar, MapPin } from 'lucide-react';
 const Experience = () => {
   const experiences = [
     {
+      id: 0,
+      role: "Data Scientist",
+      company: "Zurich Insurance Indonesia",
+      location: "Jakarta, Indonesia",
+      period: "Nov 2025 - Present",
+      description: [
+        "Designs and implements AI-driven systems for research automation and pricing data transformation using Agentic powered tools.",
+        "Built an agent-based pipeline to standardize non-uniform Excel pricing inputs, resulting in improved data consistency and reduced manual effort."
+      ]
+    },
+    {
       id: 1,
       role: "AI Automation Engineer",
       company: "Government of Sukabumi",
