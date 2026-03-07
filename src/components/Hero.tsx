@@ -1,132 +1,65 @@
-import { useEffect, useRef } from 'react';
+import { ArrowDownRight, DownloadSimple } from '@phosphor-icons/react';
+import { motion } from 'framer-motion';
 import OptimizedImage from './OptimizedImage';
 
 const Hero = () => {
-  const typingRef = useRef<HTMLSpanElement>(null);
-  
-  useEffect(() => {
-    const typingElement = typingRef.current;
-    if (!typingElement) return;
-    
-    const texts = ["AI/ML Engineer!", "AI Automation Engineer!"];
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingDelay = 200;
-    let lastTime = 0;
-    let animationId: number;
-    let timeoutId: NodeJS.Timeout;
-    
-    const type = (currentTime: number) => {
-      if (currentTime - lastTime >= typingDelay) {
-        const currentText = texts[textIndex];
-        
-        if (isDeleting) {
-          typingElement.textContent = currentText.substring(0, charIndex - 1);
-          charIndex--;
-          typingDelay = 100;
-        } else {
-          typingElement.textContent = currentText.substring(0, charIndex + 1);
-          charIndex++;
-          typingDelay = 200;
-        }
-        
-        if (!isDeleting && charIndex === currentText.length) {
-          isDeleting = true;
-          typingDelay = 1500;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          textIndex = (textIndex + 1) % texts.length;
-          typingDelay = 500;
-        }
-        
-        lastTime = currentTime;
-      }
-      
-      animationId = requestAnimationFrame(type);
-    };
-    
-    // Initial delay before starting animation
-    timeoutId = setTimeout(() => {
-      animationId = requestAnimationFrame(type);
-    }, 1000);
-    
-    // Cleanup function to prevent memory leaks
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, []);
-  
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-12 md:pt-8 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/5 opacity-90"></div>
-        <div className="absolute top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-40 -right-40 w-96 h-96 bg-accent/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
-      </div>
-      
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="md:w-1/2 text-center md:text-left animate-fade-in order-2 md:order-1">
-            {/* <span className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full glass-effect">
-              Welcome to my portfolio
-            </span> */}
-            
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-              Hi, I'm <span className="text-foreground">Royanrosyad</span>
-            </h1>
-            
-            <div className="text-xl md:text-2xl text-muted-foreground mb-8 h-8">
-              <span className="mr-2">I'm a</span>
-              <span ref={typingRef} className="text-black dark:text-white font-bold"></span>
-              <span className="animate-pulse text-black dark:text-white">|</span>
+    <section id="hero" className="px-4 pb-16 pt-12 sm:px-6 lg:px-8 lg:pb-24 lg:pt-20">
+      <div className="page-shell page-narrow">
+        <div className="grid items-center gap-12 md:gap-8 md:grid-cols-[1.2fr_0.8fr]">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-8"
+          >
+            <div className="space-y-4">
+              <p className="inline-block rounded-full bg-zinc-100 dark:bg-zinc-800 px-3 py-1 text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2 border border-zinc-200 dark:border-zinc-700">
+                Royan Rosyad
+              </p>
+              <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-zinc-950 dark:text-zinc-50 sm:text-5xl lg:text-[4rem]">
+                AI Engineer building practical machine learning products.
+              </h1>
+              <p className="max-w-xl text-base leading-relaxed text-foreground/70 dark:text-zinc-400 sm:text-lg">
+                I focus on AI engineering, LLM workflows, and product-facing interfaces that make complex models genuinely useful in real settings.
+              </p>
             </div>
-            
-            <p className="text-lg md:text-xl max-w-2xl mx-auto md:mx-0 mb-10 text-muted-foreground">
-              Building intelligent systems and extracting insights from data to solve real-world problems.
-            </p>
-            
-            <div className="flex flex-row gap-4 justify-center md:justify-start">
-              <a 
-                href="#projects" 
-                className="flex-1 sm:flex-none px-6 py-3 font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity text-center transition duration-300 ease-in-out transform hover:scale-105"
-              >
-                View My Work
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <a href="#projects" className="group relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-full bg-zinc-950 px-6 font-medium text-white transition-all hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">
+                <span>View selected projects</span>
+                <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" weight="bold" />
               </a>
-              <a 
+              <a
                 href="/img/[Resume] ATS Royanrosyad Updated Sept.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 sm:flex-none px-6 py-3 font-medium rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors text-center transition duration-300 ease-in-out transform hover:scale-105"
+                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 font-medium text-zinc-950 transition-all hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-50 dark:hover:bg-zinc-800"
               >
-                My Resume
+                <span>Download resume</span>
+                <DownloadSimple className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" weight="bold" />
               </a>
-              {/* <a 
-                href="#contact" 
-                className="px-6 py-3 font-medium rounded-lg glass-effect hover:bg-white/10 transition-colors"
-              >
-                Contact Me
-              </a> */}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="md:w-1/2 flex justify-center animate-fade-in order-1 md:order-2" style={{ animationDelay: '200ms' }}>
-            <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg glass-effect p-2">
-              <OptimizedImage 
-                src="/img/Royanrosyad Formal Photo Fix.jpg"
-                alt="Royanrosyad Formal Photo" 
-                className="rounded-full w-full h-full object-cover"
-                width={384}
-                height={384}
-                priority={true}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto w-full max-w-[22rem] md:max-w-full"
+          >
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-zinc-100 dark:bg-zinc-900 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+              <div className="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-[2.5rem] z-10" />
+              <OptimizedImage
+                src="/img/Linkedin-profil-foto-royanrosyad.jpg"
+                alt="Portrait of Royan Rosyad"
+                className="h-full w-full object-cover object-center grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                width={840}
+                height={1050}
+                priority
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

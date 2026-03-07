@@ -1,252 +1,194 @@
+import { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
+import { GithubLogo, LinkedinLogo, PaperPlaneTilt } from '@phosphor-icons/react';
+import { toast } from 'sonner';
+import { contactChannels, socialLinks } from '@/data/portfolio';
 
-import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
-import { toast } from "sonner";
+const encodeFormBody = (values: Record<string, string>) => {
+  return new URLSearchParams(values).toString();
+};
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
   };
-  
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
-      // Create FormData for Netlify submission
-      const formDataForSubmission = new FormData();
-      formDataForSubmission.append('form-name', 'contact');
-      formDataForSubmission.append('name', formData.name);
-      formDataForSubmission.append('email', formData.email);
-      formDataForSubmission.append('subject', formData.subject);
-      formDataForSubmission.append('message', formData.message);
-      
-      // Submit to Netlify
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataForSubmission as any).toString()
+        body: encodeFormBody({
+          'form-name': 'contact',
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
-      
-      if (response.ok) {
-        toast.success("Message sent successfully! I'll get back to you soon.");
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-      } else {
+
+      if (!response.ok) {
         throw new Error('Form submission failed');
       }
+
+      toast.success('Message sent successfully. I will get back to you soon.');
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      toast.error("Failed to send message. Please try again or contact me directly.");
+      toast.error('Message failed to send. Please try again or reach out directly by email.');
       console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
-  
-  const contactInfo = [
-    {
-      icon: <Mail size={20} />,
-      label: "Email",
-      value: "royanrosyad313@gmail.com",
-      href: "mailto:royanrosyad313@gmail.com"
-    },
-    {
-      icon: <MapPin size={20} />,
-      label: "Location",
-      value: "Depok, Jawa Barat, Indonesia",
-      href: "https://maps.app.goo.gl/UeqsgmLB5k8URqeL8"
-    }
-  ];
-  
-  const socialLinks = [
-    {
-      icon: <Linkedin size={18} />,
-      href: "https://www.linkedin.com/in/royanrosyad/",
-      label: "LinkedIn"
-    },
-    {
-      icon: <Github size={18} />,
-      href: "https://github.com/royanrosyad85",
-      label: "GitHub"
-    },
-  ];
+
+  const quickLinks = useMemo(
+    () => [
+      {
+        label: 'LinkedIn',
+        href: socialLinks.find((link) => link.label === 'LinkedIn')?.href ?? 'https://www.linkedin.com/in/royanrosyad/',
+        icon: LinkedinLogo,
+      },
+      {
+        label: 'GitHub',
+        href: socialLinks.find((link) => link.label === 'GitHub')?.href ?? 'https://github.com/royanrosyad85',
+        icon: GithubLogo,
+      },
+    ],
+    [],
+  );
 
   return (
-    <section id="contact" className="py-10 bg-secondary/5">
-      <div className="section-container">
-        <span className="text-sm font-medium text-primary">Get In Touch</span>
-        <h2 className="section-title">Contact Me</h2>
-        <p className="section-subtitle">Let's discuss your project or opportunities</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
-          <div className="animate-slide-right">
-            <div className="glass-effect rounded-xl p-8 h-full">
-              <h3 className="text-xl font-semibold mb-6">Let's Talk</h3>
-              <p className="text-muted-foreground mb-8">
-                Feel free to reach out if you're looking for an AI/ML Engineer, have a question, 
-                or just want to connect.
-              </p>
-              
-              <div className="space-y-6 mb-8">
-                {contactInfo.map((info, index) => (
-                  <a
-                    key={index}
-                    href={info.href}
-                    className="flex items-center hover:text-primary transition-colors"
-                  >
-                    <div className="w-10 h-10 rounded-full glass-effect flex items-center justify-center mr-4">
-                      {info.icon}
-                    </div>
-                    <div>
-                      <div className="text-xs text-muted-foreground">{info.label}</div>
-                      <div className="font-medium">{info.value}</div>
-                    </div>
-                  </a>
-                ))}
+    <section id="contact" className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+      <div className="page-shell page-narrow space-y-8">
+        <div className="space-y-3">
+          <div className="section-kicker">Contact</div>
+          <h2 className="section-title max-w-2xl">Get in touch.</h2>
+          <p className="section-subtitle mb-0 max-w-2xl">
+            If you are building an AI product, automation workflow, or machine learning system, feel free to reach out.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="space-y-3">
+            {contactChannels.map((channel) => (
+              <div key={channel.label} className="minimal-card p-5">
+                <p className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-muted-foreground">{channel.label}</p>
+                <a
+                  href={channel.href}
+                  target={channel.href.startsWith('http') ? '_blank' : undefined}
+                  rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="mt-2 block text-sm text-foreground/78 transition-colors hover:text-foreground dark:text-zinc-200"
+                >
+                  {channel.value}
+                </a>
               </div>
-              
-              <div>
-                <h4 className="text-sm font-medium mb-4">Connect on Social Media</h4>
-                <div className="flex space-x-4">
-                  {socialLinks.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.href}
-                      className="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:bg-white/10 transition-colors"
-                      aria-label={link.label}
-                    >
-                      {link.icon}
-                    </a>
-                  ))}
-                </div>
-              </div>
+            ))}
+
+            <div className="flex flex-wrap gap-3 pt-1">
+              {quickLinks.map(({ label, href, icon: Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="secondary-cta px-4 py-2 text-sm">
+                  <Icon className="h-4 w-4" weight="bold" />
+                  {label}
+                </a>
+              ))}
             </div>
           </div>
-          
-          <div className="animate-slide-left">
-            {/* Hidden form for Netlify detection */}
-            <form 
-              name="contact" 
-              data-netlify="true" 
-              data-netlify-honeypot="bot-field" 
-              style={{ display: 'none' }}
-            >
-              <input type="text" name="name" />
-              <input type="email" name="email" />
-              <input type="text" name="subject" />
-              <textarea name="message"></textarea>
-            </form>
-            
-            <form 
-              onSubmit={handleSubmit} 
-              className="glass-effect rounded-xl p-8"
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="minimal-card p-6"
+          >
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4"
               name="contact"
               method="POST"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
             >
-              <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
-              
-              {/* Hidden fields for Netlify */}
               <input type="hidden" name="form-name" value="contact" />
               <div style={{ display: 'none' }}>
-                <label>
-                  Don't fill this out if you're human: <input name="bot-field" />
+                <label htmlFor="bot-field">
+                  Do not fill this out if you are human.
+                  <input id="bot-field" name="bot-field" />
                 </label>
               </div>
-              
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-1">
-                    Your Name
-                  </label>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+                  Name
                   <input
                     type="text"
-                    id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    autoComplete="name"
                     required
-                    className="w-full px-4 py-2 bg-secondary/20 border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="minimal-input"
                   />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-1">
-                    Your Email
-                  </label>
+                </label>
+                <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+                  Email
                   <input
                     type="email"
-                    id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    autoComplete="email"
+                    spellCheck={false}
                     required
-                    className="w-full px-4 py-2 bg-secondary/20 border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="minimal-input"
                   />
-                </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-1">
-                    Subject
-                  </label>
+                </label>
+              </div>
+
+              <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+                Subject
                   <input
                     type="text"
-                    id="subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
+                    autoComplete="off"
                     required
-                    className="w-full px-4 py-2 bg-secondary/20 border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="minimal-input"
                   />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-1">
-                    Your Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-2 bg-secondary/20 border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-                  ></textarea>
-                </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 px-6 bg-primary text-primary-foreground rounded-lg font-medium flex items-center justify-center hover:opacity-90 transition-opacity disabled:opacity-70"
-                >
-                  {isSubmitting ? (
-                    <>Sending<span className="animate-pulse">...</span></>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send size={16} className="ml-2" />
-                    </>
-                  )}
-                </button>
-              </div>
+              </label>
+
+              <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+                Message
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  rows={6}
+                  className="minimal-input min-h-[10rem] resize-y"
+                />
+              </label>
+
+              <button type="submit" disabled={isSubmitting} className="primary-cta w-full sm:w-auto">
+                {isSubmitting ? 'Sending message' : 'Send message'}
+                <PaperPlaneTilt className="h-4 w-4" weight="bold" />
+              </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

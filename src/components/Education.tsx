@@ -1,164 +1,79 @@
-
-import * as React from 'react';
-import { Calendar, BookOpen, Award, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowSquareOut, GraduationCap, Certificate } from '@phosphor-icons/react';
+import { certifications, education } from '@/data/portfolio';
 
 const Education = () => {
-  const education = [
-    {
-      id: 1,
-      degree: "Fresh Graduate Degree of Informatics Engineering",
-      institution: "UIN Syarif Hidayatullah Jakarta",
-      location: "Jakarta, Indonesia",
-      period: "2021 - 2025",
-      description: "Focused on Artificial Intelligence and Data Science with minor in Mathematics. Thesis on 'Application of Mediapipe and OpenCV to Detect Movement Error in Gym Exercise Activities'.",
-      achievements: [
-        "GPA: 3.83/4.0",
-        "Distinction Graduate Bangkit Academy 2024",
-        "Relevant Coursework : Data Structures and Algorithms, Artificial Intelligence, Database Managements, Web Development and Design, Software Project Management"
-      ]
-    },
-  ];
-  
-  const certifications = [
-    {
-      id: 1,
-      name: "Associate AI Engineer for Developers",
-      issuer: "DataCamp",
-      date: "Sep 2025",
-      credentialId: "AIEDA0012898205446",
-      link: "https://www.datacamp.com/certificate/AIEDA0012898205446"
-    },
-    {
-      id: 2,
-      name: "Applied Data Science",
-      issuer: "Dicoding",
-      date: "Jun 2025",
-      credentialId: "KEXL75LGWXG2",
-      link: "https://www.dicoding.com/certificates/KEXL75LGWXG2"
-    },
-    {
-      id: 3,
-      name: "Developing a Machine Learning System",
-      issuer: "Dicoding",
-      date: "Jun 2025",
-      credentialId: "MEPJQ8V4LX3V",
-      link: "https://www.dicoding.com/certificates/MEPJQ8V4LX3V"
-    },
-    {
-      id: 4,
-      name: "Applied Machine Learning",
-      issuer: "Dicoding",
-      date: "Mei 2025",
-      credentialId: "6RPNRM4K9X2M",
-      link: "https://www.dicoding.com/certificates/6RPNRM4K9X2M"
-    }
-  ];
-
   return (
-    <section id="education" className="py-10 bg-background">
-      <div className="section-container">
-        <span className="text-sm font-medium text-primary">My Background</span>
-        <h2 className="section-title">Education & Certifications</h2>
-        <p className="section-subtitle">Academic qualifications and professional certifications</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <h3 className="text-xl font-semibold inline-flex items-center">
-              <BookOpen size={20} className="mr-2 text-primary" />
-              Academic Education
-            </h3>
-            
-            <div className="space-y-6">
-              {education.map((edu, index) => (
-                <div 
-                  key={edu.id}
-                  className="glass-effect rounded-xl p-6 animate-fade-in"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold">{edu.degree}</h4>
-                    <div className="flex items-center text-xs text-muted-foreground">
-                      <Calendar size={14} className="mr-1" />
-                      <span>{edu.period}</span>
-                    </div>
+    <section id="education" className="px-4 py-16 sm:px-6 lg:px-8">
+      <div className="page-shell page-narrow space-y-10">
+        <div className="space-y-3">
+          <div className="section-kicker">Education & Certifications</div>
+          <h2 className="text-3xl tracking-tight font-medium max-w-2xl">
+            Academic background and continuous learning.
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col gap-6"
+          >
+            {education.map((item) => (
+              <div 
+                key={item.id} 
+                className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 shadow-sm flex-1 flex flex-col"
+              >
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 mb-6">
+                  <GraduationCap className="h-6 w-6" weight="duotone" />
+                </div>
+                <div>
+                  <p className="font-mono text-[0.7rem] uppercase tracking-widest text-muted-foreground">{item.period}</p>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">{item.degree}</h3>
+                  <p className="mt-1 text-sm font-medium text-foreground/80 dark:text-zinc-300">{item.institution}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.location}</p>
+                </div>
+                <p className="mt-6 text-sm leading-relaxed text-foreground/70 dark:text-zinc-400">{item.description}</p>
+                <div className="mt-auto flex flex-wrap gap-2 pt-6">
+                  {item.achievements.map((achievement) => (
+                    <span key={achievement} className="rounded-2xl border border-border bg-secondary px-3.5 py-2 text-xs font-medium leading-relaxed text-foreground dark:bg-accent dark:text-zinc-200">
+                      {achievement}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          <div className="flex flex-col gap-4">
+            {certifications.slice(0, 4).map((certification, index) => (
+              <motion.a
+                key={certification.id}
+                href={certification.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.4, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                className="group flex items-center justify-between gap-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 group-hover:text-primary transition-colors">
+                    <Certificate className="h-5 w-5" weight="duotone" />
                   </div>
-                  
-                  <div className="mb-4">
-                    <div className="text-primary">{edu.institution}</div>
-                    <div className="text-xs text-muted-foreground">{edu.location}</div>
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground mb-4">{edu.description}</p>
-                  
-                  <div className="space-y-2">
-                    <h5 className="text-sm font-medium">Key Achievements:</h5>
-                    <ul className="list-disc pl-5 text-xs text-muted-foreground space-y-1">
-                      {edu.achievements.map((achievement, i) => (
-                        <li key={i}>{achievement}</li>
-                      ))}
-                    </ul>
+                  <div>
+                    <p className="font-mono text-[0.65rem] uppercase tracking-widest text-muted-foreground">{certification.date}</p>
+                    <h3 className="mt-1 text-base font-medium tracking-tight text-zinc-950 dark:text-zinc-50">{certification.name}</h3>
+                    <p className="text-sm text-foreground/60 dark:text-zinc-400">{certification.issuer}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="space-y-8">
-            <h3 className="text-xl font-semibold inline-flex items-center">
-              <Award size={20} className="mr-2 text-primary" />
-              Professional Certifications
-            </h3>
-            
-            <div className="solid-card rounded-xl p-6 animate-fade-in">
-              <div className="grid grid-cols-1 gap-4">
-                {certifications.map((cert, index) => (
-                  <a 
-                    key={cert.id}
-                    href={cert.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative block p-4 rounded-lg bg-secondary/20 border border-border/50 animate-fade-in hover:bg-secondary/30 transition-colors"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 pr-8">
-                        <h4 className="font-medium text-foreground">{cert.name}</h4>
-                        <div className="text-sm text-primary font-medium mt-1">{cert.issuer}</div>
-                        {cert.credentialId && (
-                          <div className="text-xs text-muted-foreground mt-1">
-                            Credential ID: {cert.credentialId}
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-col items-end">
-                        <span className="text-xs text-muted-foreground">{cert.date}</span>
-                        <ExternalLink 
-                          size={16} 
-                          className="text-muted-foreground mt-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" 
-                        />
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-              
-              <div className="mt-6 pt-4 border-t border-border">
-                <h5 className="text-sm font-medium mb-3 text-foreground">Additional Training & Specializations</h5>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-muted-foreground">
-                  {[
-                    "AI Agent Automation Workflows",
-                    "Developing Machine Learning Systems",
-                    "Data Engineering on Google Cloud",
-                    "Cloud Architecture Design Patterns",
-                  ].map((training, i) => (
-                    <li key={i} className="flex items-center">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2 flex-shrink-0"></span>
-                      {training}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+                <ArrowSquareOut className="h-4 w-4 shrink-0 text-zinc-300 dark:text-zinc-600 group-hover:text-primary transition-colors" weight="bold" />
+              </motion.a>
+            ))}
           </div>
         </div>
       </div>

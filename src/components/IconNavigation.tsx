@@ -1,151 +1,114 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { 
-  Home, 
-  FolderOpen, 
-  Briefcase, 
-  GraduationCap, 
-  Mail, 
-  Sun, 
-  Moon,
-  Monitor
-} from 'lucide-react';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+import { Briefcase, House, GraduationCap, Moon, Sun, User, ChatCircleDots, SuitcaseSimple } from '@phosphor-icons/react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
+
+const sectionIds = ['hero', 'about', 'projects', 'experience', 'education', 'contact'] as const;
 
 const IconNavigation = () => {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState<(typeof sectionIds)[number]>('hero');
 
-  // Ensure component is mounted to avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Track active section based on scroll position
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['hero', 'projects', 'experience', 'education', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((node): node is HTMLElement => Boolean(node));
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
+    if (!sections.length) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target.id) {
+          setActiveSection(visible.target.id as (typeof sectionIds)[number]);
         }
-      }
-    };
+      },
+      {
+        rootMargin: '-35% 0px -45% 0px',
+        threshold: [0.2, 0.4, 0.6],
+      },
+    );
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
-  const navItems = [
-    { icon: Home, label: 'Home', href: '/#hero', section: 'hero' },
-    { icon: FolderOpen, label: 'Projects', href: '/#projects', section: 'projects' },
-    { icon: Briefcase, label: 'Experience', href: '/#experience', section: 'experience' },
-    { icon: GraduationCap, label: 'Education', href: '/#education', section: 'education' },
-    { icon: Mail, label: 'Contact', href: '/#contact', section: 'contact' },
-  ];
-
-  const handleThemeToggle = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  };
-
-  const getThemeIcon = () => {
-    if (theme === 'light') return Sun;
-    return Moon;
-  };
-
-  const getThemeLabel = () => {
-    if (theme === 'light') return 'Switch to Dark Mode';
-    return 'Switch to Light Mode';
-  };
-
-  // Don't render until mounted to avoid hydration issues
   if (!mounted) {
     return null;
   }
 
-  const ThemeIcon = getThemeIcon();
+  const navItems = [
+    { icon: House, label: 'Home', href: '/#hero', section: 'hero' as const },
+    { icon: User, label: 'Skills', href: '/#about', section: 'about' as const },
+    { icon: Briefcase, label: 'Projects', href: '/#projects', section: 'projects' as const },
+    { icon: SuitcaseSimple, label: 'Experience', href: '/#experience', section: 'experience' as const },
+    { icon: GraduationCap, label: 'Education', href: '/#education', section: 'education' as const },
+    { icon: ChatCircleDots, label: 'Contact', href: '/#contact', section: 'contact' as const },
+  ];
+
+  const isDark = resolvedTheme === 'dark';
+  const ThemeIcon = isDark ? Sun : Moon;
 
   return (
-    <TooltipProvider delayDuration={300}>
-      <nav className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50">
-        <div className="flex items-center gap-0.5 sm:gap-1 p-1.5 sm:p-2 rounded-2xl glass-effect backdrop-blur-xl bg-background/90 border border-border/50 shadow-xl">
+    <TooltipProvider delayDuration={220}>
+      <nav aria-label="Section navigation" className="fixed bottom-4 left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-fit -translate-x-1/2 sm:bottom-6 sm:w-auto">
+        <div className="flex items-center gap-1 rounded-full border border-border bg-card/90 p-2 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.16)] backdrop-blur-md dark:bg-card/80 dark:shadow-[0_16px_36px_-20px_rgba(0,0,0,0.45)]">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = activeSection === item.section;
-            
+            const active = activeSection === item.section;
+
             return (
               <Tooltip key={item.label}>
                 <TooltipTrigger asChild>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl relative ${
-                      isActive 
-                        ? 'bg-primary text-primary-foreground shadow-2xl scale-105' 
-                        : 'hover:bg-secondary/80'
+                    className={`relative h-10 w-10 rounded-full transition-all duration-300 ${
+                      active
+                        ? 'bg-foreground text-background dark:bg-white dark:text-zinc-950'
+                        : 'text-foreground/65 hover:bg-background hover:text-foreground dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-zinc-100'
                     }`}
                     asChild
                   >
                     <a href={item.href} aria-label={item.label}>
-                      <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                      {isActive && (
-                        <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-2 h-2 sm:w-3 sm:h-3 bg-accent rounded-full animate-pulse" />
-                      )}
+                      <Icon className="h-4.5 w-4.5" weight={active ? 'fill' : 'regular'} />
                     </a>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent 
-                  side="top" 
-                  sideOffset={12}
-                  className="bg-popover text-popover-foreground border border-border shadow-lg rounded-lg px-3 py-2"
-                >
-                  <p className="text-sm font-medium">{item.label}</p>
+                <TooltipContent side="top" sideOffset={12} className="rounded-full border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-lg">
+                  {item.label}
                 </TooltipContent>
               </Tooltip>
             );
           })}
-          
-          {/* Theme Toggle Separator */}
-          <div className="w-px h-6 sm:h-8 bg-border/50 mx-1 sm:mx-2" />
-          
-          {/* Theme Toggle Button */}
+
+          <div className="mx-1 h-6 w-px bg-border" />
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl hover:bg-secondary/80 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                onClick={handleThemeToggle}
+                onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                className="h-10 w-10 rounded-full text-foreground/65 transition-all duration-300 hover:bg-background hover:text-foreground dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-zinc-100"
                 aria-label="Toggle theme"
               >
-                <ThemeIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <ThemeIcon className="h-4.5 w-4.5" weight="regular" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent 
-              side="top" 
-              sideOffset={12}
-              className="bg-popover text-popover-foreground border border-border shadow-lg rounded-lg px-3 py-2"
-            >
-              <p className="text-sm font-medium">{getThemeLabel()}</p>
+            <TooltipContent side="top" sideOffset={12} className="rounded-full border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-lg">
+              {isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             </TooltipContent>
           </Tooltip>
         </div>
