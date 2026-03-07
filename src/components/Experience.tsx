@@ -1,119 +1,65 @@
-// import React from 'react';
-import { Calendar, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Buildings, ClockCountdown } from '@phosphor-icons/react';
+import { experiences } from '@/data/portfolio';
 
 const Experience = () => {
-  const experiences = [
-    {
-      id: 0,
-      role: "Data Scientist",
-      company: "Zurich Insurance Indonesia",
-      location: "Jakarta, Indonesia",
-      period: "Nov 2025 - Present",
-      description: [
-        "Designs and implements AI-driven systems for research automation and pricing data transformation using Agentic powered tools.",
-        "Built an agent-based pipeline to standardize non-uniform Excel pricing inputs, resulting in improved data consistency and reduced manual effort."
-      ]
-    },
-    {
-      id: 1,
-      role: "AI Automation Engineer",
-      company: "Government of Sukabumi",
-      location: "Freelance, Remote",
-      period: "Apr 2025 - Sep 2025",
-      description: [
-        "Designed and implemented sentiment analysis workflow using n8n to process high-volume citizen comments across social media platforms.",
-        "Reducing manual review time by 75% and enabling consistent response quality across government communications."
-      ]
-    },
-    {
-      id: 2,
-      role: "AI Engineer Intern",
-      company: "Lintasarta",
-      location: "Hybrid",
-      period: "Feb 2025 - Aug 2025",
-      description: [
-      "Gained hands-on experience in machine learning and deep learning techniques, applying supervised and unsupervised learning algorithms to real-world datasets, and fine-tuning models for optimal performance before deployment.",
-      "Leveraged MLflow within Azure ML to track experiments, manage model versions, and compare performance metrics across multiple iterations, supporting reproducibility and collaboration"
-      ]
-    },
-    {
-      id: 3,
-      role: "DevOps Engineer Intern",
-      company: "Ministry of Religion of the Republic of Indonesia",
-      location: "Jakarta, Indonesia (Onsite)",
-      period: "Nov 2024 - Feb 2025",
-      description: [
-      "Played a key role in the development and deployment of the Pusdiklat Room Management System, a web-based application designed to streamline room booking, scheduling, and resource allocation for internal ministry operations.",
-      "Implemented CI/CD pipelines using Google Cloud Platform (GCP) to automate testing, building, and deployment. Also contributed to project management and task tracking using Notion, ensuring timely delivery and alignment with business requirements"
-      ]
-    },
-    {
-      id: 4,
-      role: "Cloud Engineer Intern",
-      company: "Bangkit Academy",
-      location: "Remote",
-      period: "Sep 2024 - Jan 2025",
-      description: [
-      "Designed and implemented scalable cloud infrastructure on Google Cloud Platform",
-      "Created the server infrastructure to process API calls and serve machine learning models effectively",
-      "Collaborated in a capstone team to integrate machine learning models with Flask and FastAPI frameworks, deploying them to production-grade environments with minimal latency and high uptime."
-      ]
-    }
-    ];
-
   return (
-    <section id="experience" className="py-10 bg-secondary/5">
-      <div className="section-container">
-        <span className="text-sm font-medium text-primary">My Journey</span>
-        <h2 className="section-title">Professional Experience</h2>
-        <p className="section-subtitle">Where I've worked and what I've accomplished</p>
-        
-        <div className="relative">
-          {/* Timeline line - Adjusted for mobile */}
-          <div className="absolute left-2.5 top-0 bottom-0 w-px bg-border opacity-50 transform -translate-x-1/2 md:left-1/2 md:translate-x-px"></div>
-          
-          {/* Use space-y-8 for mobile spacing, remove relative from here */}
-          <div className="space-y-8"> 
-            {experiences.map((exp, index) => (
-              <div 
-                key={exp.id} 
-                // Apply relative positioning here for the dot
-                className="relative pl-10 md:pl-0 flex flex-col md:flex-row gap-4 md:gap-8 animate-fade-in"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                {/* Timeline dot - Adjusted positioning */}
-                <div className="absolute left-0 top-1 w-5 h-5 bg-primary rounded-full transform -translate-x-1/2 md:left-1/2 md:-translate-x-2.5 z-10"></div>
+    <section id="experience" className="px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+      <div className="page-shell space-y-8">
+        <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+          <div className="space-y-4">
+            <div className="section-kicker">Experience timeline</div>
+            <h2 className="section-title max-w-xl">Experience across AI delivery, automation, infrastructure, and analytics.</h2>
+          </div>
+          <p className="section-subtitle mb-0 max-w-3xl justify-self-end lg:text-right">
+            The work spans public services, insurance, internships, and internal product-like builds. The constant thread is turning ambiguous data or operations into something more structured and easier to act on.
+          </p>
+        </div>
 
-                {/* Left/Top Section (Role, Company, etc.) - Adjusted for mobile and desktop alignment */}
-                <div className={`w-full md:w-1/2 flex flex-col ${index % 2 === 0 ? 'md:items-end md:pr-8' : 'md:items-start md:pl-8 md:order-last'}`}>
-                  <div className={`flex flex-col items-start ${index % 2 === 0 ? 'md:items-end' : 'md:items-start'}`}>
-                    <h3 className="text-xl font-semibold">{exp.role}</h3>
-                    <h4 className="text-primary font-medium">{exp.company}</h4>
-                    
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center text-xs text-muted-foreground mt-2 space-y-1 sm:space-y-0 sm:space-x-4">
-                      <div className="flex items-center">
-                        <Calendar size={14} className="mr-1" />
-                        <span>{exp.period}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <MapPin size={14} className="mr-1" />
-                        <span>{exp.location}</span>
-                      </div>
-                    </div>
-                  </div>
+        <div className="grid gap-4">
+          {experiences.map((experience, index) => (
+            <motion.article
+              key={experience.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ duration: 0.45, delay: index * 0.06 }}
+              className="editorial-card grid gap-5 p-5 sm:p-6 lg:grid-cols-[0.55fr_1fr]"
+            >
+              <div className="space-y-4">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-foreground text-background dark:bg-white dark:text-zinc-950">
+                  <Buildings className="h-5 w-5" weight="duotone" />
                 </div>
-                
-                {/* Right/Bottom Section (Description) - Adjusted padding and width */}
-                <div className={`w-full md:w-1/2 glass-effect p-6 rounded-xl ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
-                  <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                    {exp.description.map((item, i) => (
-                      <li key={i}>{item}</li>
+                <div>
+                  <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">{experience.period}</p>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-zinc-950 dark:text-zinc-50">{experience.role}</h3>
+                  <p className="mt-1 text-base text-foreground/80 dark:text-zinc-200">{experience.company}</p>
+                  <p className="mt-2 inline-flex items-center gap-2 text-sm text-muted-foreground">
+                    <ClockCountdown className="h-4 w-4" weight="duotone" />
+                    {experience.location}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-4 lg:grid-cols-[0.78fr_1fr]">
+                <div className="rounded-[1.5rem] border border-foreground/10 bg-background/75 p-4 dark:border-white/10 dark:bg-black/10">
+                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-muted-foreground">Summary</p>
+                  <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">{experience.summary}</p>
+                </div>
+                <div className="rounded-[1.5rem] border border-foreground/10 bg-background/75 p-4 dark:border-white/10 dark:bg-black/10">
+                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-muted-foreground">Selected contributions</p>
+                  <ul className="mt-3 space-y-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+                    {experience.highlights.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-primary" weight="bold" />
+                        <span>{item}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
               </div>
-            ))}
-          </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

@@ -1,77 +1,62 @@
+import { ArrowUpRight, Copyright, Sparkle } from '@phosphor-icons/react';
+import { socialLinks } from '@/data/portfolio';
 
-// import React from 'react';
-import { Heart, ArrowUp } from 'lucide-react';
+const footerLinks = [
+  { name: 'Home', href: '/#hero' },
+  { name: 'Projects', href: '/#projects' },
+  { name: 'About', href: '/#about' },
+  { name: 'Experience', href: '/#experience' },
+  { name: 'Education', href: '/#education' },
+  { name: 'Contact', href: '/#contact' },
+];
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-  
-  const footerLinks = [
-    {
-      title: "Pages",
-      links: [
-        { name: "Home", href: "/#hero" },
-        { name: "About", href: "/#about" },
-        { name: "Projects", href: "/#projects" },
-        { name: "Contact", href: "/#contact" },
-        { name: "Blog", href: "/blog" }
-      ]
-    },
-    {
-      title: "Social",
-      links: [
-        { name: "LinkedIn", href: "https://www.linkedin.com/in/royanrosyad/" },
-        { name: "GitHub", href: "https://github.com/royanrosyad85" }
-      ]
-    }
-  ];
-
   return (
-    <footer className="bg-secondary/10 pt-10 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div className="md:col-span-1">
-            <a href="/#hero" className="text-2xl font-bold text-gradient mb-4 inline-block">
-              Royanrosyad
-            </a>
-            <p className="text-sm text-muted-foreground mb-6">
-              AI/ML Engineer creating intelligent solutions to complex problems through data-driven approaches.
-            </p>
+    <footer className="px-4 pb-28 sm:px-6 lg:px-8 lg:pb-12">
+      <div className="page-shell editorial-card grid gap-8 p-6 sm:p-7 lg:grid-cols-[0.88fr_1.12fr] lg:p-8">
+        <div className="space-y-4">
+          <div className="section-kicker">
+            <Sparkle className="h-4 w-4" weight="duotone" />
+            Portfolio redesign 2026
           </div>
-          
-          <div className="md:col-span-2 grid grid-cols-2 gap-8">
-            {footerLinks.map((group) => (
-              <div key={group.title}>
-                <h4 className="text-sm font-semibold mb-4">{group.title}</h4>
-                <ul className="space-y-2">
-                  {group.links.map((link) => (
-                    <li key={link.name}>
-                      <a 
-                        href={link.href} 
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <h2 className="text-3xl font-semibold tracking-[-0.05em] text-zinc-950 dark:text-zinc-50">Royan Rosyad</h2>
+          <p className="max-w-xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
+            AI engineer focused on applied systems, operational automation, and interfaces that turn complex workflows into something teams can actually use.
+          </p>
+          <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <Copyright className="h-4 w-4" weight="duotone" />
+            {new Date().getFullYear()} Royan Rosyad
           </div>
         </div>
-        
-        <div className="py-6 border-t border-border flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground mb-4 sm:mb-0">
-            © {new Date().getFullYear()} Royanrosyad. All rights reserved.
-          </p>
-          <div className="flex items-center">
-            <p className="text-xs text-muted-foreground flex items-center">
-              Made with <Heart size={12} className="mx-1 text-primary" /> by Royanrosyad
-            </p>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div>
+            <p className="text-[0.72rem] uppercase tracking-[0.2em] text-muted-foreground">Navigate</p>
+            <div className="mt-4 grid gap-3">
+              {footerLinks.map((link) => (
+                <a key={link.name} href={link.href} className="group flex items-center justify-between rounded-[1.2rem] border border-foreground/10 bg-background/72 px-4 py-3 text-sm text-zinc-700 transition-transform duration-300 hover:-translate-y-[1px] dark:border-white/10 dark:bg-black/10 dark:text-zinc-200">
+                  <span>{link.name}</span>
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" weight="bold" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-[0.72rem] uppercase tracking-[0.2em] text-muted-foreground">Elsewhere</p>
+            <div className="mt-4 grid gap-3">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="group flex items-center justify-between rounded-[1.2rem] border border-foreground/10 bg-background/72 px-4 py-3 text-sm text-zinc-700 transition-transform duration-300 hover:-translate-y-[1px] dark:border-white/10 dark:bg-black/10 dark:text-zinc-200"
+                >
+                  <span>{link.label}</span>
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" weight="bold" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

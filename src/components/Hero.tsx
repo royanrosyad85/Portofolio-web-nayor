@@ -1,132 +1,183 @@
-import { useEffect, useRef } from 'react';
+import { useMemo } from 'react';
+import { ArrowDownRight, DownloadSimple, Sparkle, Stack, Strategy, TrendUp } from '@phosphor-icons/react';
+import { motion } from 'framer-motion';
 import OptimizedImage from './OptimizedImage';
+import { featuredMetrics } from '@/data/portfolio';
+
+const roleSequence = [
+  'AI systems builder',
+  'automation-focused engineer',
+  'applied machine learning practitioner',
+];
+
+const orbitCards = [
+  {
+    title: 'Research to workflow',
+    description: 'Structuring complex data and turning it into usable decisions.',
+    icon: Strategy,
+  },
+  {
+    title: 'Operational AI',
+    description: 'Interfaces that help teams work faster, not just demo better.',
+    icon: Sparkle,
+  },
+  {
+    title: 'Measured delivery',
+    description: 'Product thinking combined with practical model deployment.',
+    icon: TrendUp,
+  },
+];
+
+const sentence = 'I design AI products, enrichment workflows, and machine learning systems that turn operational complexity into interfaces people can actually use.';
 
 const Hero = () => {
-  const typingRef = useRef<HTMLSpanElement>(null);
-  
-  useEffect(() => {
-    const typingElement = typingRef.current;
-    if (!typingElement) return;
-    
-    const texts = ["AI/ML Engineer!", "AI Automation Engineer!"];
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingDelay = 200;
-    let lastTime = 0;
-    let animationId: number;
-    let timeoutId: NodeJS.Timeout;
-    
-    const type = (currentTime: number) => {
-      if (currentTime - lastTime >= typingDelay) {
-        const currentText = texts[textIndex];
-        
-        if (isDeleting) {
-          typingElement.textContent = currentText.substring(0, charIndex - 1);
-          charIndex--;
-          typingDelay = 100;
-        } else {
-          typingElement.textContent = currentText.substring(0, charIndex + 1);
-          charIndex++;
-          typingDelay = 200;
-        }
-        
-        if (!isDeleting && charIndex === currentText.length) {
-          isDeleting = true;
-          typingDelay = 1500;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          textIndex = (textIndex + 1) % texts.length;
-          typingDelay = 500;
-        }
-        
-        lastTime = currentTime;
-      }
-      
-      animationId = requestAnimationFrame(type);
-    };
-    
-    // Initial delay before starting animation
-    timeoutId = setTimeout(() => {
-      animationId = requestAnimationFrame(type);
-    }, 1000);
-    
-    // Cleanup function to prevent memory leaks
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, []);
-  
-  return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-12 md:pt-8 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/5 opacity-90"></div>
-        <div className="absolute top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-40 -right-40 w-96 h-96 bg-accent/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
-      </div>
-      
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="md:w-1/2 text-center md:text-left animate-fade-in order-2 md:order-1">
-            {/* <span className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full glass-effect">
-              Welcome to my portfolio
-            </span> */}
-            
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-              Hi, I'm <span className="text-foreground">Royanrosyad</span>
-            </h1>
-            
-            <div className="text-xl md:text-2xl text-muted-foreground mb-8 h-8">
-              <span className="mr-2">I'm a</span>
-              <span ref={typingRef} className="text-black dark:text-white font-bold"></span>
-              <span className="animate-pulse text-black dark:text-white">|</span>
-            </div>
-            
-            <p className="text-lg md:text-xl max-w-2xl mx-auto md:mx-0 mb-10 text-muted-foreground">
-              Building intelligent systems and extracting insights from data to solve real-world problems.
-            </p>
-            
-            <div className="flex flex-row gap-4 justify-center md:justify-start">
-              <a 
-                href="#projects" 
-                className="flex-1 sm:flex-none px-6 py-3 font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity text-center transition duration-300 ease-in-out transform hover:scale-105"
-              >
-                View My Work
-              </a>
-              <a 
-                href="/img/[Resume] ATS Royanrosyad Updated Sept.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 sm:flex-none px-6 py-3 font-medium rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors text-center transition duration-300 ease-in-out transform hover:scale-105"
-              >
-                My Resume
-              </a>
-              {/* <a 
-                href="#contact" 
-                className="px-6 py-3 font-medium rounded-lg glass-effect hover:bg-white/10 transition-colors"
-              >
-                Contact Me
-              </a> */}
-            </div>
-          </div>
+  const words = useMemo(() => sentence.split(' '), []);
 
-          <div className="md:w-1/2 flex justify-center animate-fade-in order-1 md:order-2" style={{ animationDelay: '200ms' }}>
-            <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg glass-effect p-2">
-              <OptimizedImage 
-                src="/img/Royanrosyad Formal Photo Fix.jpg"
-                alt="Royanrosyad Formal Photo" 
-                className="rounded-full w-full h-full object-cover"
-                width={384}
-                height={384}
-                priority={true}
-              />
+  return (
+    <section id="hero" className="relative overflow-hidden px-4 pb-14 pt-8 sm:px-6 lg:px-8 lg:pb-24 lg:pt-10">
+      <div className="page-shell">
+        <div className="grid gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:items-stretch">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="hero-panel relative overflow-hidden rounded-[2rem] border border-white/50 bg-white/78 p-6 shadow-[0_24px_80px_-40px_rgba(15,23,42,0.28)] backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/72 dark:shadow-[0_30px_90px_-45px_rgba(0,0,0,0.78)] md:p-8 lg:min-h-[78dvh] lg:p-10"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(27,94,79,0.14),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(0,0,0,0.06),transparent_35%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(95,210,180,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.04),transparent_30%)]" />
+            <div className="relative flex h-full flex-col justify-between gap-10">
+              <div className="space-y-8">
+                <div className="flex flex-wrap items-center gap-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-background/70 px-3 py-1.5 text-[0.68rem] text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.24)] dark:border-white/10 dark:bg-white/5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    Available for selected AI product work
+                  </span>
+                  <span>Jakarta — Depok</span>
+                </div>
+
+                <div className="max-w-4xl space-y-5">
+                  <p className="text-sm font-medium uppercase tracking-[0.24em] text-muted-foreground">
+                    Royan Rosyad
+                  </p>
+                  <h1 className="max-w-5xl text-balance text-[2.9rem] font-semibold leading-[0.92] tracking-[-0.06em] text-zinc-950 dark:text-zinc-50 sm:text-[3.6rem] lg:text-[5.4rem]">
+                    Applied intelligence for teams that need more than a model demo.
+                  </h1>
+                  <div className="flex flex-wrap gap-2 text-sm font-medium text-muted-foreground">
+                    {roleSequence.map((role) => (
+                      <span
+                        key={role}
+                        className="inline-flex items-center rounded-full border border-foreground/10 bg-background/65 px-3 py-1.5 text-[0.78rem] text-foreground/80 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200"
+                      >
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="max-w-3xl text-pretty text-base leading-8 text-zinc-600 dark:text-zinc-300 sm:text-lg">
+                    {words.map((word, index) => (
+                      <motion.span
+                        key={`${word}-${index}`}
+                        initial={{ opacity: 0, y: 14, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.38, delay: index * 0.035, ease: [0.16, 1, 0.3, 1] }}
+                        className="mr-[0.35em] inline-block"
+                      >
+                        {word}
+                      </motion.span>
+                    ))}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <a href="#projects" className="primary-cta">
+                    See selected work
+                    <ArrowDownRight className="h-4 w-4" weight="bold" />
+                  </a>
+                  <a
+                    href="/img/[Resume] ATS Royanrosyad Updated Sept.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="secondary-cta"
+                  >
+                    Download resume
+                    <DownloadSimple className="h-4 w-4" weight="bold" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-3">
+                {featuredMetrics.map((metric, index) => (
+                  <motion.div
+                    key={metric.label}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.35 + index * 0.08 }}
+                    className="rounded-[1.5rem] border border-foreground/10 bg-background/76 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] dark:border-white/10 dark:bg-white/5 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                  >
+                    <div className="text-[0.72rem] uppercase tracking-[0.2em] text-muted-foreground">{metric.label}</div>
+                    <div className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-zinc-950 dark:text-zinc-50">{metric.value}</div>
+                    <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{metric.note}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
+
+          <motion.aside
+            initial={{ opacity: 0, x: 32 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="grid gap-4"
+          >
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-zinc-950 p-5 text-zinc-50 shadow-[0_28px_80px_-35px_rgba(15,23,42,0.46)] dark:border-white/10 dark:bg-zinc-900 sm:p-6 lg:min-h-[420px]">
+              <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_55%)]" />
+              <div className="relative flex h-full flex-col justify-between gap-6">
+                <div className="flex items-center justify-between text-[0.72rem] uppercase tracking-[0.2em] text-zinc-400">
+                  <span>Portfolio signal</span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-zinc-200">
+                    <Stack className="h-4 w-4" weight="duotone" />
+                    Fresh layout
+                  </span>
+                </div>
+
+                <div className="mx-auto w-full max-w-[20rem] rounded-[1.75rem] border border-white/10 bg-white/6 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-lg">
+                  <div className="rounded-[1.4rem] overflow-hidden bg-zinc-900/50">
+                    <OptimizedImage
+                      src="/img/Linkedin-profil-foto-royanrosyad.jpg"
+                      alt="Royan Rosyad portrait"
+                      className="h-full w-full object-cover"
+                      width={840}
+                      height={960}
+                      priority
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-sm uppercase tracking-[0.24em] text-zinc-400">Current focus</p>
+                  <p className="max-w-md text-lg leading-8 text-zinc-100">
+                    Building agent-assisted workflows, enrichment tools, and applied ML interfaces that make structured decisions faster.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {orbitCards.map(({ title, description, icon: Icon }, index) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: 0.3 + index * 0.08 }}
+                  className="rounded-[1.7rem] border border-white/45 bg-white/78 p-5 shadow-[0_18px_60px_-34px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-[0_22px_70px_-38px_rgba(0,0,0,0.76)]"
+                >
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-foreground text-background dark:bg-white dark:text-zinc-950">
+                    <Icon className="h-5 w-5" weight="duotone" />
+                  </div>
+                  <h2 className="text-lg font-semibold tracking-[-0.03em] text-zinc-950 dark:text-zinc-50">{title}</h2>
+                  <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.aside>
         </div>
       </div>
     </section>

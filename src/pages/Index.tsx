@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Projects from '../components/Projects';
@@ -11,16 +10,34 @@ import IconNavigation from '../components/IconNavigation';
 
 const Index = () => {
   useEffect(() => {
-    // Scroll to top when page loads
-    window.scrollTo(0, 0);
+    if (window.location.hash) {
+      const targetId = window.location.hash.replace('#', '');
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        requestAnimationFrame(() => {
+          targetElement.scrollIntoView({ block: 'start' });
+        });
+      }
+
+      return;
+    }
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      <main>
+    <div className="min-h-[100dvh] bg-background text-foreground">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
+      >
+        Skip to content
+      </a>
+      <main id="main-content" tabIndex={-1}>
         <Hero />
-        <About />
         <Projects />
+        <About />
         <Experience />
         <Education />
         <Contact />

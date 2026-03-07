@@ -1,129 +1,81 @@
+import { motion } from 'framer-motion';
+import { BracketsCurly, CirclesThreePlus, Database, Robot } from '@phosphor-icons/react';
+import { capabilityGroups, highlightPillars } from '@/data/portfolio';
 
-// import React from 'react';
-import { Code, Cpu, Database, BrainCircuit } from 'lucide-react';
+const icons = [Robot, Database, BracketsCurly, CirclesThreePlus] as const;
 
-// Bagian tersebut disebut sebagai "section" dalam HTML, dengan id="about".
-// Ini adalah elemen <section> yang biasanya digunakan untuk membagi konten menjadi bagian-bagian tematik pada halaman web.
 const About = () => {
-  const skills = [
-    { 
-      name: 'Machine Learning', 
-      icon: <BrainCircuit className="w-5 h-5 text-primary" />,
-      description: 'Building and deploying ML models including supervised, unsupervised, and reinforcement learning.'
-    },
-    { 
-      name: 'Deep Learning', 
-      icon: <Cpu className="w-5 h-5 text-primary" />,
-      description: 'Designing neural networks for computer vision, NLP, and generative AI applications.'
-    },
-    { 
-      name: 'Data Engineering', 
-      icon: <Database className="w-5 h-5 text-primary" />,
-      description: 'Experience with data pipelines, ETL processes, and big data technologies.'
-    },
-    { 
-      name: 'MLOps', 
-      icon: <Code className="w-5 h-5 text-primary" />,
-      description: 'Implementing ML workflows with CI/CD, monitoring, and production deployment.'
-    }
-  ];
-
   return (
-    <section id="about" className="py-10 bg-background">
-      <div className="section-container">
-        <div className="flex flex-col md:flex-row gap-12">
-          <div className="md:w-1/2">
-            <span className="text-sm font-medium text-primary">About Me</span>
-            <h2 className="section-title">Bringing Intelligence to Applications</h2>
-            <p className="section-subtitle">My journey in AI and machine learning</p>
-            
-            <div className="space-y-6 text-muted-foreground animate-slide-up">
-              <p>
-                As an AI/ML Engineer, I combine technical expertise with a passion for solving complex problems. 
-                I specialize in developing machine learning models and AI systems that drive innovation and deliver 
-                meaningful results.
-              </p>
-              <p>
-                My approach integrates cutting-edge ML techniques with robust software engineering practices to 
-                build scalable, production-ready solutions. I'm passionate about staying at the forefront of AI 
-                advancements and applying them to create impact.
-              </p>
-              <p>
-                When I'm not coding or training models, I enjoy sharing my knowledge through writing technical blogs
-                and contributing to open-source projects in the AI community.
-              </p>
-            </div>
+    <section id="about" className="px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
+      <div className="page-shell grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="editorial-card flex flex-col justify-between gap-8 p-6 sm:p-7 lg:p-8">
+          <div className="space-y-5">
+            <div className="section-kicker">Working method</div>
+            <h2 className="section-title max-w-xl">I approach AI work like a product system, not a notebook experiment.</h2>
+            <p className="section-subtitle mb-0 max-w-xl">
+              The strongest projects tend to sit at the intersection of research, structure, and usability. My focus is building systems that make model output, automation, and decision support accessible to the teams who need them daily.
+            </p>
           </div>
-          
-          <div className="md:w-1/2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {skills.map((skill, index) => (
-                <div 
-                  key={index}
-                  className="glass-effect p-6 rounded-xl hover:border-primary/30 transition-all duration-300 animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {highlightPillars.map((pillar, index) => {
+              const Icon = icons[index % icons.length];
+
+              return (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  className="rounded-[1.5rem] border border-foreground/10 bg-background/75 p-4 dark:border-white/10 dark:bg-black/10"
                 >
-                  <div className="flex items-center mb-3">
-                    <div className="mr-3 p-2 rounded-md bg-secondary/50">
-                      {skill.icon}
-                    </div>
-                    <h3 className="font-semibold">{skill.name}</h3>
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-foreground text-background dark:bg-white dark:text-zinc-950">
+                    <Icon className="h-5 w-5" weight="duotone" />
                   </div>
-                  <p className="text-sm text-muted-foreground">{skill.description}</p>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-8 glass-effect p-6 rounded-xl animate-fade-in">
-              <h3 className="font-semibold mb-4">Languages & Tools</h3>
-              <div className="space-y-4">
-                {/* Programming Languages */}
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground mb-2">Programming Languages</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {["Python", "PHP", "SQL", "JavaScript", "R"].map((tech, index) => (
-                      <span 
-                        key={index} 
-                        className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* AI/ML Frameworks */}
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground mb-2">AI/ML Frameworks</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {["TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy", "Keras", "NLTK", "spaCy", "Hugging Face", "OpenCV", "MediaPipe"].map((tech, index) => (
-                      <span 
-                        key={index} 
-                        className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Cloud & DevOps */}
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground mb-2">Cloud & DevOps</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {["Google Cloud Platform", "Azure", "Oracle Cloud", "Docker", "Kubernetes", "Git", "MLflow", "Jupyter", "Streamlit", "FastAPI"].map((tech, index) => (
-                      <span 
-                        key={index} 
-                        className="px-3 py-1 text-xs rounded-full bg-black text-white dark:bg-white dark:text-black"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+                  <h3 className="mt-4 text-lg font-semibold tracking-[-0.04em] text-zinc-950 dark:text-zinc-50">{pillar.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">{pillar.description}</p>
+                </motion.div>
+              );
+            })}
           </div>
+        </div>
+
+        <div className="grid gap-4">
+          {capabilityGroups.map((group, index) => {
+            const Icon = icons[(index + 1) % icons.length];
+
+            return (
+              <motion.article
+                key={group.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                className="editorial-card p-5 sm:p-6"
+              >
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="space-y-2">
+                    <div className="section-kicker">Capability group {String(index + 1).padStart(2, '0')}</div>
+                    <h3 className="text-2xl font-semibold tracking-[-0.05em] text-zinc-950 dark:text-zinc-50">{group.title}</h3>
+                  </div>
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-foreground/10 bg-background/70 dark:border-white/10 dark:bg-white/5">
+                    <Icon className="h-5 w-5 text-foreground dark:text-zinc-100" weight="duotone" />
+                  </div>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-foreground/10 bg-background/80 px-3 py-1.5 text-sm text-zinc-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
