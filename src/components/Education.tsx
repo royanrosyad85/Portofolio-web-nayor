@@ -36,9 +36,9 @@ const Education = () => {
                   <p className="mt-1 text-sm text-muted-foreground">{item.location}</p>
                 </div>
                 <p className="mt-6 text-sm leading-relaxed text-foreground/70 dark:text-zinc-400">{item.description}</p>
-                <div className="mt-auto pt-6 flex flex-wrap gap-2">
+                <div className="mt-auto flex flex-wrap gap-2 pt-6">
                   {item.achievements.map((achievement) => (
-                    <span key={achievement} className="minimal-pill text-xs">
+                    <span key={achievement} className="rounded-2xl border border-border bg-secondary px-3.5 py-2 text-xs font-medium leading-relaxed text-foreground dark:bg-accent dark:text-zinc-200">
                       {achievement}
                     </span>
                   ))}
