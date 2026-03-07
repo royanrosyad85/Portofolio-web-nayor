@@ -45,6 +45,16 @@ export interface CertificationItem {
   link: string;
 }
 
+export interface SkillItem {
+  name: string;
+  logo: string;
+}
+
+export interface SkillGroup {
+  title: string;
+  items: SkillItem[];
+}
+
 export const projectCategories: { id: ProjectTag; name: string }[] = [
   { id: 'all', name: 'All projects' },
   { id: 'automation', name: 'Automation' },
@@ -76,19 +86,61 @@ export const highlightPillars = [
   },
 ];
 
-export const capabilityGroups = [
+export const capabilityGroups: SkillGroup[] = [
   {
-    title: 'Core stack',
-    items: ['Python', 'TypeScript', 'SQL', 'FastAPI', 'Streamlit', 'React'],
+    title: 'Programming Languages',
+    items: [
+      { name: 'Python', logo: 'python' },
+      { name: 'PHP', logo: 'php' },
+      { name: 'SQL', logo: 'sql' },
+      { name: 'JavaScript', logo: 'javascript' },
+    ],
   },
   {
-    title: 'AI systems',
-    items: ['LangGraph', 'Azure OpenAI', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'OpenCV'],
+    title: 'AI/ML Frameworks',
+    items: [
+      { name: 'LangGraph', logo: 'langgraph' },
+      { name: 'LangChain', logo: 'langchain' },
+      { name: 'TensorFlow', logo: 'tensorflow' },
+      { name: 'PyTorch', logo: 'pytorch' },
+      { name: 'Scikit-learn', logo: 'scikitlearn' },
+      { name: 'Pandas', logo: 'pandas' },
+      { name: 'NumPy', logo: 'numpy' },
+      { name: 'Keras', logo: 'keras' },
+      { name: 'NLTK', logo: 'nltk' },
+      { name: 'spaCy', logo: 'spacy' },
+      { name: 'Hugging Face', logo: 'huggingface' },
+      { name: 'MediaPipe', logo: 'mediapipe' },
+    ],
   },
   {
-    title: 'Data and delivery',
-    items: ['n8n', 'Notion API', 'Google Cloud', 'Azure ML', 'MLflow', 'Docker'],
+    title: 'Cloud & DevOps',
+    items: [
+      { name: 'Google Cloud Platform (GCP)', logo: 'gcp' },
+      { name: 'Azure', logo: 'azure' },
+      { name: 'Oracle Cloud', logo: 'oracle' },
+      { name: 'Docker', logo: 'docker' },
+      { name: 'Kubernetes', logo: 'kubernetes' },
+      { name: 'Git', logo: 'git' },
+      { name: 'MLflow', logo: 'mlflow' },
+      { name: 'Jupyter', logo: 'jupyter' },
+      { name: 'Streamlit', logo: 'streamlit' },
+      { name: 'FastAPI', logo: 'fastapi' },
+    ],
   },
+];
+
+export const relevantSkills = [
+  'Python',
+  'PyTorch',
+  'TensorFlow',
+  'LLMs',
+  'LangGraph',
+  'Scikit-Learn',
+  'OpenCV',
+  'FastAPI',
+  'SQL',
+  'React',
 ];
 
 export const projects: ProjectItem[] = [
