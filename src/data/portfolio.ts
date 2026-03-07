@@ -20,6 +20,7 @@ export interface ExperienceItem {
   id: number;
   role: string;
   company: string;
+  companyLogo: 'zurich' | 'government' | 'lintasarta' | 'kemenag' | 'bangkit';
   location: string;
   period: string;
   summary: string;
@@ -323,6 +324,7 @@ export const experiences: ExperienceItem[] = [
     id: 0,
     role: 'Data Scientist',
     company: 'Zurich Insurance Indonesia',
+    companyLogo: 'zurich',
     location: 'Jakarta, Indonesia',
     period: 'Nov 2025 — Present',
     summary: 'Working on research automation and pricing data transformation with agentic systems in an insurance context.',
@@ -335,6 +337,7 @@ export const experiences: ExperienceItem[] = [
     id: 1,
     role: 'AI Automation Engineer',
     company: 'Government of Sukabumi',
+    companyLogo: 'government',
     location: 'Freelance, remote',
     period: 'Apr 2025 — Sep 2025',
     summary: 'Built public communication automations to manage high-volume social interactions with consistent response quality.',
@@ -347,6 +350,7 @@ export const experiences: ExperienceItem[] = [
     id: 2,
     role: 'AI Engineer Intern',
     company: 'Lintasarta',
+    companyLogo: 'lintasarta',
     location: 'Hybrid',
     period: 'Feb 2025 — Aug 2025',
     summary: 'Focused on machine learning experimentation, model tuning, and deployment workflows.',
@@ -359,6 +363,7 @@ export const experiences: ExperienceItem[] = [
     id: 3,
     role: 'DevOps Engineer Intern',
     company: 'Ministry of Religion of the Republic of Indonesia',
+    companyLogo: 'kemenag',
     location: 'Jakarta, Indonesia',
     period: 'Nov 2024 — Feb 2025',
     summary: 'Supported web application delivery, infrastructure automation, and internal workflow coordination.',
@@ -371,6 +376,7 @@ export const experiences: ExperienceItem[] = [
     id: 4,
     role: 'Cloud Engineer Intern',
     company: 'Bangkit Academy',
+    companyLogo: 'bangkit',
     location: 'Remote',
     period: 'Sep 2024 — Jan 2025',
     summary: 'Built cloud infrastructure for machine learning-backed APIs and collaborated on deployment-readiness.',
