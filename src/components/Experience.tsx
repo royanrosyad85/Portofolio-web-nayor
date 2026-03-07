@@ -1,65 +1,68 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Buildings, ClockCountdown } from '@phosphor-icons/react';
+import { Briefcase } from '@phosphor-icons/react';
 import { experiences } from '@/data/portfolio';
 
 const Experience = () => {
   return (
-    <section id="experience" className="px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
-      <div className="page-shell space-y-8">
-        <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
-          <div className="space-y-4">
-            <div className="section-kicker">Experience timeline</div>
-            <h2 className="section-title max-w-xl">Experience across AI delivery, automation, infrastructure, and analytics.</h2>
+    <section id="experience" className="px-4 py-16 sm:px-6 lg:px-8">
+      <div className="page-shell page-narrow">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-8 items-start">
+          
+          <div className="space-y-4 md:sticky md:top-32">
+            <div className="section-kicker">Experience</div>
+            <h2 className="text-3xl tracking-tight font-medium max-w-sm">
+              Roles that shaped my AI engineering work.
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-sm leading-relaxed">
+              Recent experience across AI workflows, machine learning, automation, infrastructure, and delivery.
+            </p>
           </div>
-          <p className="section-subtitle mb-0 max-w-3xl justify-self-end lg:text-right">
-            The work spans public services, insurance, internships, and internal product-like builds. The constant thread is turning ambiguous data or operations into something more structured and easier to act on.
-          </p>
-        </div>
 
-        <div className="grid gap-4">
-          {experiences.map((experience, index) => (
-            <motion.article
-              key={experience.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.18 }}
-              transition={{ duration: 0.45, delay: index * 0.06 }}
-              className="editorial-card grid gap-5 p-5 sm:p-6 lg:grid-cols-[0.55fr_1fr]"
-            >
-              <div className="space-y-4">
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-foreground text-background dark:bg-white dark:text-zinc-950">
-                  <Buildings className="h-5 w-5" weight="duotone" />
+          <div className="space-y-6">
+            {experiences.map((experience, index) => (
+              <motion.article
+                key={experience.id}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ scale: 0.98, transition: { duration: 0.2, ease: "easeOut" } }}
+                className="group relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="absolute top-8 right-8 text-zinc-300 dark:text-zinc-700 group-hover:text-primary transition-colors">
+                  <Briefcase className="w-6 h-6" weight="duotone" />
                 </div>
-                <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">{experience.period}</p>
-                  <h3 className="mt-3 text-2xl font-semibold tracking-[-0.05em] text-zinc-950 dark:text-zinc-50">{experience.role}</h3>
-                  <p className="mt-1 text-base text-foreground/80 dark:text-zinc-200">{experience.company}</p>
-                  <p className="mt-2 inline-flex items-center gap-2 text-sm text-muted-foreground">
-                    <ClockCountdown className="h-4 w-4" weight="duotone" />
-                    {experience.location}
+                
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <p className="font-mono text-[0.7rem] uppercase tracking-widest text-muted-foreground">
+                      {experience.period}
+                    </p>
+                    <h3 className="text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+                      {experience.role}
+                    </h3>
+                    <p className="text-sm font-medium text-foreground/80 dark:text-zinc-300">
+                      {experience.company} <span className="text-muted-foreground font-normal ml-1">— {experience.location}</span>
+                    </p>
+                  </div>
+                  
+                  <p className="text-sm leading-relaxed text-foreground/70 dark:text-zinc-400 max-w-xl">
+                    {experience.summary}
                   </p>
-                </div>
-              </div>
-
-              <div className="grid gap-4 lg:grid-cols-[0.78fr_1fr]">
-                <div className="rounded-[1.5rem] border border-foreground/10 bg-background/75 p-4 dark:border-white/10 dark:bg-black/10">
-                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-muted-foreground">Summary</p>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">{experience.summary}</p>
-                </div>
-                <div className="rounded-[1.5rem] border border-foreground/10 bg-background/75 p-4 dark:border-white/10 dark:bg-black/10">
-                  <p className="text-[0.72rem] uppercase tracking-[0.2em] text-muted-foreground">Selected contributions</p>
-                  <ul className="mt-3 space-y-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                    {experience.highlights.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-primary" weight="bold" />
-                        <span>{item}</span>
+                  
+                  <ul className="space-y-2 pt-2">
+                    {experience.highlights.map((highlight, i) => (
+                      <li key={i} className="text-sm leading-relaxed text-foreground/70 dark:text-zinc-400 flex items-start gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700 shrink-0" />
+                        <span>{highlight}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
