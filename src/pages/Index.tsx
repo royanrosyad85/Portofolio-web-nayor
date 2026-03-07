@@ -36,8 +36,8 @@ const Index = () => {
       </a>
       <main id="main-content" tabIndex={-1}>
         <Hero />
-        <Projects />
         <About />
+        <Projects />
         <Experience />
         <Education />
         <Contact />
