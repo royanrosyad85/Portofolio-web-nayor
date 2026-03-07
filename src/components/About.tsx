@@ -1,82 +1,189 @@
+import type { CSSProperties, ComponentType } from 'react';
 import { motion } from 'framer-motion';
-import { BracketsCurly, CirclesThreePlus, Database, Robot } from '@phosphor-icons/react';
-import { capabilityGroups, highlightPillars } from '@/data/portfolio';
+import {
+  siDocker,
+  siFastapi,
+  siGit,
+  siGooglecloud,
+  siHuggingface,
+  siJavascript,
+  siJupyter,
+  siKeras,
+  siKubernetes,
+  siLangchain,
+  siMediapipe,
+  siMlflow,
+  siNumpy,
+  siPandas,
+  siPhp,
+  siPython,
+  siPytorch,
+  siScikitlearn,
+  siSpacy,
+  siStreamlit,
+  siTensorflow,
+} from 'simple-icons';
+import { Database, FlowArrow, Cloud } from '@phosphor-icons/react';
+import { capabilityGroups } from '@/data/portfolio';
 
-const icons = [Robot, Database, BracketsCurly, CirclesThreePlus] as const;
+type PhosphorWeight = 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone';
+
+type PhosphorIconComponent = ComponentType<{
+  className?: string;
+  weight?: PhosphorWeight;
+  style?: CSSProperties;
+}>;
+
+type SvgBrandIcon = {
+  kind: 'svg';
+  path: string;
+  color: string;
+  darkColor?: string;
+};
+
+type PhosphorBrandIcon = {
+  kind: 'phosphor';
+  phosphor: PhosphorIconComponent;
+  color: string;
+  darkColor?: string;
+};
+
+type BrandIcon = SvgBrandIcon | PhosphorBrandIcon;
+
+const iconMap: Record<string, BrandIcon> = {
+  python: { kind: 'svg', path: siPython.path, color: '#3776AB' },
+  php: { kind: 'svg', path: siPhp.path, color: '#777BB4' },
+  sql: { kind: 'phosphor', phosphor: Database, color: '#2563EB' },
+  javascript: { kind: 'svg', path: siJavascript.path, color: '#F7DF1E', darkColor: '#F7DF1E' },
+  langgraph: { kind: 'phosphor', phosphor: FlowArrow, color: '#111827', darkColor: '#F3F4F6' },
+  langchain: { kind: 'svg', path: siLangchain.path, color: '#1C3C3C', darkColor: '#D1FAE5' },
+  tensorflow: { kind: 'svg', path: siTensorflow.path, color: '#FF6F00' },
+  pytorch: { kind: 'svg', path: siPytorch.path, color: '#EE4C2C' },
+  scikitlearn: { kind: 'svg', path: siScikitlearn.path, color: '#F7931E' },
+  pandas: { kind: 'svg', path: siPandas.path, color: '#150458', darkColor: '#E9D5FF' },
+  numpy: { kind: 'svg', path: siNumpy.path, color: '#013243' },
+  keras: { kind: 'svg', path: siKeras.path, color: '#D00000' },
+  nltk: { kind: 'phosphor', phosphor: FlowArrow, color: '#4B5563', darkColor: '#D1D5DB' },
+  spacy: { kind: 'svg', path: siSpacy.path, color: '#09A3D5' },
+  huggingface: { kind: 'svg', path: siHuggingface.path, color: '#FFD21E' },
+  mediapipe: { kind: 'svg', path: siMediapipe.path, color: '#0097A7' },
+  gcp: { kind: 'svg', path: siGooglecloud.path, color: '#4285F4' },
+  azure: { kind: 'phosphor', phosphor: Cloud, color: '#0078D4' },
+  oracle: { kind: 'phosphor', phosphor: Cloud, color: '#C74634' },
+  docker: { kind: 'svg', path: siDocker.path, color: '#2496ED' },
+  kubernetes: { kind: 'svg', path: siKubernetes.path, color: '#326CE5' },
+  git: { kind: 'svg', path: siGit.path, color: '#F05032' },
+  mlflow: { kind: 'svg', path: siMlflow.path, color: '#0194E2' },
+  jupyter: { kind: 'svg', path: siJupyter.path, color: '#F37626' },
+  streamlit: { kind: 'svg', path: siStreamlit.path, color: '#FF4B4B' },
+  fastapi: { kind: 'svg', path: siFastapi.path, color: '#009688' },
+};
+
+const sectionIconMap = {
+  'Programming Languages': '01',
+  'AI/ML Frameworks': '02',
+  'Cloud & DevOps': '03',
+} as const;
 
 const About = () => {
   return (
-    <section id="about" className="px-4 py-14 sm:px-6 lg:px-8 lg:py-24">
-      <div className="page-shell grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-        <div className="editorial-card flex flex-col justify-between gap-8 p-6 sm:p-7 lg:p-8">
+    <section id="about" className="px-4 py-16 sm:px-6 lg:px-8">
+      <div className="page-shell page-narrow">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-8"
+        >
+          <div className="space-y-3">
+            <div className="section-kicker">Relevant skills</div>
+            <h2 className="text-3xl tracking-tight font-medium max-w-2xl">
+              Core tools I use across AI systems, ML workflows, and deployment.
+            </h2>
+          </div>
+
           <div className="space-y-5">
-            <div className="section-kicker">Working method</div>
-            <h2 className="section-title max-w-xl">I approach AI work like a product system, not a notebook experiment.</h2>
-            <p className="section-subtitle mb-0 max-w-xl">
-              The strongest projects tend to sit at the intersection of research, structure, and usability. My focus is building systems that make model output, automation, and decision support accessible to the teams who need them daily.
-            </p>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            {highlightPillars.map((pillar, index) => {
-              const Icon = icons[index % icons.length];
-
-              return (
-                <motion.div
-                  key={pillar.title}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.45, delay: index * 0.06 }}
-                  className="rounded-[1.5rem] border border-foreground/10 bg-background/75 p-4 dark:border-white/10 dark:bg-black/10"
-                >
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-foreground text-background dark:bg-white dark:text-zinc-950">
-                    <Icon className="h-5 w-5" weight="duotone" />
-                  </div>
-                  <h3 className="mt-4 text-lg font-semibold tracking-[-0.04em] text-zinc-950 dark:text-zinc-50">{pillar.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">{pillar.description}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="grid gap-4">
-          {capabilityGroups.map((group, index) => {
-            const Icon = icons[(index + 1) % icons.length];
-
-            return (
-              <motion.article
+            {capabilityGroups.map((group, groupIndex) => (
+              <motion.div
                 key={group.title}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.45, delay: index * 0.08 }}
-                className="editorial-card p-5 sm:p-6"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: groupIndex * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="skills-panel"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="space-y-2">
-                    <div className="section-kicker">Capability group {String(index + 1).padStart(2, '0')}</div>
-                    <h3 className="text-2xl font-semibold tracking-[-0.05em] text-zinc-950 dark:text-zinc-50">{group.title}</h3>
+                  <div className="space-y-1 sm:max-w-[14rem]">
+                    <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-muted-foreground">
+                      {sectionIconMap[group.title as keyof typeof sectionIconMap]}
+                    </p>
+                    <h3 className="skills-group-title">{group.title}</h3>
                   </div>
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-foreground/10 bg-background/70 dark:border-white/10 dark:bg-white/5">
-                    <Icon className="h-5 w-5 text-foreground dark:text-zinc-100" weight="duotone" />
+
+                  <div className="flex flex-wrap gap-3 sm:max-w-[44rem]">
+                    {group.items.map((skill, skillIndex) => {
+                      const icon = iconMap[skill.logo as keyof typeof iconMap];
+
+                      return (
+                        <motion.div
+                          key={skill.name}
+                          initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.4 }}
+                          transition={{
+                            duration: 0.32,
+                            delay: groupIndex * 0.05 + skillIndex * 0.02,
+                            ease: [0.16, 1, 0.3, 1],
+                          }}
+                          whileHover={{ y: -2 }}
+                          className="skills-chip"
+                        >
+                          <span className="skills-chip-icon" aria-hidden="true">
+                            {icon.kind === 'phosphor' ? (
+                              <>
+                                <icon.phosphor className="h-4 w-4 dark:hidden" weight="duotone" style={{ color: icon.color }} />
+                                <icon.phosphor
+                                  className="hidden h-4 w-4 dark:block"
+                                  weight="duotone"
+                                  style={{ color: icon.darkColor || icon.color }}
+                                />
+                              </>
+                            ) : (
+                              <>
+                                <svg
+                                  viewBox="0 0 24 24"
+                                  width="16"
+                                  height="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill={icon.color}
+                                  className="dark:hidden"
+                                >
+                                  <path d={icon.path} />
+                                </svg>
+                                <svg
+                                  viewBox="0 0 24 24"
+                                  width="16"
+                                  height="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill={icon.darkColor || icon.color}
+                                  className="hidden dark:block"
+                                >
+                                  <path d={icon.path} />
+                                </svg>
+                              </>
+                            )}
+                          </span>
+                          <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">{skill.name}</span>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-foreground/10 bg-background/80 px-3 py-1.5 text-sm text-zinc-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </motion.article>
-            );
-          })}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
