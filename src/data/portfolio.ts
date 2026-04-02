@@ -330,7 +330,7 @@ export const experiences: ExperienceItem[] = [
     summary: 'Working on research automation and pricing data transformation with agentic systems in an insurance context.',
     highlights: [
       'Designed AI-driven workflows for research automation and pricing data transformation.',
-      'Built an agent-based pipeline to standardize non-uniform Excel pricing inputs and reduce manual cleanup.',
+      'Developed Deep Agents pipeline automating research workflows and intelligent excel claim processing to help underwriting teams standardize schemas, derive actuarial columns, and reduce manual workflow by 60%.',
     ],
   },
   {
