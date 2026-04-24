@@ -40,11 +40,13 @@ const Header = () => {
       <div className="px-4 sm:px-6 lg:px-8"> 
         <div className="flex justify-between items-center">
           {/* Adjust font size and margins for mobile */}
+          {/* Removed logo text as requested */}
           <Link 
             to="/" 
             className="text-xl sm:text-2xl font-bold text-white sm:ml-12 sm:mt-5 sm:mb-4"
+            aria-label="Home"
           >
-            Royan Rosyad
+            {/* Logo space */}
           </Link>
           
           <nav className="hidden md:flex space-x-8">
