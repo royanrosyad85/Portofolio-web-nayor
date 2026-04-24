@@ -45,9 +45,9 @@ const Experience = () => {
         <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[1fr_2fr] md:gap-8">
           <div className="space-y-4 md:sticky md:top-32">
             <div className="section-kicker">Experience</div>
-            <h2 className="max-w-sm text-3xl font-medium tracking-tight">Roles that shaped my AI engineering work.</h2>
+            <h2 className="max-w-sm text-3xl font-medium tracking-tight">My work experience.</h2>
             <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Recent experience across AI workflows, machine learning, automation, infrastructure, and delivery.
+              Recent roles in AI engineering and machine learning.
             </p>
           </div>
 

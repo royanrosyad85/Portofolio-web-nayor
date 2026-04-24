@@ -55,9 +55,9 @@ const Projects = () => {
       <div className="page-shell page-narrow space-y-8">
         <div className="space-y-3">
           <div className="section-kicker">Selected projects</div>
-          <h2 className="section-title max-w-2xl">A few projects that best represent my AI and machine learning work.</h2>
+          <h2 className="section-title max-w-2xl">My recent AI and machine learning projects.</h2>
           <p className="section-subtitle mb-0 max-w-2xl">
-            A concise selection of projects across LLM systems, machine learning, automation, and applied product interfaces.
+            Examples of my work with LLM systems, machine learning, and automation.
           </p>
         </div>
 

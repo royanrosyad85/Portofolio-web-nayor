@@ -4,28 +4,33 @@ import OptimizedImage from './OptimizedImage';
 
 const Hero = () => {
   return (
-    <section id="hero" className="px-4 pb-16 pt-12 sm:px-6 lg:px-8 lg:pb-24 lg:pt-20">
-      <div className="page-shell page-narrow">
-        <div className="grid items-center gap-12 md:gap-8 md:grid-cols-[1.2fr_0.8fr]">
+    <section id="hero" className="relative px-4 pb-16 pt-20 sm:px-6 lg:px-8 lg:pb-24 lg:pt-28 overflow-hidden bg-zinc-50/50 dark:bg-zinc-950/50">
+      {/* Background dot pattern */}
+      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-50" />
+
+      <div className="page-shell page-narrow relative z-10">
+        <div className="flex flex-col-reverse md:grid items-center gap-12 md:gap-8 md:grid-cols-[1.3fr_0.7fr]">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-8"
+            className="space-y-8 text-center md:text-left"
           >
-            <div className="space-y-4">
-              <p className="inline-block rounded-full bg-zinc-100 dark:bg-zinc-800 px-3 py-1 text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2 border border-zinc-200 dark:border-zinc-700">
-                Royan Rosyad
-              </p>
-              <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-zinc-950 dark:text-zinc-50 sm:text-5xl lg:text-[4rem]">
-                AI Engineer building practical machine learning products.
+            <div className="space-y-6">
+              <h1 className="text-balance text-4xl font-bold leading-[1.1] tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-5xl lg:text-[4rem]">
+                Hi, I'm Royan 👋
               </h1>
-              <p className="max-w-xl text-base leading-relaxed text-foreground/70 dark:text-zinc-400 sm:text-lg">
-                I focus on AI engineering, LLM workflows, and product-facing interfaces that make complex models genuinely useful in real settings.
-              </p>
+              <div className="space-y-4">
+                <p className="mx-auto md:mx-0 max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-[1.1rem]">
+                  AI Engineer and Data Scientist. I build practical AI solutions with agentic systems, large language models, and applied machine learning. I enjoy exploring new technology and turning complex problems into useful products.
+                </p>
+                <p className="mx-auto md:mx-0 max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-[1.1rem]">
+                  Most recently, I built multi-agent and deep-agents solutions for company research and Excel claim processing, helping teams reduce manual workflows and improve operational efficiency.
+                </p>
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
               <a href="#projects" className="group relative inline-flex h-12 items-center justify-center gap-2 overflow-hidden rounded-full bg-zinc-950 px-6 font-medium text-white transition-all hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">
                 <span>View selected projects</span>
                 <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" weight="bold" />
