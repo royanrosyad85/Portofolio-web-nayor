@@ -338,7 +338,7 @@ export const experiences: ExperienceItem[] = [
     role: 'AI Automation Engineer',
     company: 'Government of Sukabumi',
     companyLogo: 'government',
-    location: 'Freelance, remote',
+    location: 'Contract, remote',
     period: 'Apr 2025 — Sep 2025',
     summary: 'Built public communication automations to manage high-volume social interactions with consistent response quality.',
     highlights: [
