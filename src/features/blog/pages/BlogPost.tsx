@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, Bookmark, Eye } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import Footer from '../components/Footer';
-import IconNavigation from '../components/IconNavigation';
-import { blogData, BlogPost as BlogPostType } from '../lib/blogData';
+import Footer from '../../../components/common/Footer';
+import IconNavigation from '../../../components/common/IconNavigation';
+import { blogData, BlogPost as BlogPostType } from '../lib/blog-data';
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();

@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import NotionEditor from '../components/NotionEditor';
 import ImageUploader from '../components/ImageUploader';
 import DeleteConfirmation from '../components/admin/DeleteConfirmation';
-import { blogData, BlogPost } from '../lib/blogData';
+import { blogData, BlogPost } from '../lib/blog-data';
 
 interface BlogAdminProps {
   onLogout?: () => void;

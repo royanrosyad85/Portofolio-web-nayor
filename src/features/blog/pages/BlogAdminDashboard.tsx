@@ -7,11 +7,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import BlogStats from '../components/BlogStats';
-import { blogData, BlogPost } from '../lib/blogData';
-import AdminHeader from '@/components/admin/AdminHeader';
-import FilterBar from '@/components/admin/FilterBar';
-import PostRow from '@/components/admin/PostRow';
-import EmptyState from '@/components/admin/EmptyState';
+import { blogData, BlogPost } from '../lib/blog-data';
+import AdminHeader from '@/features/blog/components/admin/AdminHeader';
+import FilterBar from '@/features/blog/components/admin/FilterBar';
+import PostRow from '@/features/blog/components/admin/PostRow';
+import EmptyState from '@/features/blog/components/admin/EmptyState';
 
 interface BlogAdminDashboardProps {
   onLogout?: () => void;

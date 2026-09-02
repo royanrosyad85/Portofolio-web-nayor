@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Clock, Eye, ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import Footer from '../components/Footer';
-import IconNavigation from '../components/IconNavigation';
-import { blogData, BlogPost } from '../lib/blogData';
+import Footer from '../../../components/common/Footer';
+import IconNavigation from '../../../components/common/IconNavigation';
+import { blogData, BlogPost } from '../lib/blog-data';
 
 const BlogListing = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
