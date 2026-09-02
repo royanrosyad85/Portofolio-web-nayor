@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Home } from "lucide-react";
-import IconNavigation from '../components/IconNavigation';
+import IconNavigation from '../components/common/IconNavigation';
 
 const NotFound = () => {
   const location = useLocation();
