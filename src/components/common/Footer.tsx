@@ -1,5 +1,5 @@
 import { Copyright } from '@phosphor-icons/react';
-import { socialLinks } from '@/data/portfolio';
+import { siteConfig, socialLinks } from '@/config/site';
 
 const Footer = () => {
   return (
@@ -7,10 +7,10 @@ const Footer = () => {
       <div className="page-shell page-narrow border-t border-border pt-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-medium text-zinc-950 dark:text-zinc-50">Royan Rosyad</p>
+            <p className="text-sm font-medium text-zinc-950 dark:text-zinc-50">{siteConfig.name}</p>
             <div className="mt-1 inline-flex items-center gap-2 text-sm text-muted-foreground">
               <Copyright className="h-4 w-4" weight="duotone" />
-              {new Date().getFullYear()} Royan Rosyad
+              <span className="tabular-nums">{new Date().getFullYear()}</span> {siteConfig.name}
             </div>
           </div>
 
