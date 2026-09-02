@@ -77,11 +77,30 @@
     @apply scroll-smooth;
   }
 
+  /* While Lenis drives momentum scrolling, hand scroll control fully to it. */
+  html.lenis,
+  html.lenis body {
+    scroll-behavior: auto;
+  }
+
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden font-sans;
     font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv02';
     min-height: 100dvh;
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Avoid orphans/awkward breaks: balanced headings, pretty body copy. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ::selection {
@@ -92,6 +111,24 @@
   ::-moz-selection {
     background: hsl(var(--primary) / 0.16);
     color: hsl(var(--foreground));
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.7rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid hsl(var(--background));
+    border-radius: 999px;
+    background: hsl(var(--muted-foreground) / 0.35);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--foreground) / 0.5);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -110,12 +147,105 @@
     @apply max-w-4xl;
   }
 
+  .hero-surface {
+    background:
+      radial-gradient(circle at 82% 18%, hsl(var(--primary) / 0.12), transparent 25rem),
+      linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary) / 0.48));
+  }
+
+  .hero-orbit {
+    position: absolute;
+    border: 1px solid hsl(var(--primary) / 0.14);
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .hero-orbit-one {
+    width: 38rem;
+    height: 38rem;
+    top: -25rem;
+    right: -14rem;
+  }
+
+  .hero-orbit-two {
+    width: 24rem;
+    height: 24rem;
+    top: -13rem;
+    right: 6rem;
+  }
+
+  .availability-chip {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium;
+    border-color: rgb(16 185 129 / 0.24);
+    background: rgb(16 185 129 / 0.09);
+    color: rgb(4 120 87);
+  }
+
+  .dark .availability-chip {
+    color: rgb(110 231 183);
+  }
+
+  .hero-primary-action,
+  .hero-secondary-action {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-[transform,background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background active:scale-[0.96] sm:px-6;
+  }
+
+  .hero-primary-action {
+    @apply bg-foreground text-background hover:opacity-90 dark:bg-white dark:text-zinc-950;
+  }
+
+  .hero-secondary-action {
+    @apply border bg-card text-foreground hover:bg-secondary;
+    border-color: hsl(var(--border));
+  }
+
+  .hero-proof-line {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground/65 dark:text-zinc-300;
+  }
+
+  .hero-proof-line > span:not(:first-child)::before {
+    content: '•';
+    margin-right: 1rem;
+    color: hsl(var(--primary));
+  }
+
+  .hero-portrait-frame {
+    @apply relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-zinc-100 shadow-[0_28px_70px_-36px_rgba(15,23,42,0.35)] dark:bg-zinc-900 dark:shadow-[0_28px_70px_-36px_rgba(0,0,0,0.72)];
+  }
+
+  .hero-portrait-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .dark .hero-portrait-frame::after {
+    border-color: rgb(255 255 255 / 0.1);
+  }
+
+  .hero-role-card {
+    @apply absolute bottom-4 left-4 right-4 grid gap-1 rounded-2xl border p-4 text-sm shadow-[0_12px_30px_-18px_rgba(15,23,42,0.24)] backdrop-blur-md sm:bottom-5 sm:left-5 sm:right-auto sm:min-w-[15rem];
+    border-color: hsl(var(--border) / 0.82);
+    background: hsl(var(--card) / 0.88);
+  }
+
+  .hero-role-card strong {
+    @apply text-base font-semibold tracking-[-0.02em] text-foreground;
+  }
+
+  .hero-role-card > span:last-child {
+    color: hsl(var(--foreground) / 0.66);
+  }
+
   .section-title {
-    @apply text-3xl font-semibold leading-tight tracking-[-0.04em] text-zinc-950 dark:text-zinc-50 sm:text-4xl;
+    @apply text-3xl font-semibold leading-tight tracking-[-0.04em] text-balance text-zinc-950 dark:text-zinc-50 sm:text-4xl;
   }
 
   .section-subtitle {
-    @apply text-base leading-8 sm:text-lg dark:text-zinc-300;
+    @apply text-base leading-8 text-pretty sm:text-lg dark:text-zinc-300;
     color: hsl(var(--foreground) / 0.72);
   }
 
@@ -124,11 +254,11 @@
   }
 
   .primary-cta {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-all duration-300 hover:-translate-y-[1px] hover:opacity-95 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background dark:bg-white dark:text-zinc-950;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-[transform,opacity] duration-200 hover:-translate-y-[1px] hover:opacity-95 active:translate-y-0 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background dark:bg-white dark:text-zinc-950;
   }
 
   .secondary-cta {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-medium transition-[transform,background-color,border-color] duration-200 hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background;
     border-color: hsl(var(--border));
     background: hsl(var(--card));
     color: hsl(var(--foreground));
