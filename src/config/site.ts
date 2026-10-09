@@ -18,7 +18,7 @@ export interface SocialLink {
 export const siteConfig = {
   name: 'Royan Rosyad',
   role: 'AI Engineer & Data Scientist',
-  resumeUrl: '/img/Royanrosyad CV AI Engineering July 2026.pdf',
+  resumeUrl: '/img/Royanrosyad CV AI Engineering Okt 26.pdf',
 } as const;
 
 export const contactChannels: ContactChannel[] = [
