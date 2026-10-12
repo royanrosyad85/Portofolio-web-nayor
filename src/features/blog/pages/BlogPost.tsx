@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, Bookmark, Eye } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import Footer from '../../../components/common/Footer';
 import IconNavigation from '../../../components/common/IconNavigation';
+import { revealDelay } from '@/hooks/use-scroll-reveal';
 import { blogData, BlogPost as BlogPostType } from '../lib/blog-data';
 
 const BlogPost = () => {
@@ -37,13 +37,13 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="flex min-h-[100dvh] items-center justify-center bg-background px-5">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Post Not Found</h1>
-          <p className="text-muted-foreground mb-6">
+          <h1 className="blog-post-title mb-4 text-[2rem] sm:text-[2.5rem]">Post Not Found</h1>
+          <p className="body-copy mx-auto mb-8 max-w-sm text-base">
             The blog post you're looking for doesn't exist or has been removed.
           </p>
-          <Link to="/blog" className="text-primary hover:underline">
+          <Link to="/blog" className="btn btn-secondary">
             ← Back to Blog
           </Link>
         </div>
@@ -92,93 +92,90 @@ const BlogPost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="pt-8 pb-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link to="/blog" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors">
-            <ArrowLeft size={16} className="mr-2" />
+    <div className="min-h-[100dvh] bg-background">
+      <main className="pb-16 pt-6 sm:pt-8">
+        <div className="container-page">
+          <Link to="/blog" className="back-link group">
+            <ArrowLeft size={16} className="transition-transform duration-200 ease-out group-hover:-translate-x-0.5" />
             Back to Blog
           </Link>
           
-          <article className="animate-fade-in">
+          <article className="mt-8 sm:mt-10">
             {/* Featured Image as Cover - Notion Style */}
             {post.image && (
-              <div className="blog-cover-image mb-12">
+              <div className="blog-cover media-outline mb-10 sm:mb-14" data-reveal>
                 <img 
                   src={post.image} 
                   alt={post.title} 
-                  className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-lg shadow-lg"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  decoding="async"
                 />
               </div>
             )}
             
-            <div className="mb-12">
-              <div className="flex items-center space-x-4 mb-8">
-                <Badge variant="secondary" className="text-sm">
+            <header className="reading-column mb-10 sm:mb-12" data-reveal>
+              <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <span className="tag">
                   {getCategoryName(post.category)}
-                </Badge>
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <Calendar size={14} className="mr-1" />
+                </span>
+                <div className="meta inline-flex items-center gap-1.5 text-sm">
+                  <Calendar size={14} aria-hidden="true" />
                   <span>{formatDate(post.createdAt)}</span>
                 </div>
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <Clock size={14} className="mr-1" />
+                <div className="meta inline-flex items-center gap-1.5 text-sm">
+                  <Clock size={14} aria-hidden="true" />
                   <span>{calculateReadTime(post.content)}</span>
                 </div>
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <Eye size={14} className="mr-1" />
+                <div className="meta inline-flex items-center gap-1.5 text-sm">
+                  <Eye size={14} aria-hidden="true" />
                   <span>{post.views} views</span>
                 </div>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight font-serif">
+              <h1 className="blog-post-title">
                 {post.title}
               </h1>
               
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-accent mr-3 flex items-center justify-center">
-                    <span className="text-primary-foreground font-semibold">R</span>
+              <div className="mt-8 flex items-center justify-between gap-4 border-y py-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground">
+                    <span className="font-display font-semibold text-background">R</span>
                   </div>
                   <div>
-                    <div className="font-medium">Royanrosyad</div>
-                    <div className="text-xs text-muted-foreground">AI/ML Engineer</div>
+                    <div className="text-[0.9375rem] font-medium text-foreground">Royanrosyad</div>
+                    <div className="text-[0.8125rem] text-muted-foreground">AI/ML Engineer</div>
                   </div>
                 </div>
                 
-                <div className="flex space-x-2">
+                <div className="flex gap-1">
                   <button 
                     onClick={handleShare}
-                    className="p-2 rounded-full hover:bg-secondary/50 transition-colors" 
+                    className="icon-button" 
                     aria-label="Share"
                   >
                     <Share2 size={18} />
                   </button>
-                  <button className="p-2 rounded-full hover:bg-secondary/50 transition-colors" aria-label="Bookmark">
+                  <button className="icon-button" aria-label="Bookmark">
                     <Bookmark size={18} />
                   </button>
                 </div>
               </div>
-            </div>
+            </header>
             
-            <div className="blog-content">
+            <div className="blog-content reading-column">
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
             </div>
             
-            <div className="mt-10 pt-6 border-t border-border">
-              <div className="flex flex-wrap items-center">
-                <span className="flex items-center mr-3 mb-2">
-                  <Tag size={16} className="mr-2" />
-                  <span className="text-sm text-muted-foreground">Tags:</span>
+            <div className="reading-column mt-12 border-t pt-6">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="mr-1 inline-flex items-center gap-2 text-sm text-muted-foreground">
+                  <Tag size={15} aria-hidden="true" />
+                  <span>Tags:</span>
                 </span>
                 {post.tags.map((tag, index) => (
-                  <Badge 
-                    key={index} 
-                    variant="outline"
-                    className="mr-2 mb-2"
-                  >
+                  <span key={index} className="tag-outline">
                     {tag}
-                  </Badge>
+                  </span>
                 ))}
               </div>
             </div>
@@ -186,60 +183,67 @@ const BlogPost = () => {
           
           {/* Related Posts */}
           {relatedPosts.length > 0 && (
-            <div className="mt-16">
-              <h3 className="text-2xl font-bold mb-8">Related Articles</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <section className="mt-20 sm:mt-24" aria-labelledby="related-title">
+              <div className="section-head" data-reveal>
+                <h2 id="related-title" className="section-label">Related Articles</h2>
+              </div>
+              <ul className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
                 {relatedPosts.map((relatedPost, index) => (
-                  <Link
-                    key={relatedPost.id}
-                    to={`/blog/${relatedPost.id}`}
-                    className="group glass-effect rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    {relatedPost.image && (
-                      <div className="h-32 overflow-hidden">
-                        <img 
-                          src={relatedPost.image} 
-                          alt={relatedPost.title} 
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      </div>
-                    )}
-                    <div className="p-4">
-                      <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                        {relatedPost.title}
-                      </h4>
-                      <p className="text-sm text-muted-foreground line-clamp-2">
-                        {relatedPost.excerpt}
-                      </p>
-                      <div className="flex items-center justify-between mt-3 text-xs text-muted-foreground">
-                        <span>{formatDate(relatedPost.createdAt)}</span>
-                        <div className="flex items-center">
-                          <Eye size={12} className="mr-1" />
-                          {relatedPost.views}
+                  <li key={relatedPost.id} data-reveal style={revealDelay(index * 70)}>
+                    <Link
+                      to={`/blog/${relatedPost.id}`}
+                      className="project-card group flex flex-col"
+                    >
+                      {relatedPost.image && (
+                        <div className="project-media media-outline aspect-[16/10]">
+                          <img 
+                            src={relatedPost.image} 
+                            alt={relatedPost.title} 
+                            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                      )}
+                      <div className="flex flex-1 flex-col px-3 pb-3 pt-4">
+                        <h3 className="card-title line-clamp-2 text-[1.125rem]">
+                          {relatedPost.title}
+                        </h3>
+                        <p className="body-copy mt-2 line-clamp-2 text-sm">
+                          {relatedPost.excerpt}
+                        </p>
+                        <div className="meta mt-auto flex items-center justify-between pt-4">
+                          <span>{formatDate(relatedPost.createdAt)}</span>
+                          <div className="inline-flex items-center gap-1.5">
+                            <Eye size={13} aria-hidden="true" />
+                            {relatedPost.views}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           )}
           
-          <div className="mt-16 glass-effect rounded-xl p-8 animate-fade-in">
-            <h3 className="text-xl font-semibold mb-4">Join the Conversation</h3>
-            <form>
+          <div className="surface reading-column mt-16 p-6 sm:mt-20 sm:p-8" data-reveal>
+            <h3 className="card-title mb-5">Join the Conversation</h3>
+            <form className="flex flex-col gap-4">
               <textarea
                 placeholder="Share your thoughts on this article..."
                 rows={4}
-                className="w-full px-4 py-2 bg-secondary/20 border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary resize-none mb-4"
+                aria-label="Share your thoughts on this article"
+                className="field min-h-[7.5rem] resize-none py-3 leading-relaxed"
               ></textarea>
-              <button
-                type="submit"
-                className="px-6 py-2 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
-              >
-                Post Comment
-              </button>
+              <div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                >
+                  Post Comment
+                </button>
+              </div>
             </form>
           </div>
         </div>

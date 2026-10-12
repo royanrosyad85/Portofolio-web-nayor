@@ -9,7 +9,7 @@ A modern, responsive portfolio website showcasing AI/ML projects, professional e
 
 ## 🚀 Live Demo
 
-**Website**: [Visit Portfolio](https://royanrosyad.dev)
+**Website**: [Visit Portfolio](https://royanrosyad.pages.dev)
 
 ## ✨ Features
 
@@ -256,7 +256,33 @@ npm run preview
 
 ## 🚀 Deployment
 
-### **Netlify (Recommended)**
+### **Cloudflare Pages (Production)**
+
+The production site is `royanrosyad.pages.dev`. The existing Workers Builds Git
+integration builds `main` and uploads `dist` to the Pages project `royanrosyad`.
+
+Use these production build settings:
+
+- Build command: `npm ci --include=dev && npm run build`
+- Deploy command: `npx --yes wrangler@4.149.0 pages deploy dist --project-name royanrosyad --branch main`
+- Root directory: `/`
+- Build variables: `SKIP_DEPENDENCY_INSTALL=1` and `NODE_VERSION=22.23.2`
+- Build API token: account permission **Cloudflare Pages → Edit** for the hosting account.
+
+Preview builds use the same npm build command and variables, with deploy command
+`npx --yes wrangler@4.149.0 pages deploy dist --project-name royanrosyad --branch preview-${WORKERS_CI_BRANCH:?}`.
+The `preview-` prefix keeps preview uploads separate from production `main`.
+
+Automatic dependency installation must stay disabled: the repository also contains
+Bun and pnpm lockfiles, which can make Cloudflare select a different installer.
+Use npm and update `package-lock.json` whenever dependencies change. Before merging
+to `main`, run `npm ci --include=dev`, `npm run lint`, and `npm run build`.
+
+Changing build settings does not deploy files by itself. Retry the build after a
+settings change, then confirm its deploy step succeeds and the Pages production
+deployment points to the intended commit.
+
+### **Netlify (Alternative)**
 1. Connect repository to Netlify
 2. Configure build settings:
    - Build command: `npm run build`

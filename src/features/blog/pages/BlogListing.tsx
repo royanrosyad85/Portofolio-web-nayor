@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Clock, Eye, ArrowLeft } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import Footer from '../../../components/common/Footer';
 import IconNavigation from '../../../components/common/IconNavigation';
+import { revealDelay } from '@/hooks/use-scroll-reveal';
 import { blogData, BlogPost } from '../lib/blog-data';
 
 const BlogListing = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
-  
+
   const categories = blogData.getCategories();
 
   useEffect(() => {
     const publishedPosts = blogData.getPublishedPosts();
     setPosts(publishedPosts);
+    // Arriving from a post (or elsewhere) should always start at the top of the index.
+    window.scrollTo(0, 0);
   }, []);
 
   const formatDate = (dateString: string) => {
@@ -38,112 +40,105 @@ const BlogListing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="pt-8 pb-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link 
-            to="/" 
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors"
-          >
-            <ArrowLeft size={16} className="mr-2" />
+    <div className="min-h-[100dvh] bg-background">
+      <main className="pb-16 pt-6 sm:pt-8">
+        <div className="container-page">
+          <Link to="/" className="back-link group">
+            <ArrowLeft size={16} className="transition-transform duration-200 ease-out group-hover:-translate-x-0.5" />
             Back to Portfolio
           </Link>
-          
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Blog
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+
+          {/* Editorial masthead: same left-rail rhythm as the portfolio sections. */}
+          <header className="blog-masthead" data-reveal>
+            <h1 className="blog-title">Blog</h1>
+            <p className="section-subtitle lg:col-span-7 lg:col-start-6 lg:self-end lg:pb-3">
               Thoughts, insights, and experiences from my journey in AI/ML and software development
             </p>
-          </div>
+          </header>
 
-          {/* Posts Grid */}
+          {/* Posts index */}
           {posts.length === 0 ? (
-            <div className="text-center py-20">
-              <h3 className="text-xl font-semibold mb-4">No articles found</h3>
-              <p className="text-muted-foreground mb-6">
+            <div className="surface mt-12 px-6 py-16 text-center sm:py-20" data-reveal>
+              <h3 className="card-title mb-3">No articles found</h3>
+              <p className="body-copy mx-auto max-w-sm">
                 No blog posts have been published yet.
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ul className="mt-4 sm:mt-6">
               {posts.map((post, index) => (
-                <Link 
-                  to={`/blog/${post.id}`} 
-                  key={post.id}
-                  className="group glass-effect rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 animate-fade-in flex flex-col h-full"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {post.image && (
-                    <div className="h-48 overflow-hidden">
-                      <img 
-                        src={post.image} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  
-                  <div className="p-6 flex flex-col flex-grow">
-                    <div className="flex items-center justify-between mb-3 text-xs text-muted-foreground">
-                      <Badge variant="secondary" className="text-xs">
+                <li key={post.id} className="blog-index-item" data-reveal style={revealDelay(Math.min(index, 4) * 60)}>
+                  <Link to={`/blog/${post.id}`} className="blog-row group">
+                    {/* Rail: when + what */}
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.8125rem] text-muted-foreground lg:col-span-3 lg:flex-col lg:items-start lg:gap-2.5 lg:pt-1.5">
+                      <span className="tag">
                         {getCategoryName(post.category)}
-                      </Badge>
-                      <div className="flex items-center space-x-3">
-                        <div className="flex items-center">
-                          <Calendar size={12} className="mr-1" />
-                          <span>{formatDate(post.createdAt)}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Eye size={12} className="mr-1" />
-                          <span>{post.views}</span>
-                        </div>
-                      </div>
+                      </span>
+                      <span className="meta inline-flex items-center gap-1.5">
+                        <Calendar size={13} aria-hidden="true" />
+                        <span>{formatDate(post.createdAt)}</span>
+                      </span>
+                      <span className="meta inline-flex items-center gap-1.5">
+                        <Eye size={13} aria-hidden="true" />
+                        <span>{post.views}</span>
+                      </span>
                     </div>
-                    
-                    <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-                    
-                    <p className="text-muted-foreground text-sm mb-4 flex-grow line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    
-                    <div className="flex justify-between items-center mt-auto pt-4 border-t border-border">
-                      <div className="flex flex-wrap gap-1">
-                        {post.tags.slice(0, 2).map((tag, tagIndex) => (
-                          <Badge key={tagIndex} variant="outline" className="text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                        {post.tags.length > 2 && (
-                          <span className="text-xs text-muted-foreground">
-                            +{post.tags.length - 2}
+
+                    <div className={`flex min-w-0 flex-col ${post.image ? 'lg:col-span-6' : 'lg:col-span-9'}`}>
+                      <h2 className="blog-row-title line-clamp-2">
+                        {post.title}
+                      </h2>
+
+                      <p className="body-copy mt-2.5 line-clamp-3 max-w-[40rem]">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="mt-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {post.tags.slice(0, 2).map((tag, tagIndex) => (
+                            <span key={tagIndex} className="tag-outline">
+                              {tag}
+                            </span>
+                          ))}
+                          {post.tags.length > 2 && (
+                            <span className="meta pl-1">
+                              +{post.tags.length - 2}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-4">
+                          <span className="meta inline-flex items-center gap-1.5">
+                            <Clock size={13} aria-hidden="true" />
+                            {calculateReadTime(post.content)}
                           </span>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center">
-                        <Clock size={12} className="mr-1 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground mr-3">
-                          {calculateReadTime(post.content)}
-                        </span>
-                        <span className="text-sm font-medium text-primary flex items-center group-hover:underline">
-                          Read
-                          <ArrowRight size={14} className="ml-1 transition-transform group-hover:translate-x-1" />
-                        </span>
+                          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/75 transition-colors duration-200 group-hover:text-primary">
+                            Read
+                            <ArrowRight size={15} className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
+
+                    {post.image && (
+                      <div className="project-media media-outline order-first aspect-[16/9] lg:order-none lg:col-span-3 lg:aspect-[4/3]">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    )}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
         </div>
       </main>
-      
+
       <Footer />
       <IconNavigation />
     </div>

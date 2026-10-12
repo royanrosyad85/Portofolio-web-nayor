@@ -1,7 +1,6 @@
-import { motion } from 'framer-motion';
 import { capabilityGroups } from '@/features/portfolio/data/portfolio';
 import { SkillIcon } from '@/features/portfolio/lib/skill-icons';
-import { EASE_OUT_EXPO, viewportOnce } from '@/lib/motion';
+import SectionHeader from '@/features/portfolio/components/SectionHeader';
 
 const sectionIndexMap = {
   'Programming Languages': '01',
@@ -11,67 +10,37 @@ const sectionIndexMap = {
 
 const About = () => {
   return (
-    <section id="about" className="px-4 py-16 sm:px-6 lg:px-8">
-      <div className="page-shell page-narrow">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
-          transition={{ duration: 0.5, ease: EASE_OUT_EXPO }}
-          className="space-y-8"
-        >
-          <div className="space-y-3">
-            <div className="section-kicker">Relevant skills</div>
-            <h2 className="max-w-2xl text-3xl font-medium tracking-tight">
-              Core tools I use across AI systems, ML workflows, and deployment.
-            </h2>
-          </div>
+    <section id="about" aria-labelledby="skills-title" className="section">
+      <div className="container-page">
+        <SectionHeader
+          label="Relevant skills"
+          title="Core tools I use across AI systems, ML workflows, and deployment."
+          titleId="skills-title"
+        />
 
-          <div className="space-y-5">
-            {capabilityGroups.map((group, groupIndex) => (
-              <motion.div
-                key={group.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
-                transition={{ duration: 0.45, delay: groupIndex * 0.08, ease: EASE_OUT_EXPO }}
-                className="skills-panel"
-              >
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="space-y-1 sm:max-w-[14rem]">
-                    <p className="font-mono text-[0.68rem] uppercase tracking-[0.24em] tabular-nums text-muted-foreground">
-                      {sectionIndexMap[group.title as keyof typeof sectionIndexMap]}
-                    </p>
-                    <h3 className="skills-group-title">{group.title}</h3>
-                  </div>
+        <div className="mt-12 divide-y lg:mt-16">
+          {capabilityGroups.map((group) => (
+            <div key={group.title} className="rail-row py-8 first:pt-0 last:pb-0" data-reveal>
+              <h3 className="flex items-baseline gap-3 text-[0.9375rem] font-semibold text-foreground lg:col-span-3 lg:pt-2">
+                <span className="meta font-normal" aria-hidden="true">
+                  {sectionIndexMap[group.title as keyof typeof sectionIndexMap]}
+                </span>
+                {group.title}
+              </h3>
 
-                  <div className="flex flex-wrap gap-3 sm:max-w-[44rem]">
-                    {group.items.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skill.name}
-                        initial={{ opacity: 0, scale: 0.96, y: 10 }}
-                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.4 }}
-                        transition={{
-                          duration: 0.32,
-                          delay: groupIndex * 0.05 + skillIndex * 0.02,
-                          ease: EASE_OUT_EXPO,
-                        }}
-                        whileHover={{ y: -2 }}
-                        className="skills-chip"
-                      >
-                        <span className="skills-chip-icon" aria-hidden="true">
-                          <SkillIcon logo={skill.logo} />
-                        </span>
-                        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">{skill.name}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+              <ul className="flex flex-wrap gap-2 lg:col-span-9">
+                {group.items.map((skill) => (
+                  <li key={skill.name} className="skill-chip">
+                    <span className="inline-flex h-4 w-4 items-center justify-center" aria-hidden="true">
+                      <SkillIcon logo={skill.logo} />
+                    </span>
+                    {skill.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

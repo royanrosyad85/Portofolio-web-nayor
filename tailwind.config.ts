@@ -21,8 +21,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-				serif: ['Crimson Text', 'ui-serif', 'Georgia', 'serif'],
+				sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', 'system-ui', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+				display: ['"Bricolage Grotesque"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+				serif: ['"Bricolage Grotesque"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
 				mono: ['IBM Plex Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
 			},
 			colors: {
