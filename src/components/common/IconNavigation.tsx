@@ -1,29 +1,38 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from 'next-themes';
-import { useLenis } from 'lenis/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Briefcase, House, GraduationCap, Moon, Sun, User, ChatCircleDots, SuitcaseSimple } from '@phosphor-icons/react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
 import { useActiveSection } from '@/hooks/use-active-section';
+import { useScrollTo } from '@/hooks/use-scroll-to';
 import { EASE_OUT_EXPO } from '@/lib/motion';
 
-const sectionIds = ['hero', 'about', 'projects', 'experience', 'education', 'contact'] as const;
+// Listed in page order so the dock mirrors the scroll position (wayfinding).
+const sectionIds = ['hero', 'projects', 'about', 'experience', 'education', 'contact'] as const;
 
 const navItems = [
   { icon: House, label: 'Home', section: 'hero' as const },
-  { icon: User, label: 'Skills', section: 'about' as const },
   { icon: Briefcase, label: 'Projects', section: 'projects' as const },
+  { icon: User, label: 'Skills', section: 'about' as const },
   { icon: SuitcaseSimple, label: 'Experience', section: 'experience' as const },
   { icon: GraduationCap, label: 'Education', section: 'education' as const },
   { icon: ChatCircleDots, label: 'Contact', section: 'contact' as const },
 ];
 
+const indicatorSpring = { type: 'spring', bounce: 0, duration: 0.4 } as const;
+const iconSwap = { type: 'spring', bounce: 0, duration: 0.3 } as const;
+
+const tooltipClassName =
+  'rounded-full border-0 bg-foreground px-3 py-1.5 text-xs font-medium text-background shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)]';
+
+const itemClassName =
+  'relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-[color,transform] duration-200 ease-out active:scale-[0.96] motion-reduce:active:scale-100';
+
 const IconNavigation = () => {
   const { resolvedTheme, setTheme } = useTheme();
   const { pathname } = useLocation();
-  const lenis = useLenis();
+  const scrollTo = useScrollTo();
   const [mounted, setMounted] = useState(false);
   const activeSection = useActiveSection(sectionIds, 'hero');
 
@@ -38,7 +47,7 @@ const IconNavigation = () => {
   const isHome = pathname === '/';
 
   const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, section: string) => {
-    // On the home page, intercept and smooth-scroll via Lenis. Elsewhere, let the
+    // On the home page, intercept and smooth-scroll. Elsewhere, let the
     // browser navigate to "/#section" so the home page can resolve the hash itself.
     if (!isHome) {
       return;
@@ -50,11 +59,7 @@ const IconNavigation = () => {
       return;
     }
 
-    if (lenis) {
-      lenis.scrollTo(target, { offset: 0, duration: 0.45 });
-    } else {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    scrollTo(target);
 
     window.history.replaceState(null, '', `#${section}`);
   };
@@ -64,14 +69,17 @@ const IconNavigation = () => {
 
   return (
     <TooltipProvider delayDuration={220}>
-      <motion.nav
+      {/* Outer element owns centring so the dialog-open rule can move it without fighting Framer's inline transform. */}
+      <nav
         aria-label="Section navigation"
-        initial={{ opacity: 0, transform: 'translate(-50%, 24px)' }}
-        animate={{ opacity: 1, transform: 'translate(-50%, 0)' }}
-        transition={{ duration: 0.6, delay: 0.3, ease: EASE_OUT_EXPO }}
-        className="fixed bottom-4 left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-fit sm:bottom-6 sm:w-auto"
+        className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-[60] -translate-x-1/2 transition-[opacity,transform] duration-300 ease-out sm:bottom-6"
       >
-        <div className="flex items-center gap-1 rounded-full border border-border bg-card/90 p-2 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.16)] backdrop-blur-md dark:bg-card/80 dark:shadow-[0_16px_36px_-20px_rgba(0,0,0,0.45)]">
+        <motion.div
+          initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+          transition={{ duration: 0.6, delay: 0.45, ease: EASE_OUT_EXPO }}
+          className="glass flex items-center gap-0.5 rounded-full p-1.5"
+        >
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = isHome && activeSection === item.section;
@@ -79,48 +87,65 @@ const IconNavigation = () => {
             return (
               <Tooltip key={item.label}>
                 <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className={`relative h-10 w-10 rounded-full transition-[background-color,color,transform] duration-300 active:scale-[0.96] ${
-                      active
-                        ? 'bg-foreground text-background dark:bg-white dark:text-zinc-950'
-                        : 'text-foreground/65 hover:bg-background hover:text-foreground dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-zinc-100'
+                  <a
+                    href={`/#${item.section}`}
+                    aria-label={item.label}
+                    aria-current={active ? 'true' : undefined}
+                    onClick={(event) => handleNavClick(event, item.section)}
+                    className={`${itemClassName} ${
+                      active ? 'text-background' : 'text-foreground/60 hover:bg-foreground/[0.06] hover:text-foreground'
                     }`}
-                    asChild
                   >
-                    <a href={`/#${item.section}`} aria-label={item.label} onClick={(event) => handleNavClick(event, item.section)}>
-                      <Icon className="h-4.5 w-4.5" weight={active ? 'fill' : 'regular'} />
-                    </a>
-                  </Button>
+                    {active ? (
+                      <motion.span
+                        layoutId="dock-active-indicator"
+                        transition={indicatorSpring}
+                        className="absolute inset-0 rounded-full bg-foreground"
+                        aria-hidden="true"
+                      />
+                    ) : null}
+                    <Icon size={18} weight={active ? 'fill' : 'regular'} className="relative" />
+                  </a>
                 </TooltipTrigger>
-                <TooltipContent side="top" sideOffset={12} className="rounded-full border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-lg">
+                <TooltipContent side="top" sideOffset={12} className={tooltipClassName}>
                   {item.label}
                 </TooltipContent>
               </Tooltip>
             );
           })}
 
-          <div className="mx-1 h-6 w-px bg-border" />
+          <div className="mx-1 h-5 w-px bg-foreground/10" aria-hidden="true" />
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                className="h-10 w-10 rounded-full text-foreground/65 transition-[background-color,color,transform] duration-300 active:scale-[0.96] hover:bg-background hover:text-foreground dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-zinc-100"
+                className={`${itemClassName} text-foreground/60 hover:bg-foreground/[0.06] hover:text-foreground`}
                 aria-label="Toggle theme"
               >
-                <ThemeIcon className="h-4.5 w-4.5" weight="regular" />
-              </Button>
+                <span className="relative h-[18px] w-[18px]">
+                  <AnimatePresence initial={false}>
+                    <motion.span
+                      key={isDark ? 'sun' : 'moon'}
+                      initial={{ opacity: 0, scale: 0.25, filter: 'blur(4px)' }}
+                      animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                      exit={{ opacity: 0, scale: 0.25, filter: 'blur(4px)' }}
+                      transition={iconSwap}
+                      className="absolute inset-0"
+                    >
+                      <ThemeIcon size={18} weight="regular" />
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+              </button>
             </TooltipTrigger>
-            <TooltipContent side="top" sideOffset={12} className="rounded-full border border-border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground shadow-lg">
+            <TooltipContent side="top" sideOffset={12} className={tooltipClassName}>
               {isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             </TooltipContent>
           </Tooltip>
-        </div>
-      </motion.nav>
+        </motion.div>
+      </nav>
     </TooltipProvider>
   );
 };

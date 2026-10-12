@@ -1,11 +1,14 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { GithubLogo, LinkedinLogo, PaperPlaneTilt } from '@phosphor-icons/react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowUpRight, CircleNotch, GithubLogo, LinkedinLogo, PaperPlaneTilt } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { contactChannels, socialLinks } from '@/config/site';
-import { EASE_OUT_EXPO, viewportOnce } from '@/lib/motion';
+import SectionHeader from '@/features/portfolio/components/SectionHeader';
+import { revealDelay } from '@/hooks/use-scroll-reveal';
 
 const encodeFormBody = (values: Record<string, string>) => new URLSearchParams(values).toString();
+
+const iconSwap = { type: 'spring', bounce: 0, duration: 0.3 } as const;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -69,58 +72,56 @@ const Contact = () => {
   );
 
   return (
-    <section id="contact" className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-      <div className="page-shell page-narrow space-y-8">
-        <div className="space-y-3">
-          <div className="section-kicker">Contact</div>
-          <h2 className="section-title max-w-2xl">Get in touch.</h2>
-          <p className="section-subtitle mb-0 max-w-2xl">
-            If you are building an AI product, automation workflow, or machine learning system, feel free to reach out.
-          </p>
-        </div>
+    <section id="contact" aria-labelledby="contact-title" className="section">
+      <div className="container-page">
+        <SectionHeader
+          label="Contact"
+          title="Get in touch."
+          description="If you are building an AI product, automation workflow, or machine learning system, feel free to reach out."
+          titleId="contact-title"
+        />
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="space-y-3">
-            {contactChannels.map((channel) => (
-              <div key={channel.label} className="minimal-card p-5">
-                <p className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-muted-foreground">{channel.label}</p>
+        <div className="mt-12 grid grid-cols-1 gap-5 lg:mt-16 lg:grid-cols-12 lg:gap-6">
+          <div className="space-y-5 lg:col-span-5" data-reveal>
+            <div className="grouped-list">
+              {contactChannels.map((channel) => (
                 <a
+                  key={channel.label}
                   href={channel.href}
                   target={channel.href.startsWith('http') ? '_blank' : undefined}
                   rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="mt-2 block text-sm text-foreground/78 transition-colors hover:text-foreground dark:text-zinc-200"
+                  className="grouped-row group"
                 >
-                  {channel.value}
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[0.8125rem] font-medium text-muted-foreground">{channel.label}</span>
+                    <span className="mt-0.5 block break-words text-[0.9375rem] font-medium text-foreground transition-colors duration-200 group-hover:text-primary">
+                      {channel.value}
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    size={16}
+                    weight="bold"
+                    className="shrink-0 text-foreground/30 transition-[color,transform] duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                    aria-hidden="true"
+                  />
                 </a>
-              </div>
-            ))}
+              ))}
+            </div>
 
-            <div className="flex flex-wrap gap-3 pt-1">
+            <div className="flex flex-wrap gap-3">
               {quickLinks.map(({ label, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="secondary-cta px-4 py-2 text-sm active:scale-[0.96]"
-                >
-                  <Icon className="h-4 w-4" weight="bold" />
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                  <Icon size={17} weight="regular" />
                   {label}
                 </a>
               ))}
             </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
-            transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
-            className="minimal-card p-6"
-          >
+          <div className="surface p-5 sm:p-8 lg:col-span-7" data-reveal style={revealDelay(80)}>
             <form
               onSubmit={handleSubmit}
-              className="space-y-4"
+              className="flex flex-col gap-5"
               name="contact"
               method="POST"
               data-netlify="true"
@@ -134,12 +135,12 @@ const Contact = () => {
                 </label>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="field-label">
                   Name
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} autoComplete="name" required className="minimal-input" />
+                  <input type="text" name="name" value={formData.name} onChange={handleChange} autoComplete="name" required className="field" />
                 </label>
-                <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+                <label className="field-label">
                   Email
                   <input
                     type="email"
@@ -149,17 +150,17 @@ const Contact = () => {
                     autoComplete="email"
                     spellCheck={false}
                     required
-                    className="minimal-input"
+                    className="field"
                   />
                 </label>
               </div>
 
-              <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+              <label className="field-label">
                 Subject
-                <input type="text" name="subject" value={formData.subject} onChange={handleChange} autoComplete="off" required className="minimal-input" />
+                <input type="text" name="subject" value={formData.subject} onChange={handleChange} autoComplete="off" required className="field" />
               </label>
 
-              <label className="grid gap-2 text-sm font-medium text-zinc-800 dark:text-zinc-100">
+              <label className="field-label">
                 Message
                 <textarea
                   name="message"
@@ -168,16 +169,35 @@ const Contact = () => {
                   autoComplete="off"
                   required
                   rows={6}
-                  className="minimal-input min-h-[10rem] resize-y"
+                  className="field min-h-[10rem] resize-y py-3 leading-relaxed"
                 />
               </label>
 
-              <button type="submit" disabled={isSubmitting} className="primary-cta w-full active:scale-[0.96] sm:w-auto">
-                {isSubmitting ? 'Sending message' : 'Send message'}
-                <PaperPlaneTilt className="h-4 w-4" weight="bold" />
-              </button>
+              <div className="pt-1">
+                <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting} className="btn btn-primary w-full sm:w-auto">
+                  {isSubmitting ? 'Sending message' : 'Send message'}
+                  <span className="relative inline-flex h-4 w-4" aria-hidden="true">
+                    <AnimatePresence initial={false}>
+                      <motion.span
+                        key={isSubmitting ? 'sending' : 'idle'}
+                        initial={{ opacity: 0, scale: 0.25, filter: 'blur(4px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.25, filter: 'blur(4px)' }}
+                        transition={iconSwap}
+                        className="absolute inset-0"
+                      >
+                        {isSubmitting ? (
+                          <CircleNotch size={16} weight="bold" className="animate-spin" />
+                        ) : (
+                          <PaperPlaneTilt size={16} weight="bold" />
+                        )}
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
+                </button>
+              </div>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

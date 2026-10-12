@@ -3,23 +3,30 @@ import { useState, useEffect, useRef } from 'react';
 interface OptimizedImageProps {
   src: string;
   alt: string;
+  /** Classes for the <img>. When neither `fill` nor `wrapperClassName` is set, also applied to the wrapper (legacy behaviour). */
   className?: string;
+  /** Classes for the wrapper only. Opting in stops `className` being duplicated on the wrapper. */
+  wrapperClassName?: string;
   width?: number;
   height?: number;
   priority?: boolean;
+  /** Absolutely fill the nearest positioned parent instead of sizing from width/height. */
+  fill?: boolean;
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   alt,
   className = '',
+  wrapperClassName,
   width,
   height,
   priority = false,
+  fill = false,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (priority) return; // Skip intersection observer for priority images
@@ -31,7 +38,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           observer.disconnect();
         }
       },
-      { 
+      {
         threshold: 0.1,
         rootMargin: '50px' // Start loading 50px before entering viewport
       }
@@ -48,35 +55,27 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     setIsLoaded(true);
   };
 
-  // Generate blur placeholder (simple gradient)
-  const blurDataURL = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZjNmNGY2O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNlNWU3ZWI7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KPC9zdmc+";
+  const usesSplitClasses = fill || wrapperClassName !== undefined;
+  const wrapperClasses = fill
+    ? `absolute inset-0 overflow-hidden ${wrapperClassName ?? ''}`
+    : `relative overflow-hidden ${usesSplitClasses ? wrapperClassName : className}`;
+  const imageClasses = fill ? `absolute inset-0 h-full w-full ${className}` : className;
 
   return (
-    <div 
+    <div
       ref={imgRef}
-      className={`relative overflow-hidden ${className}`}
-      style={{ aspectRatio: width && height ? `${width}/${height}` : undefined }}
+      className={wrapperClasses}
+      style={{ aspectRatio: !fill && width && height ? `${width}/${height}` : undefined }}
     >
-      {/* Blur placeholder */}
-      {!isLoaded && (
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 animate-pulse"
-          style={{
-            backgroundImage: `url(${blurDataURL})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-      )}
-      
+      {/* Placeholder while the image streams in */}
+      {!isLoaded && <div className="absolute inset-0 animate-pulse bg-secondary" aria-hidden="true" />}
+
       {/* Actual image */}
       {isInView && (
         <img
           src={src}
           alt={alt}
-          className={`transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          } ${className}`}
+          className={`transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${imageClasses}`}
           onLoad={handleLoad}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
