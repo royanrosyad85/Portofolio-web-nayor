@@ -16,6 +16,7 @@ const dialogCloseButtonClassName =
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isImageZoomed, setIsImageZoomed] = useState(false);
 
   useEffect(() => {
@@ -47,11 +48,18 @@ const Projects = () => {
   const visibleProjects = showAll ? sortedProjects : sortedProjects.slice(0, INITIAL_VISIBLE_PROJECTS);
   const remainingCount = Math.max(sortedProjects.length - INITIAL_VISIBLE_PROJECTS, 0);
   const selectedProject = sortedProjects.find((project) => project.id === selectedProjectId) ?? null;
+  const selectedImages = selectedProject
+    ? selectedProject.images?.length
+      ? selectedProject.images
+      : [{ src: selectedProject.image, alt: `${selectedProject.title} preview` }]
+    : [];
+  const selectedImage = selectedImages[selectedImageIndex];
 
   const handleProjectDialogChange = (open: boolean) => {
     if (!open) {
       setIsImageZoomed(false);
       setSelectedProjectId(null);
+      setSelectedImageIndex(0);
     }
   };
 
@@ -79,7 +87,10 @@ const Projects = () => {
                 <article className="h-full">
                   <button
                     type="button"
-                    onClick={() => setSelectedProjectId(project.id)}
+                    onClick={() => {
+                      setSelectedImageIndex(0);
+                      setSelectedProjectId(project.id);
+                    }}
                     aria-haspopup="dialog"
                     className={`project-card group ${isFeatured ? 'flex flex-col md:grid md:grid-cols-12' : 'flex flex-col'}`}
                   >
@@ -162,22 +173,23 @@ const Projects = () => {
               className="max-h-[90dvh] overflow-y-auto overscroll-contain md:grid md:h-[min(88dvh,46rem)] md:max-h-none md:grid-cols-[1.15fr_0.85fr] md:grid-rows-[minmax(0,1fr)] md:overflow-hidden"
               data-lenis-prevent
             >
-              <div className="p-2 md:h-full">
+              <div className="flex flex-col gap-3 p-2 md:h-full md:min-h-0">
                 <button
                   type="button"
-                  aria-label={`Open full image preview for ${selectedProject.title}`}
-                  className="project-media media-outline group block aspect-[16/10] w-full bg-secondary text-left md:aspect-auto md:h-full"
+                  aria-label={`Open full image preview for ${selectedProject.title}: ${selectedImage.alt}`}
+                  className="project-media media-outline group block aspect-[16/10] w-full bg-secondary text-left md:min-h-0 md:flex-1 md:aspect-auto"
                   onClick={() => setIsImageZoomed(true)}
                 >
                   <img
-                    src={selectedProject.image}
+                    src={selectedImage.src}
                     alt=""
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 h-full w-full scale-125 object-cover opacity-50 blur-3xl saturate-150 dark:opacity-35"
                   />
                   <OptimizedImage
-                    src={selectedProject.image}
-                    alt={`${selectedProject.title} preview`}
+                    key={selectedImage.src}
+                    src={selectedImage.src}
+                    alt={selectedImage.alt}
                     fill
                     className="object-contain p-3 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02] md:p-5"
                     width={1600}
@@ -194,6 +206,30 @@ const Projects = () => {
                     <ArrowsOut size={16} weight="bold" />
                   </span>
                 </button>
+                {selectedImages.length > 1 ? (
+                  <div className="space-y-2 px-2 pb-2">
+                    <div role="group" aria-label="Project screenshots" className="flex gap-2">
+                      {selectedImages.map((image, index) => (
+                        <button
+                          key={image.src}
+                          type="button"
+                          aria-label={`View image ${index + 1}: ${image.alt}`}
+                          aria-pressed={index === selectedImageIndex}
+                          onClick={() => setSelectedImageIndex(index)}
+                          className={`h-14 w-[5.5rem] overflow-hidden rounded-lg border-2 transition-[border-color,opacity] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
+                            index === selectedImageIndex ? 'border-primary' : 'border-transparent opacity-60 hover:opacity-100'
+                          }`}
+                        >
+                          <img src={image.src} alt="" className="h-full w-full object-cover object-top" loading="lazy" />
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-xs leading-relaxed text-muted-foreground" aria-live="polite">
+                      <span className="tabular-nums">{selectedImageIndex + 1} / {selectedImages.length}</span>
+                      {' · '}{selectedImage.alt}
+                    </p>
+                  </div>
+                ) : null}
               </div>
 
               <div className="px-6 pb-7 pt-5 sm:px-8 sm:pb-8 md:overflow-y-auto md:overscroll-contain md:pt-10" data-lenis-prevent>
@@ -276,8 +312,8 @@ const Projects = () => {
               className="overflow-hidden rounded-[1.5rem] bg-zinc-950"
             >
               <img
-                src={selectedProject.image}
-                alt={`${selectedProject.title} expanded preview`}
+                src={selectedImage.src}
+                alt={`${selectedProject.title}: ${selectedImage.alt}`}
                 className="max-h-[92dvh] w-full max-w-[96vw] object-contain"
               />
             </motion.div>

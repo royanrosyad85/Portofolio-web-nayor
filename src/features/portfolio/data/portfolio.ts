@@ -110,6 +110,47 @@ export const projects: ProjectItem[] = [
     features: ['Company enrichment workflow', 'Research progress tracking', 'AI-assisted profile completion', 'Export to Excel and PDF', 'Tabular review interface'],
     impact: 'Built to compress repetitive desk research into a guided enrichment flow.',
     year: '2026',
+    featuredRank: 2,
+  },
+  {
+    id: 12,
+    title: 'Generus — AI Attendance & Reporting',
+    description:
+      'An AI-powered workspace for community attendance and monthly reporting, saving approximately 5 hours of report compilation time and reducing manual workflow effort by up to 70%.',
+    fullDescription:
+      'Generus brings community attendance, participant records, and monthly group reports into one workspace for Desa BIG. It replaces repetitive manual consolidation with shared dashboards, structured reporting, approval workflows, and presentation-ready recaps. A Mastra-powered AI assistant lets administrators ask questions about attendance, census data, and monthly reports in natural language, returning summaries, charts, and tables grounded in authorized operational data. Supabase authentication and PostgreSQL row-level security keep access scoped to each user’s role and group.',
+    image: '/img/generus-dashboard.png',
+    images: [
+      { src: '/img/generus-dashboard.png', alt: 'Attendance dashboard with monthly metrics and charts' },
+      { src: '/img/generus-ai-assistant.png', alt: 'AI assistant generating census insights and charts' },
+    ],
+    tags: ['automation', 'llms', 'ds'],
+    demo: 'https://generusbig.my.id/',
+    technologies: [
+      'React + Vite',
+      'TanStack Query',
+      'Mastra Agents',
+      'Supabase',
+      'TypeScript',
+      'Azure OpenAI',
+      'PostgreSQL',
+      'TanStack Router',
+      'TanStack Table',
+      'Tailwind CSS',
+      'shadcn/ui',
+      'Zustand',
+      'Recharts',
+    ],
+    features: [
+      'Community attendance tracking, participant registry, and approval workflows',
+      'Monthly group reporting with consolidated dashboards and presentation-ready recaps',
+      'Mastra-powered AI assistant for natural-language summaries, charts, and tables',
+      'Role-based access backed by Supabase authentication and PostgreSQL row-level security',
+      'Saved approximately 5 hours of report compilation time',
+      'Reduced manual workflow effort by up to 70%',
+    ],
+    impact: 'Saved approximately 5 hours of report compilation time and reduced manual workflow effort by up to 70%.',
+    year: '2026',
     featuredRank: 1,
   },
   {
@@ -125,7 +166,7 @@ export const projects: ProjectItem[] = [
     features: ['Habit classification', 'Voice recognition', 'Automated progress tracking', 'Notion sync', 'Personalized responses'],
     impact: 'Turned fragmented habit notes into a single automated routine.',
     year: '2025',
-    featuredRank: 2,
+    featuredRank: 3,
   },
   {
     id: 2,
@@ -142,7 +183,7 @@ export const projects: ProjectItem[] = [
     features: ['Disease classification', 'Agentic RAG pipeline', 'Real-time analysis', 'Treatment recommendations'],
     impact: 'Bridged advanced AI tooling with a practical farming workflow.',
     year: '2025',
-    featuredRank: 3,
+    featuredRank: 4,
   },
   {
     id: 3,
@@ -157,7 +198,7 @@ export const projects: ProjectItem[] = [
     features: ['Real-time monitoring', 'Sentiment analysis', 'Automated replies', 'Multi-platform support'],
     impact: 'Reduced manual review time by 75 percent for public-facing comment handling.',
     year: '2025',
-    featuredRank: 4,
+    featuredRank: 5,
   },
   {
     id: 4,
@@ -357,6 +398,7 @@ export const education: EducationItem[] = [
     id: 1,
     degree: 'Informatics engineering',
     institution: 'UIN Syarif Hidayatullah Jakarta',
+    logo: '/logo/uin-jakarta.png',
     location: 'Jakarta, Indonesia',
     period: '2021 — 2025',
     description:

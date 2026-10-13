@@ -18,8 +18,12 @@ const Education = () => {
             {education.map((item) => (
               <article key={item.id} className="surface flex flex-1 flex-col p-6 sm:p-8">
                 <div className="flex items-start justify-between gap-4">
-                  <div className="icon-tile h-12 w-12">
-                    <GraduationCap size={24} weight="duotone" />
+                  <div className={item.logo ? 'media-outline inline-flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-1' : 'icon-tile h-12 w-12'}>
+                    {item.logo ? (
+                      <img src={item.logo} alt={`${item.institution} logo`} className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                    ) : (
+                      <GraduationCap size={24} weight="duotone" />
+                    )}
                   </div>
                   <p className="meta pt-1 text-sm font-medium">{item.period}</p>
                 </div>
