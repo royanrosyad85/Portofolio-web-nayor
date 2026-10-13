@@ -44,7 +44,13 @@ const companyLogos: Record<CompanyLogo, LogoConfig> = {
     imageClassName: 'h-7 w-full object-contain',
     wrapperClassName: 'p-1',
   },
-  government: { kind: 'icon' },
+  government: {
+    kind: 'image',
+    src: '/logo/sukabumi.png',
+    alt: 'Government of Sukabumi crest',
+    imageClassName: 'h-full w-full object-contain',
+    wrapperClassName: 'p-1',
+  },
 };
 
 const Experience = () => {

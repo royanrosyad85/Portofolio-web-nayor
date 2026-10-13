@@ -11,6 +11,7 @@ export interface ProjectItem {
   description: string;
   fullDescription: string;
   image: string;
+  images?: { src: string; alt: string }[];
   tags: Exclude<ProjectTag, 'all'>[];
   technologies: string[];
   features: string[];
@@ -44,6 +45,7 @@ export interface EducationItem {
   id: number;
   degree: string;
   institution: string;
+  logo?: string;
   location: string;
   period: string;
   description: string;
